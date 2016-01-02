@@ -1,0 +1,55 @@
+// Copyright © 2015 Hansoft AB 
+// Distributed under the MIT license, see license text in LICENSE.Malterlib
+
+Import "../Core/Lib_Malterlib.MTarget"
+
+%Group "{Malterlib}/{Lib_Malterlib_Graphics}"
+{
+	%Group Graphics
+	{
+		%Group Include
+		{
+			Compile.Type "C++"
+			{
+				!!DocumentationEnabled true
+			}
+			%File "Include/Mib/Graphics/^*"
+		}
+		%File "Source/*"
+		%Group Documentation
+		{
+			%File "Documentation/*"
+		}
+	}
+}
+
+
+Property
+{
+	MalterlibLibrary_Graphics true
+	{
+		&
+		{
+			MalterlibLibrary_Graphics ""
+			MalterlibLibrary_All true
+		}
+	}
+	MalterlibSubLibraries "Graphics;@(MalterlibSubLibraries)"
+	{
+		!!MalterlibLibrary_Graphics true
+	}
+//	MalterlibSubLibrarySeparate_Lib_Malterlib_Graphics true
+	MalterlibIncludeRoots "@('Include'->MakeAbsolute());@(MalterlibIncludeRoots)"
+	{
+		!!MalterlibLibrary_Graphics true
+	}
+}
+
+Property
+{
+	!!MalterlibEnableInternalTests true
+	
+	MalterlibTests "Malterlib_Graphics;@(MalterlibTests)"
+	//MalterlibTestFiles_Malterlib_Graphics "@('Test/*'->MakeAbsolute())"
+}
+
