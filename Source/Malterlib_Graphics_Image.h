@@ -1174,8 +1174,8 @@ namespace NMib
 				return f_LockReadWrite(_Data);
 			}
 
-			virtual bint f_LockReadWrite(CLockedData &_Data) pure;
-			virtual void f_UnLock(CLockedData &_Data) pure;
+			virtual bint f_LockReadWrite(CLockedData &_Data) = 0;
+			virtual void f_UnLock(CLockedData &_Data) = 0;
 
 			static bint fs_WriteImage(CImage &_Destination, NStr::CStr _FileName);
 			static bint fs_WriteImage(CImage &_Destination, NStream::CBinaryStream &_Stream, NStr::CStr _Type);
@@ -1226,10 +1226,10 @@ namespace NMib
 		{
 		public:
 			virtual ~CImageIO() {}
-			virtual bint f_DetectFormatFromFilename(const NStr::CStr &_FileName) pure;
-			virtual bint f_DetectFormatFromStream(NStream::CBinaryStream &_Stream) pure;
-			virtual bint f_ReadImage(CImageMemory &_Destination, NStream::CBinaryStream &_Stream) pure;
-			virtual bint f_WriteImage(CImage &_Source, NStream::CBinaryStream &_Stream) pure;
+			virtual bint f_DetectFormatFromFilename(const NStr::CStr &_FileName) = 0;
+			virtual bint f_DetectFormatFromStream(NStream::CBinaryStream &_Stream) = 0;
+			virtual bint f_ReadImage(CImageMemory &_Destination, NStream::CBinaryStream &_Stream) = 0;
+			virtual bint f_WriteImage(CImage &_Source, NStream::CBinaryStream &_Stream) = 0;
 		};
 	}
 }
