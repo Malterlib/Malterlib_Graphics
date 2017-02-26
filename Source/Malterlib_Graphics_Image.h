@@ -1113,10 +1113,10 @@ namespace NMib
 #define DMibGraphicsImageFormat(_Name) (uint64(NGraphics::EImageFormat_##_Name##_High) << 32 | uint64(NGraphics::EImageFormat_##_Name##_Low))
 
 #define DMibGraphicsImageFormat_Get_Component(_Format, _Component) ((_Format >> (3-_Component) * 14) & ((1 << 14) - 1))
-#define DMibGraphicsImageFormat_Get_ComponentExpandFormat(_Component) (constenum(_Component) & 3)
-#define DMibGraphicsImageFormat_Get_ComponentUsage(_Component) ((constenum(_Component) >> 2) & 7)
-#define DMibGraphicsImageFormat_Get_ComponentSourceComponent(_Component) ((constenum(_Component) >> 5) & 7)
-#define DMibGraphicsImageFormat_Get_ComponentNumBits(_Component) ((constenum(_Component) >> 8) & 63)
+#define DMibGraphicsImageFormat_Get_ComponentExpandFormat(_Component) (_Component & 3)
+#define DMibGraphicsImageFormat_Get_ComponentUsage(_Component) ((_Component >> 2) & 7)
+#define DMibGraphicsImageFormat_Get_ComponentSourceComponent(_Component) ((_Component >> 5) & 7)
+#define DMibGraphicsImageFormat_Get_ComponentNumBits(_Component) ((_Component >> 8) & 63)
 #define DMibGraphicsImageFormat_Get_PhysicalEndian(_Format) ((_Format >> (32+24)) & (7))
 #define DMibGraphicsImageFormat_Get_PhysicalFormat(_Format) (_Format >> (32+27))
 
