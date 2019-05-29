@@ -71,7 +71,7 @@ namespace NMib::NGraphics
 			return m_Dimensions[3];
 		}
 
-		bint operator == (const TCImageDimensions &_Other) const
+		bool operator == (const TCImageDimensions &_Other) const
 		{
 			if (m_Dimensions[0] != _Other.m_Dimensions[0])
 				return false;
@@ -84,7 +84,7 @@ namespace NMib::NGraphics
 			return true;
 		}
 
-		bint operator < (const TCImageDimensions &_Other) const
+		bool operator < (const TCImageDimensions &_Other) const
 		{
 			if (m_Dimensions[0] < _Other.m_Dimensions[0])
 				return true;
@@ -1160,33 +1160,33 @@ EImageFormat_##_Name##_High = (uint32(_PhysicalFormat) << 27 | uint32(_PhysicalE
 			_From.f_UnLock(From);
 		}
 
-		bint f_ConvertInto(CImage &_To);
+		bool f_ConvertInto(CImage &_To);
 
-		virtual bint f_LockRead(CLockedData &_Data)
+		virtual bool f_LockRead(CLockedData &_Data)
 		{
 			return f_LockReadWrite(_Data);
 		}
-		virtual bint f_LockWrite(CLockedData &_Data)
+		virtual bool f_LockWrite(CLockedData &_Data)
 		{
 			return f_LockReadWrite(_Data);
 		}
 
-		virtual bint f_LockReadWrite(CLockedData &_Data) = 0;
+		virtual bool f_LockReadWrite(CLockedData &_Data) = 0;
 		virtual void f_UnLock(CLockedData &_Data) = 0;
 
-		static bint fs_WriteImage(CImage &_Destination, NStr::CStr _FileName);
-		static bint fs_WriteImage(CImage &_Destination, NStream::CBinaryStream &_Stream, NStr::CStr _Type);
+		static bool fs_WriteImage(CImage &_Destination, NStr::CStr _FileName);
+		static bool fs_WriteImage(CImage &_Destination, NStream::CBinaryStream &_Stream, NStr::CStr _Type);
 
-		bint f_FlipHorizontal(CImage &_Dst);
-		bint f_RemoveAlpha(CImage &_Dst);
-		bint f_Blend(CImage &_Dst, fp64 _SrcBlend, fp64 _DstBlend);
-		bint f_StretchHalfXY(CImage &_Dst);
-		bint f_StretchBilinear(CImage &_Dst, fp64 _OffsetX, fp64 _OffsetY);
+		bool f_FlipHorizontal(CImage &_Dst);
+		bool f_RemoveAlpha(CImage &_Dst);
+		bool f_Blend(CImage &_Dst, fp64 _SrcBlend, fp64 _DstBlend);
+		bool f_StretchHalfXY(CImage &_Dst);
+		bool f_StretchBilinear(CImage &_Dst, fp64 _OffsetX, fp64 _OffsetY);
 		uint32 f_PixelSize();
 
 	private:
 		template <typename t_Func>
-		bint fp_StretchHalfXY_Core(CImage &_Dst, t_Func _Func);
+		bool fp_StretchHalfXY_Core(CImage &_Dst, t_Func _Func);
 	};
 
 
@@ -1198,12 +1198,12 @@ EImageFormat_##_Name##_High = (uint32(_PhysicalFormat) << 27 | uint32(_PhysicalE
 
 		NContainer::TCVector<CStorageType> m_Data;
 
-		bint f_Create(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride = CImageStride());
-		bint f_Create(const CImageMemory &_Src);
-		bint f_Create(const CImage &_Src);
-		bint f_CreateRaw(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride, mint _DataSize);
+		bool f_Create(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride = CImageStride());
+		bool f_Create(const CImageMemory &_Src);
+		bool f_Create(const CImage &_Src);
+		bool f_CreateRaw(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride, mint _DataSize);
 
-		bint f_LockReadWrite(CLockedData &_Data)
+		bool f_LockReadWrite(CLockedData &_Data)
 		{
 			_Data.m_InternalData = 0;
 			_Data.m_pData = m_Data.f_GetArray();
@@ -1215,18 +1215,18 @@ EImageFormat_##_Name##_High = (uint32(_PhysicalFormat) << 27 | uint32(_PhysicalE
 
 		}
 
-		static bint fs_ReadImage(CImageMemory &_Destination, NStr::CStr _FileName);
-		static bint fs_ReadImage(CImageMemory &_Destination, NStream::CBinaryStream &_Stream);
+		static bool fs_ReadImage(CImageMemory &_Destination, NStr::CStr _FileName);
+		static bool fs_ReadImage(CImageMemory &_Destination, NStream::CBinaryStream &_Stream);
 	};
 
 	class CImageIO
 	{
 	public:
 		virtual ~CImageIO() {}
-		virtual bint f_DetectFormatFromFilename(const NStr::CStr &_FileName) = 0;
-		virtual bint f_DetectFormatFromStream(NStream::CBinaryStream &_Stream) = 0;
-		virtual bint f_ReadImage(CImageMemory &_Destination, NStream::CBinaryStream &_Stream) = 0;
-		virtual bint f_WriteImage(CImage &_Source, NStream::CBinaryStream &_Stream) = 0;
+		virtual bool f_DetectFormatFromFilename(const NStr::CStr &_FileName) = 0;
+		virtual bool f_DetectFormatFromStream(NStream::CBinaryStream &_Stream) = 0;
+		virtual bool f_ReadImage(CImageMemory &_Destination, NStream::CBinaryStream &_Stream) = 0;
+		virtual bool f_WriteImage(CImage &_Source, NStream::CBinaryStream &_Stream) = 0;
 	};
 }
 

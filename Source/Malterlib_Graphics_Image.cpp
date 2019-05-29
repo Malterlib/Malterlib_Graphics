@@ -8,16 +8,16 @@
 namespace NMib::NGraphics
 {
 	// Used for creating unknown types such as FourCC
-	bint CImageMemory::f_Create(const CImage &_Src)
+	bool CImageMemory::f_Create(const CImage &_Src)
 	{
 		return f_Create(_Src.m_ImageFormat, _Src.m_Dimensions);
 	}
-	bint CImageMemory::f_Create(const CImageMemory &_Src)
+	bool CImageMemory::f_Create(const CImageMemory &_Src)
 	{
 		return f_Create(_Src.m_ImageFormat, _Src.m_Dimensions, _Src.m_Stride);
 	}
 
-	bint CImageMemory::f_CreateRaw(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride, mint _DataSize)
+	bool CImageMemory::f_CreateRaw(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride, mint _DataSize)
 	{
 		DMibFastCheck(_Dimensions.m_Dimensions[0] > 0);
 		DMibFastCheck(_Dimensions.m_Dimensions[1] > 0);
@@ -30,7 +30,7 @@ namespace NMib::NGraphics
 		return true;
 	}
 
-	bint CImageMemory::f_Create(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride)
+	bool CImageMemory::f_Create(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride)
 	{
 		DMibFastCheck(_Dimensions.m_Dimensions[0] > 0);
 		DMibFastCheck(_Dimensions.m_Dimensions[1] > 0);
@@ -219,11 +219,11 @@ namespace NMib::NGraphics
 	}
 
 	template <uint64 _InputPixelType, uint64 _OutputPixelType, typename t_ConversionComponentType>
-	inline_always bint fs_Convert(CImage &_From, CImage &_To)
+	inline_always bool fs_Convert(CImage &_From, CImage &_To)
 	{
 		CImage::CLockedData LockSrc;
 		CImage::CLockedData LockDest;
-		bint bRet = false;
+		bool bRet = false;
 		if (_From.f_LockRead(LockSrc))
 		{
 			if (_To.f_LockWrite(LockDest))
@@ -276,7 +276,7 @@ namespace NMib::NGraphics
 	}
 
 
-	bint CImage::f_ConvertInto(CImage &_To)
+	bool CImage::f_ConvertInto(CImage &_To)
 	{
 		// Only same dimensions
 		if (_To.m_Dimensions != m_Dimensions)
@@ -356,7 +356,7 @@ namespace NMib::NGraphics
 
 		uint32 SrcPhysical = DMibGraphicsImageFormat_Get_PhysicalFormat(SrcFormat);
 		uint32 DstPhysical = DMibGraphicsImageFormat_Get_PhysicalFormat(DstFormat);
-		bint bIntOnlyPath = false;
+		bool bIntOnlyPath = false;
 		if (SrcPhysical == EImageFormatConstant_Format_Int && DstPhysical == EImageFormatConstant_Format_Int)
 			bIntOnlyPath = true;
 
@@ -431,7 +431,7 @@ namespace NMib::NGraphics
 	}
 
 
-	bint CImageMemory::fs_ReadImage(CImageMemory &_Destination, NStr::CStr _FileName)
+	bool CImageMemory::fs_ReadImage(CImageMemory &_Destination, NStr::CStr _FileName)
 	{
 		NMib::CRunTimeObjectInfo *pTests = fg_GetRuntimeTypeInfo("NMib::NGraphics::CImageIO");
 		NFile::TCBinaryStreamFile<> Stream;
@@ -452,7 +452,7 @@ namespace NMib::NGraphics
 						if (pObject->f_DetectFormatFromStream(Stream))
 						{
 							Stream.f_SetPosition(0);
-							bint bRet = pObject->f_ReadImage(_Destination, Stream);
+							bool bRet = pObject->f_ReadImage(_Destination, Stream);
 							return bRet;
 						}
 					}
@@ -464,7 +464,7 @@ namespace NMib::NGraphics
 		return false;
 	}
 
-	bint CImageMemory::fs_ReadImage(CImageMemory &_Destination, NStream::CBinaryStream &_Stream)
+	bool CImageMemory::fs_ReadImage(CImageMemory &_Destination, NStream::CBinaryStream &_Stream)
 	{
 		NMib::CRunTimeObjectInfo *pTests = fg_GetRuntimeTypeInfo("NMib::NGraphics::CImageIO");
 
@@ -481,7 +481,7 @@ namespace NMib::NGraphics
 					if (pObject->f_DetectFormatFromStream(_Stream))
 					{
 						_Stream.f_SetPosition(0);
-						bint bRet = pObject->f_ReadImage(_Destination, _Stream);
+						bool bRet = pObject->f_ReadImage(_Destination, _Stream);
 						return bRet;
 					}
 				}
@@ -492,10 +492,10 @@ namespace NMib::NGraphics
 		return false;
 	}
 
-	bint CImage::fs_WriteImage(CImage &_Source, NStr::CStr _FileName)
+	bool CImage::fs_WriteImage(CImage &_Source, NStr::CStr _FileName)
 	{
 		NMib::CRunTimeObjectInfo *pTests = fg_GetRuntimeTypeInfo("NMib::NGraphics::CImageIO");
-		bint bRet = false;
+		bool bRet = false;
 
 		if (pTests)
 		{
@@ -519,11 +519,11 @@ namespace NMib::NGraphics
 		return bRet;
 	}
 
-	bint CImage::fs_WriteImage(CImage &_Source, NStream::CBinaryStream &_Stream, NStr::CStr _Type)
+	bool CImage::fs_WriteImage(CImage &_Source, NStream::CBinaryStream &_Stream, NStr::CStr _Type)
 	{
 		NMib::CRunTimeObjectInfo *pTests = fg_GetRuntimeTypeInfo("NMib::NGraphics::CImageIO");
 
-		bint bRet = false;
+		bool bRet = false;
 		if (pTests)
 		{
 			auto Iter = pTests->m_Children.f_GetIter();
@@ -545,7 +545,7 @@ namespace NMib::NGraphics
 		return bRet;
 	}
 
-	bint CImage::f_FlipHorizontal(CImage &_Dst)
+	bool CImage::f_FlipHorizontal(CImage &_Dst)
 	{
 		if (_Dst.m_Dimensions != m_Dimensions)
 			return false;
@@ -593,7 +593,7 @@ namespace NMib::NGraphics
 	}
 
 	template <typename t_Func>
-	bint CImage::fp_StretchHalfXY_Core(CImage &_Dst, t_Func _Func)
+	bool CImage::fp_StretchHalfXY_Core(CImage &_Dst, t_Func _Func)
 	{
 		CLockedData LockSrc;
 		CLockedData LockDst;
@@ -638,7 +638,7 @@ namespace NMib::NGraphics
 		return false;
 	}
 
-	bint CImage::f_StretchHalfXY(CImage &_Dst)
+	bool CImage::f_StretchHalfXY(CImage &_Dst)
 	{
 		CImageDimensions Dims(fg_Max(m_Dimensions[0]/2, 1), fg_Max(m_Dimensions[1]/2, 1), m_Dimensions[2], m_Dimensions[3]);
 		if (_Dst.m_Dimensions != Dims)
@@ -707,7 +707,7 @@ namespace NMib::NGraphics
 		}
 	}
 
-	bint CImage::f_Blend(CImage &_Dst, fp64 _SrcBlend, fp64 _DstBlend)
+	bool CImage::f_Blend(CImage &_Dst, fp64 _SrcBlend, fp64 _DstBlend)
 	{
 		if (_Dst.m_Dimensions != m_Dimensions)
 			return false;
@@ -830,7 +830,7 @@ namespace NMib::NGraphics
 		return false;
 	}
 
-	bint CImage::f_StretchBilinear(CImage &_Dst, fp64 _OffsetX, fp64 _OffsetY)
+	bool CImage::f_StretchBilinear(CImage &_Dst, fp64 _OffsetX, fp64 _OffsetY)
 	{
 		CImageDimensions Dims = _Dst.m_Dimensions;
 		if (_Dst.m_ImageFormat != m_ImageFormat)
@@ -1041,7 +1041,7 @@ namespace NMib::NGraphics
 	}
 
 
-	bint CImage::f_RemoveAlpha(CImage &_Dst)
+	bool CImage::f_RemoveAlpha(CImage &_Dst)
 	{
 		if (_Dst.m_Dimensions != m_Dimensions)
 			return false;
