@@ -84,25 +84,18 @@ namespace NMib::NGraphics
 			return true;
 		}
 
-		bool operator < (const TCImageDimensions &_Other) const
+		COrdering_Weak operator <=> (const TCImageDimensions &_Other) const
 		{
-			if (m_Dimensions[0] < _Other.m_Dimensions[0])
-				return true;
-			else if (m_Dimensions[0] > _Other.m_Dimensions[0])
-				return false;
-			if (m_Dimensions[1] < _Other.m_Dimensions[1])
-				return true;
-			else if (m_Dimensions[1] > _Other.m_Dimensions[1])
-				return false;
-			if (m_Dimensions[2] < _Other.m_Dimensions[2])
-				return true;
-			else if (m_Dimensions[2] > _Other.m_Dimensions[2])
-				return false;
-			if (m_Dimensions[3] < _Other.m_Dimensions[3])
-				return true;
-			else if (m_Dimensions[3] > _Other.m_Dimensions[3])
-				return false;
-			return false;
+			if (auto Result = m_Dimensions[0] <=> _Other.m_Dimensions[0]; Result != 0)
+				return Result;
+			if (auto Result = m_Dimensions[1] <=> _Other.m_Dimensions[1]; Result != 0)
+				return Result;
+			if (auto Result = m_Dimensions[2] <=> _Other.m_Dimensions[2]; Result != 0)
+				return Result;
+			if (auto Result = m_Dimensions[3] <=> _Other.m_Dimensions[3]; Result != 0)
+				return Result;
+
+			return COrdering_Weak::equivalent;
 		}
 
 		CType &operator[] (int _Pos)
