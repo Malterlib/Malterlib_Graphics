@@ -84,7 +84,7 @@ namespace NMib::NGraphics
 			return true;
 		}
 
-		COrdering_Weak operator <=> (const TCImageDimensions &_Other) const
+		COrdering_Strong operator <=> (const TCImageDimensions &_Other) const
 		{
 			if (auto Result = m_Dimensions[0] <=> _Other.m_Dimensions[0]; Result != 0)
 				return Result;
@@ -95,7 +95,7 @@ namespace NMib::NGraphics
 			if (auto Result = m_Dimensions[3] <=> _Other.m_Dimensions[3]; Result != 0)
 				return Result;
 
-			return COrdering_Weak::equivalent;
+			return COrdering_Strong::equal;
 		}
 
 		CType &operator[] (int _Pos)
