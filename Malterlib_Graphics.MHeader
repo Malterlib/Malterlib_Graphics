@@ -26,12 +26,12 @@ Import "../Core/Lib_Malterlib.MTarget"
 
 Property
 {
-	MalterlibLibrary_Graphics define bool = MalterlibLibrary_All
+	MalterlibLibrary_Graphics: bool = MalterlibLibrary_All
 	MalterlibSubLibraries =+ "Graphics"
 	{
 		!!MalterlibLibrary_Graphics true
 	}
-//	MalterlibSubLibrarySeparate_Lib_Malterlib_Graphics define bool = true
+//	MalterlibSubLibrarySeparate_Lib_Malterlib_Graphics: bool = true
 	MalterlibIncludeRoots =+ "Include"->MakeAbsolute()
 	{
 		!!MalterlibLibrary_Graphics true
@@ -43,6 +43,6 @@ Property
 	!!MalterlibEnableInternalTests true
 	
 	MalterlibTests =+ "Malterlib_Graphics"
-	//MalterlibTestFiles_Malterlib_Graphics define [type(CEntity)] = ["Test/*"->MakeAbsolute()]
+	//MalterlibTestFiles_Malterlib_Graphics: [type(CEntity)] = ["Test/*"->MakeAbsolute()]
 }
 
