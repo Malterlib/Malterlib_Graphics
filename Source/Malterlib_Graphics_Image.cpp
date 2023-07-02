@@ -439,7 +439,7 @@ namespace NMib::NGraphics
 
 		if (pTests)
 		{
-			auto Iter = pTests->m_Children.f_GetIter();
+			auto Iter = pTests->m_Children.f_GetIterator();
 
 			while (Iter)
 			{
@@ -470,7 +470,7 @@ namespace NMib::NGraphics
 
 		if (pTests)
 		{
-			auto Iter = pTests->m_Children.f_GetIter();
+			auto Iter = pTests->m_Children.f_GetIterator();
 
 			while (Iter)
 			{
@@ -499,7 +499,7 @@ namespace NMib::NGraphics
 
 		if (pTests)
 		{
-			auto Iter = pTests->m_Children.f_GetIter();
+			auto Iter = pTests->m_Children.f_GetIterator();
 
 			while (Iter && !bRet)
 			{
@@ -526,7 +526,7 @@ namespace NMib::NGraphics
 		bool bRet = false;
 		if (pTests)
 		{
-			auto Iter = pTests->m_Children.f_GetIter();
+			auto Iter = pTests->m_Children.f_GetIterator();
 
 			while (Iter && !bRet)
 			{
