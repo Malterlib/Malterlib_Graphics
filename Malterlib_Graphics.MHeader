@@ -3,8 +3,179 @@
 
 Import "../Core/Lib_Malterlib.MTarget"
 
+%Repository "libjpeg-turbo"
+{
+	Repository
+	{
+		Type "External"
+		Remotes += {Name: "upstream", URL: "https://github.com/libjpeg-turbo/libjpeg-turbo.git"}
+		DefaultUpstreamBranch "main"
+	}
+}
+
+%Import "../../External/libjpeg-turbo/CMakeLists.txt"
+{
+	Import.CMake_Variables =+ "CMAKE_BUILD_WITH_INSTALL_RPATH=ON"
+	{
+		&
+		{
+			PlatformFamily "Linux"
+			!HostPlatformFamily "Linux"
+		}
+	}
+	Property
+	{
+		CpuType: string
+		CpuType "i386"
+		{
+			!!Architecture "x86"
+		}
+		CpuType "x86_64"
+		{
+			!!Architecture "x64"
+		}
+		CpuType "arm"
+		{
+			!!Architecture "arm64"
+		}
+	}
+	Compile
+	{
+		!!Compile.Type "AssemblerNasm"
+		ExtraCompilerFlags =+ "-g "
+		{
+			!!PlatformFamily "Windows"
+		}
+
+		SearchPath =+ [
+			"../../External/libjpeg-turbo/simd/nasm"->MakeAbsolute()
+			, `../../External/libjpeg-turbo/simd/@(CpuType)`->MakeAbsolute()
+		]
+
+		PreprocessorDefines =+ "__x86_64__"
+		{
+			!!Architecture "x64"
+		}
+
+		PreprocessorDefines =+ "WIN32"
+		{
+			&
+			{
+				PlatformFamily "Windows"
+				Architecture "x86"
+			}
+		}
+
+		PreprocessorDefines =+ "WIN64"
+		{
+			&
+			{
+				PlatformFamily "Windows"
+				Architecture "x64"
+			}
+		}
+
+		PreprocessorDefines =+ "PIC"
+		{
+			!PlatformFamily "Windows"
+		}
+
+		PreprocessorDefines =+ "MACHO"
+		{
+			!!PlatformFamily "macOS"
+		}
+		PreprocessorDefines =+ "ELF"
+		{
+			!!PlatformFamily "Linux"
+		}
+	}
+}
+
+%Repository "libpng"
+{
+	Repository
+	{
+		Type "External"
+		Remotes += {Name: "upstream", URL: "https://github.com/glennrp/libpng.git"}
+	}
+}
+
+%Import "../../External/libpng/CMakeLists.txt"
+{
+	Import.CMake_FullRebuildVersion `@(Import.CMake_FullRebuildVersion).1`
+
+	Import.CMake_Variables =+ ["PNG_STATIC=ON", `PNG_ARM_NEON=@((Architecture == "arm64") ? "on" : "off")`, "PNG_SHARED=OFF", "PNG_TESTS=OFF", "PNG_DISABLE_FILEGEN=ON"]
+	Import.CMake_Variables =+ `ZLIB_INCLUDE_DIR=@("../../External/zlib"->MakeAbsolute())`
+	Import.CMake_Variables =+ "ZLIB_LIBRARY=DISABLED"
+	Import.CMake_Variables =+ "CMAKE_BUILD_WITH_INSTALL_RPATH=ON"
+	{
+		&
+		{
+			PlatformFamily "Linux"
+			!HostPlatformFamily "Linux"
+		}
+	}
+
+	Compile
+	{
+		!!MalterlibCompileSupportTabSetings true
+		IndentWidth 3
+		TabWidth 3
+		UsesTabs false
+	}
+	Compile
+	{
+ 		!!CompileDialect "C"
+
+		PrefixHeader undefined
+	}
+}
+
+Import "../../External/zlib/zlib.MTarget"
+
+Property
+{
+	MalterlibTargetIdentityAbsolutePath: string = Target:this.IdentityAsAbsolutePath->GetPath()
+
+	MalterlibLibPNGIncludePath: string = GetProperty(&MalterlibTargetIdentityAbsolutePath, "Group:External.Group:libpng.Target:Lib_libpng_png_static.Import:*.Target:Lib_libpng_png_static")
+	MalterlibHasLibPNG: bool = HasProperty(&MalterlibTargetIdentityAbsolutePath, "Group:External.Group:libpng.Target:Lib_libpng_png_static.Import:*.Target:Lib_libpng_png_static")
+	MalterlibUsesLibPNG: bool = false
+}
+
+Compile
+{
+	&
+	{
+		CompileDialect "C"
+		MalterlibUsesLibPNG true
+	}
+	SearchPath =+ [MalterlibLibPNGIncludePath, "../../External/libpng"->MakeAbsolute()]
+}
+
+Property
+{
+	MalterlibLibJPEGIncludePath: string = GetProperty(&MalterlibTargetIdentityAbsolutePath, "Group:External.Group:libjpeg-turbo.Target:Lib_libjpeg-turbo_jpeg-static.Import:*.Target:Lib_libjpeg-turbo_jpeg-static")
+	MalterlibHasLibJPEG: bool = HasProperty(&MalterlibTargetIdentityAbsolutePath, "Group:External.Group:libjpeg-turbo.Target:Lib_libjpeg-turbo_jpeg-static.Import:*.Target:Lib_libjpeg-turbo_jpeg-static")
+	MalterlibUsesLibJPEG: bool = false
+}
+
+Compile
+{
+	&
+	{
+		CompileDialect "C"
+		MalterlibUsesLibJPEG true
+	}
+	SearchPath =+ [MalterlibLibJPEGIncludePath, "../../External/libjpeg-turbo"->MakeAbsolute()]
+}
+
 %Group "{Malterlib}/{Lib_Malterlib_Graphics}"
 {
+	Property
+	{
+		MalterlibUsesLibJPEG true
+		MalterlibUsesLibPNG true
+	}
 	%Group "Graphics"
 	{
 		%Group "Include"
@@ -21,6 +192,14 @@ Import "../Core/Lib_Malterlib.MTarget"
 			%File "Documentation/*"
 		}
 	}
+	%Group "ImpageDependencies"
+	{
+		Dependency.Indirect true
+		%Dependency "Lib_libjpeg-turbo_jpeg-static"
+		%Dependency "Lib_libjpeg-turbo_jpeg12-static"
+		%Dependency "Lib_libjpeg-turbo_jpeg16-static"
+		%Dependency "Lib_libpng_png_static"
+	}
 }
 
 
@@ -31,7 +210,7 @@ Property
 	{
 		!!MalterlibLibrary_Graphics true
 	}
-//	MalterlibSubLibrarySeparate_Lib_Malterlib_Graphics: bool = true
+	MalterlibSubLibrarySeparate_Lib_Malterlib_Graphics: bool = true
 	MalterlibIncludeRoots =+ "Include"->MakeAbsolute()
 	{
 		!!MalterlibLibrary_Graphics true
