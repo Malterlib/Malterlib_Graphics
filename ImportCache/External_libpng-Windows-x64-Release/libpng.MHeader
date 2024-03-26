@@ -1,0 +1,135 @@
+Property.CMakeOutputPath_libpng: string = `@('.'->MakeAbsolute())`->MakeAbsolute()
+%Target "Lib_libpng_png_static"
+{
+	Compile
+	{
+		!!Compile.Type "C"
+		SearchPath += [
+			`@('../../../..'->MakeAbsolute())/External/zlib`->MakeAbsolute(),
+			`@('.'->MakeAbsolute())`->MakeAbsolute(),
+			`@('../../../../External/libpng'->MakeAbsolute())`->MakeAbsolute()
+		]
+		PreprocessorDefines += [
+			"PNG_INTEL_SSE_OPT=1",
+			"_CRT_NONSTDC_NO_DEPRECATE",
+			"_CRT_SECURE_NO_DEPRECATE"
+		]
+	}
+	Property.MalterlibTargetNameType "Normal"
+	Compile.AllowNonExisting true
+	Target.Group "External/libpng"
+	{
+		!!Target.Group undefined
+	}
+	Target.Type "StaticLibrary"
+	Target.BaseName "libpng_png_static"
+	Target.BaseFileName "png_static"
+	%File `@('../../../../External/libpng'->MakeAbsolute())/png.h`
+	{
+		Compile.Disabled true
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngconf.h`
+	{
+		Compile.Disabled true
+	}
+	%Group "Windows"
+	{
+		%Group "x64"
+		{
+			%Group `@(FullConfiguration)`
+			{
+				%File `@('.'->MakeAbsolute())/pnglibconf.h`
+				{
+					Compile.Disabled true
+				}
+			}
+		}
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngpriv.h`
+	{
+		Compile.Disabled true
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngdebug.h`
+	{
+		Compile.Disabled true
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pnginfo.h`
+	{
+		Compile.Disabled true
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngstruct.h`
+	{
+		Compile.Disabled true
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/png.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngerror.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngget.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngmem.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngpread.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngread.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngrio.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngrtran.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngrutil.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngset.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngtrans.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngwio.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngwrite.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngwtran.c`
+	{
+		Compile.Type "C"
+	}
+	%File `@('../../../../External/libpng'->MakeAbsolute())/pngwutil.c`
+	{
+		Compile.Type "C"
+	}
+	%Group "intel"
+	{
+		%File `@('../../../../External/libpng'->MakeAbsolute())/intel/intel_init.c`
+		{
+			Compile.Type "C"
+		}
+		%File `@('../../../../External/libpng'->MakeAbsolute())/intel/filter_sse2_intrinsics.c`
+		{
+			Compile.Type "C"
+		}
+	}
+}
