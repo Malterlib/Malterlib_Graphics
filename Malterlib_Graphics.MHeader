@@ -89,6 +89,20 @@ Import "../Core/Lib_Malterlib.MTarget"
 			!!PlatformFamily "Linux"
 		}
 	}
+	%Target "Lib_libjpeg-turbo_jpeg-static"
+	{
+		%Dependency "Lib_libjpeg-turbo_simd"
+		{
+			!!PlatformFamily "Windows"
+
+			Dependency
+			{
+				Indirect true
+				LinkWithObjectFiles false
+				IndirectOrdered true
+			}
+		}
+	}
 }
 
 %Repository "libpng"
