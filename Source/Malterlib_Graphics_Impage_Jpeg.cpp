@@ -20,7 +20,7 @@ namespace NMib::NGraphics
 		struct CIOContext
 		{
 			NStream::CBinaryStream* m_pStream;
-			uint8* m_pBuffer;
+			NContainer::CByteVector m_Buffer;
 		};
 
 		enum
@@ -32,7 +32,7 @@ namespace NMib::NGraphics
 		static void fs_JpegInitSource(j_decompress_ptr _pInfo)
 		{
 			CIOContext* pContext = (CIOContext*)_pInfo->client_data;
-			pContext->m_pBuffer = DMibNew JOCTET[EJpeg_BufferSize];
+			pContext->m_Buffer.f_SetLen(EJpeg_BufferSize);
 		}
 
 		static boolean fs_JpegFillInputBuffer(j_decompress_ptr _pInfo)
@@ -44,7 +44,7 @@ namespace NMib::NGraphics
 
 			try
 			{
-				pContext->m_pStream->f_ConsumeBytes((void*)pContext->m_pBuffer, ReadAmount);
+				pContext->m_pStream->f_ConsumeBytes((void*)pContext->m_Buffer.f_GetArray(), ReadAmount);
 			}
 			catch (NFile::CExceptionFile)
 			{
@@ -53,7 +53,7 @@ namespace NMib::NGraphics
 				return 0;
 			}
 
-			pSource->next_input_byte = (JOCTET*)pContext->m_pBuffer;
+			pSource->next_input_byte = pContext->m_Buffer.f_GetArray();
 			pSource->bytes_in_buffer = (size_t)ReadAmount;
 			return 1;
 		}
@@ -90,8 +90,7 @@ namespace NMib::NGraphics
 		static void fs_JpegTermSource(j_decompress_ptr _pInfo)
 		{
 			CIOContext* pContext = (CIOContext*)_pInfo->client_data;
-			delete [] pContext->m_pBuffer;
-			pContext->m_pBuffer = nullptr;
+			pContext->m_Buffer.f_Clear();
 		}
 
 		static void fs_JpegInitDestination(j_compress_ptr _pInfo)
@@ -99,9 +98,9 @@ namespace NMib::NGraphics
 			CIOContext* pContext = (CIOContext*)_pInfo->client_data;
 			jpeg_destination_mgr* pDest = _pInfo->dest;
 
-			pContext->m_pBuffer = DMibNew uint8 [EJpeg_BufferSize];
+			pContext->m_Buffer.f_SetLen(EJpeg_BufferSize);
 			pDest->free_in_buffer = EJpeg_BufferSize;
-			pDest->next_output_byte = pContext->m_pBuffer;
+			pDest->next_output_byte = pContext->m_Buffer.f_GetArray();
 		}
 
 		static boolean fs_JpegEmptyOutputBuffer(j_compress_ptr _pInfo)
@@ -111,7 +110,7 @@ namespace NMib::NGraphics
 
 			try
 			{
-				pContext->m_pStream->f_FeedBytes(pContext->m_pBuffer, EJpeg_BufferSize);
+				pContext->m_pStream->f_FeedBytes(pContext->m_Buffer.f_GetArray(), EJpeg_BufferSize);
 			}
 			catch (NFile::CExceptionFile)
 			{
@@ -119,7 +118,7 @@ namespace NMib::NGraphics
 			}
 
 			pDest->free_in_buffer = EJpeg_BufferSize;
-			pDest->next_output_byte = pContext->m_pBuffer;
+			pDest->next_output_byte = pContext->m_Buffer.f_GetArray();
 
 			return 1;
 		}
@@ -131,13 +130,13 @@ namespace NMib::NGraphics
 
 			try
 			{
-				pContext->m_pStream->f_FeedBytes(pContext->m_pBuffer, EJpeg_BufferSize - pDest->free_in_buffer);
+				pContext->m_pStream->f_FeedBytes(pContext->m_Buffer.f_GetArray(), EJpeg_BufferSize - pDest->free_in_buffer);
 			}
 			catch (NFile::CExceptionFile)
 			{
 			}
 
-			delete pContext->m_pBuffer;
+			pContext->m_Buffer.f_Clear();
 		}
 
 
@@ -234,12 +233,10 @@ namespace NMib::NGraphics
 
 			CIOContext Context;
 			Context.m_pStream = &_Stream;
-			Context.m_pBuffer = nullptr;
 
 			if (setjmp(ErrorManager.m_SetJmpBuffer))
 			{
 				jpeg_destroy_decompress(&DecompressInfo);
-				delete []Context.m_pBuffer;
 				return false;
 			}
 
@@ -261,8 +258,7 @@ namespace NMib::NGraphics
 			jpeg_destroy_decompress(&DecompressInfo);
 
 			// Strangely this isn't cleaned up by the lib.
-			delete [] Context.m_pBuffer;
-			Context.m_pBuffer = nullptr;
+			Context.m_Buffer.f_Clear();
 
 			return bRet;
 		}
@@ -302,12 +298,10 @@ namespace NMib::NGraphics
 
 			CIOContext Context;
 			Context.m_pStream = &_Stream;
-			Context.m_pBuffer = nullptr;
 
 			if (setjmp(ErrorManager.m_SetJmpBuffer))
 			{
 				jpeg_destroy_decompress(&DecompressInfo);
-				delete []Context.m_pBuffer;
 				return false;
 			}
 
@@ -325,7 +319,7 @@ namespace NMib::NGraphics
 				if (InternalFormat == 0)
 				{
 					jpeg_destroy_decompress(&DecompressInfo);
-					delete []Context.m_pBuffer;
+					Context.m_Buffer.f_Clear();
 					return false;
 				}
 			}
@@ -408,12 +402,10 @@ namespace NMib::NGraphics
 
 			CIOContext Context;
 			Context.m_pStream = &_Stream;
-			Context.m_pBuffer = nullptr;
 
 			if (setjmp(ErrorManager.m_SetJmpBuffer))
 			{
 				jpeg_destroy_compress(&CompressInfo);
-				delete []Context.m_pBuffer;
 				return false;
 			}
 
