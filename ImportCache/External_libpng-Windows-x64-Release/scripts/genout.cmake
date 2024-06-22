@@ -13,7 +13,7 @@ set(SRCDIR "../../../../../External/libpng")
 set(BINDIR "..")
 
 set(AWK "")
-set(CMAKE_C_COMPILER "C:/Program Files/Microsoft Visual Studio/2022/Professional/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe")
+set(CMAKE_C_COMPILER "C:/Program Files/Microsoft Visual Studio/2022/Professional/VC/Tools/MSVC/14.40.33807/bin/Hostx64/x64/cl.exe")
 set(CMAKE_C_FLAGS /DWIN32 /D_WINDOWS /W3)
 set(INCDIR "..")
 set(PNG_PREFIX "")

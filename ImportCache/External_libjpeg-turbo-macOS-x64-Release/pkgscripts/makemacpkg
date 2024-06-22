@@ -49,7 +49,7 @@ usage()
 
 PKGNAME=libjpeg-turbo
 VERSION=3.0.0
-BUILD=20240512
+BUILD=20240623
 SRCDIR=../../../../../External/libjpeg-turbo
 BUILDDIRARMV8=
 WITH_JAVA=0

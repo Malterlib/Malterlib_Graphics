@@ -46,7 +46,7 @@ Vendor: The libjpeg-turbo Project
 URL: http://www.libjpeg-turbo.org
 Group: System Environment/Libraries
 #-->Source0: http://prdownloads.sourceforge.net/libjpeg-turbo/libjpeg-turbo-%{version}.tar.gz
-Release: 20240512
+Release: 20240622
 License: BSD-style
 BuildRoot: %{_blddir}/%{name}-buildroot-%{version}-%{release}
 Requires: /sbin/ldconfig
