@@ -5,8 +5,12 @@
 
 namespace NMib::NGraphics
 {
+	struct CColorA8R8G8B8;
+
 	struct CColorR8G8B8
 	{
+		operator CColorA8R8G8B8();
+
 		constexpr auto operator <=> (CColorR8G8B8 const &_Right) const = default;
 
 		constexpr inline_always uint8 f_Red() const;
