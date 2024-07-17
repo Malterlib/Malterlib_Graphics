@@ -7,13 +7,15 @@ namespace NMib::NGraphics
 {
 	struct CColorR8G8B8
 	{
-		constexpr inline_always uint8 f_Red();
-		constexpr inline_always uint8 f_Green();
-		constexpr inline_always uint8 f_Blue();
+		constexpr auto operator <=> (CColorR8G8B8 const &_Right) const noexcept = default;
+
+		constexpr inline_always uint8 f_Red() const;
+		constexpr inline_always uint8 f_Green() const;
+		constexpr inline_always uint8 f_Blue() const;
 
 		static constexpr inline_always CColorR8G8B8 fs_FromRGB(uint8 _Red, uint8 _Green, uint8 _Blue);
 
-		uint32 m_Color;
+		uint32 m_Color = 0;
 	};
 }
 
@@ -21,4 +23,4 @@ namespace NMib::NGraphics
 	using namespace NMib::NGraphics;
 #endif
 
-#include "Malterlib_Graphics_Utilities.hpp"
+#include "Malterlib_Graphics_Color_R8G8B8.hpp"
