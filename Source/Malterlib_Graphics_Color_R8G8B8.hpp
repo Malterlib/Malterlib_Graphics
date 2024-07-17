@@ -5,17 +5,17 @@
 
 namespace NMib::NGraphics
 {
-	constexpr inline_always uint8 CColorR8G8B8::f_Red()
+	constexpr inline_always uint8 CColorR8G8B8::f_Red() const
 	{
 		return (m_Color >> 16) & uint32(0xff);
 	}
 
-	constexpr inline_always uint8 CColorR8G8B8::f_Green()
+	constexpr inline_always uint8 CColorR8G8B8::f_Green() const
 	{
 		return (m_Color >> 8) & uint32(0xff);
 	}
 
-	constexpr inline_always uint8 CColorR8G8B8::f_Blue()
+	constexpr inline_always uint8 CColorR8G8B8::f_Blue() const
 	{
 		return m_Color & uint32(0xff);
 	}
