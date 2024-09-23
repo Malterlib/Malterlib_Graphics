@@ -118,9 +118,17 @@ Import "../Core/Lib_Malterlib.MTarget"
 {
 	Import.CMake_FullRebuildVersion `@(Import.CMake_FullRebuildVersion).1`
 
-	Import.CMake_Variables =+ ["PNG_STATIC=ON", `PNG_ARM_NEON=@((Architecture == "arm64") ? "on" : "off")`, "PNG_SHARED=OFF", "PNG_TESTS=OFF", "PNG_DISABLE_FILEGEN=ON"]
-	Import.CMake_Variables =+ `ZLIB_INCLUDE_DIR=@("../../External/zlib"->MakeAbsolute())`
-	Import.CMake_Variables =+ "ZLIB_LIBRARY=DISABLED"
+	Import.CMake_Variables =+ [
+		"PNG_STATIC=ON"
+		, `PNG_ARM_NEON=@((Architecture == "arm64") ? "on" : "off")`
+		, "PNG_SHARED=OFF"
+		, "PNG_TESTS=OFF"
+		, "PNG_DISABLE_FILEGEN=ON"
+		, "PNG_FRAMEWORK=OFF"
+		, `ZLIB_INCLUDE_DIR=@("../../External/zlib"->MakeAbsolute())`
+		, "ZLIB_LIBRARY=DISABLED"
+	]
+
 	Import.CMake_Variables =+ "CMAKE_BUILD_WITH_INSTALL_RPATH=ON"
 	{
 		&
@@ -182,7 +190,7 @@ Compile
 		MalterlibUsesLibJPEG true
 		!DocumentationEnabled true
 	}
-	SearchPath =+ [MalterlibLibJPEGIncludePath, "../../External/libjpeg-turbo"->MakeAbsolute()]
+	SearchPath =+ [MalterlibLibJPEGIncludePath, "../../External/libjpeg-turbo/src"->MakeAbsolute()]
 }
 
 %Group "{Malterlib}/{Lib_Malterlib_Graphics}"

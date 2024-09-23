@@ -4,7 +4,7 @@
 #include "wchar.h"
 
 #include <setjmp.h>
-#include "../../External/libjpeg-turbo/jpeglib.h"
+#include "../../External/libjpeg-turbo/src/jpeglib.h"
 #include <Mib/Graphics/Image>
 #include <Mib/Core/RuntimeType>
 
