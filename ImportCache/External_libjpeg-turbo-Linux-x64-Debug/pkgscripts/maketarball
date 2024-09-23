@@ -22,7 +22,7 @@ uid()
 }
 
 PKGNAME=libjpeg-turbo
-VERSION=3.0.0
+VERSION=3.0.90
 ARCH=x86_64
 OS=Linux
 PREFIX=/opt/libjpeg-turbo

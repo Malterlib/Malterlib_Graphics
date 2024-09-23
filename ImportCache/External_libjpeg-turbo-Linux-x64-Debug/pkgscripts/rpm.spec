@@ -41,12 +41,12 @@
 
 Summary: A SIMD-accelerated JPEG codec that provides both the libjpeg and TurboJPEG APIs
 Name: libjpeg-turbo
-Version: 3.0.0
+Version: 3.0.90
 Vendor: The libjpeg-turbo Project
-URL: http://www.libjpeg-turbo.org
+URL: https://libjpeg-turbo.org
 Group: System Environment/Libraries
-#-->Source0: http://prdownloads.sourceforge.net/libjpeg-turbo/libjpeg-turbo-%{version}.tar.gz
-Release: 20240622
+#-->Source0: https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/%{version}/libjpeg-turbo-%{version}.tar.gz
+Release: 20240923
 License: BSD-style
 BuildRoot: %{_blddir}/%{name}-buildroot-%{version}-%{release}
 Requires: /sbin/ldconfig
@@ -77,7 +77,8 @@ derivative of libjpeg v6b developed by Miyasaka Masaru.  The TigerVNC and
 VirtualGL projects made numerous enhancements to the codec in 2009, and in
 early 2010, libjpeg-turbo spun off into an independent project, with the goal
 of making high-speed JPEG compression/decompression technology available to a
-broader range of users and developers.
+broader range of users and developers.  libjpeg-turbo is an ISO/IEC and ITU-T
+reference implementation of the JPEG standard.
 
 #-->%prep
 #-->%setup -q -n libjpeg-turbo-%{version}
@@ -196,7 +197,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cmake/libjpeg-turbo
 %if "%{_with_turbojpeg}" == "1"
 	%if "%{_enable_shared}" == "1" || "%{_with_java}" == "1"
-		%{_libdir}/libturbojpeg.so.0.3.0
+		%{_libdir}/libturbojpeg.so.0.4.0
 		%{_libdir}/libturbojpeg.so.0
 		%{_libdir}/libturbojpeg.so
 	%endif

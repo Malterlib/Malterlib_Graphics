@@ -48,8 +48,8 @@ usage()
 }
 
 PKGNAME=libjpeg-turbo
-VERSION=3.0.0
-BUILD=20240714
+VERSION=3.0.90
+BUILD=20240923
 SRCDIR=../../../../../External/libjpeg-turbo
 BUILDDIRARMV8=
 WITH_JAVA=0
@@ -63,7 +63,7 @@ DOCDIR=/opt/libjpeg-turbo/doc
 LIBDIR=/opt/libjpeg-turbo/lib
 
 LIBJPEG_DSO_NAME=libjpeg.62.4.0.dylib
-TURBOJPEG_DSO_NAME=libturbojpeg.0.3.0.dylib
+TURBOJPEG_DSO_NAME=libturbojpeg.0.4.0.dylib
 
 while [ $# -gt 0 ]; do
 	case $1 in

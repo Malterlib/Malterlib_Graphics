@@ -22,7 +22,7 @@ uid()
 }
 
 PKGNAME=libjpeg-turbo
-VERSION=3.0.0
+VERSION=3.0.90
 ARCH=i386
 OS=Windows
 PREFIX=c:/libjpeg-turbo

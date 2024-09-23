@@ -98,7 +98,7 @@ makedeb()
 }
 
 PKGNAME=libjpeg-turbo
-VERSION=3.0.0
+VERSION=3.0.90
 DEBARCH=amd64
 PREFIX=/opt/libjpeg-turbo
 BINDIR=/opt/libjpeg-turbo/bin

@@ -5,9 +5,9 @@ Property.CMakeOutputPath_libpng: string = `@('.'->MakeAbsolute())`->MakeAbsolute
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('../../../..'->MakeAbsolute())/External/zlib`->MakeAbsolute(),
+			`@('../../../../External/libpng'->MakeAbsolute())`->MakeAbsolute(),
 			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libpng'->MakeAbsolute())`->MakeAbsolute()
+			`@('../../../..'->MakeAbsolute())/External/zlib`->MakeAbsolute()
 		]
 		PreprocessorDefines += [
 			"PNG_INTEL_SSE_OPT=1"

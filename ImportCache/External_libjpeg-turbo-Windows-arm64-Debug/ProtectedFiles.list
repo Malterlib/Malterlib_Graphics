@@ -3,6 +3,8 @@ CMakeFiles/dist.rule
 CMakeFiles/installer.rule
 CMakeFiles/tarball.rule
 CMakeFiles/testclean.rule
+CMakeFiles/tjdoc.rule
+CMakeFiles/tjexampletest.rule
 CMakeFiles/tjtest.rule
 CMakeFiles/tjtest12.rule
 CMakeFiles/tjtest16.rule

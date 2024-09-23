@@ -1,7 +1,7 @@
 ../../../../External/libpng/CMakeLists.txt
 ../../../../External/libpng/libpng-config.in
 ../../../../External/libpng/libpng.pc.in
-../../../../External/libpng/scripts/genchk.cmake.in
-../../../../External/libpng/scripts/genout.cmake.in
-../../../../External/libpng/scripts/gensrc.cmake.in
+../../../../External/libpng/scripts/cmake/genchk.cmake.in
+../../../../External/libpng/scripts/cmake/genout.cmake.in
+../../../../External/libpng/scripts/cmake/gensrc.cmake.in
 ../../../../External/libpng/scripts/pnglibconf.h.prebuilt

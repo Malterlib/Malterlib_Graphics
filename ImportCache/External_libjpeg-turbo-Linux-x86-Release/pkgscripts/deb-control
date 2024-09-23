@@ -1,11 +1,11 @@
 Package: {__PKGNAME}
-Version: 3.0.0-20240622
+Version: 3.0.90-20240923
 Section: misc
 Priority: optional
 Architecture: {__ARCH}
 Essential: no
 Maintainer: The libjpeg-turbo Project <information@libjpeg-turbo.org>
-Homepage: http://www.libjpeg-turbo.org
+Homepage: https://libjpeg-turbo.org
 Installed-Size: {__SIZE}
 Description: A SIMD-accelerated JPEG codec that provides both the libjpeg and TurboJPEG APIs
  libjpeg-turbo is a JPEG image codec that uses SIMD instructions to accelerate
@@ -28,4 +28,5 @@ Description: A SIMD-accelerated JPEG codec that provides both the libjpeg and Tu
  VirtualGL projects made numerous enhancements to the codec in 2009, and in
  early 2010, libjpeg-turbo spun off into an independent project, with the goal
  of making high-speed JPEG compression/decompression technology available to a
- broader range of users and developers.
+ broader range of users and developers.  libjpeg-turbo is an ISO/IEC and ITU-T
+ reference implementation of the JPEG standard.
