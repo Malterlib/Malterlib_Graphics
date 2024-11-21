@@ -2709,7 +2709,7 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 							Compile
 							{
 								Type "Custom"
-								Custom_CommandLine `"C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.41.34120\\bin\\Hostx64\\x64\\cl.exe" -E -I@('.'->MakeAbsolute()) -I@('.'->MakeAbsolute())/simd -I@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/nasm/jsimdcfg.inc.h`->MakeAbsolute()->EscapeHost()) | grep -E "'^[;%]|^ %'" | sed 's%_cpp_protection_%%' | sed 's@@% define@@%define@@g' >@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/nasm/jsimdcfg.inc`
+								Custom_CommandLine `"C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.42.34433\\bin\\Hostx64\\x64\\cl.exe" -E -I@('.'->MakeAbsolute()) -I@('.'->MakeAbsolute())/simd -I@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/nasm/jsimdcfg.inc.h`->MakeAbsolute()->EscapeHost()) | grep -E "'^[;%]|^ %'" | sed 's%_cpp_protection_%%' | sed 's@@% define@@%define@@g' >@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/nasm/jsimdcfg.inc`
 								AllowNonExisting true
 								Disabled false
 								Custom_WorkingDirectory `@('.'->MakeAbsolute())/simd`->MakeAbsolute()

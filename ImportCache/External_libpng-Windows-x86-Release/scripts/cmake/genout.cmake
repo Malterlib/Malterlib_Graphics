@@ -17,7 +17,7 @@ set(SRCDIR "../../../../../../External/libpng")
 set(BINDIR "../..")
 
 set(AWK "")
-set(CMAKE_C_COMPILER "C:/Program Files/Microsoft Visual Studio/2022/Professional/VC/Tools/MSVC/14.41.34120/bin/Hostx64/x86/cl.exe")
+set(CMAKE_C_COMPILER "C:/Program Files/Microsoft Visual Studio/2022/Professional/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x86/cl.exe")
 set(CMAKE_C_FLAGS /DWIN32 /D_WINDOWS /W3)
 set(CMAKE_SYSROOT )
 set(INCDIR "../..")
