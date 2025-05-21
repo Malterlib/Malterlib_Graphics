@@ -11,7 +11,8 @@ namespace NMib::NGraphics
 	class TCImageRect
 	{
 	public:
-		typedef typename t_CPoint::CType CType;
+		using CType = typename t_CPoint::CType;
+
 		t_CPoint m_Corners[2];
 
 		CType f_GetWidth()
@@ -40,7 +41,8 @@ namespace NMib::NGraphics
 	class TCImageDimensions
 	{
 	public:
-		typedef typename t_CPoint::CType CType;
+		using CType = typename t_CPoint::CType;
+
 		t_CPoint m_Dimensions;
 
 		TCImageDimensions(CType _Width = 1, CType _Height = 1, CType _Depth = 1, CType _Arrays = 1)
@@ -109,7 +111,8 @@ namespace NMib::NGraphics
 	class TCImageStride
 	{
 	public:
-		typedef typename t_CPoint::CType CType;
+		using CType = typename t_CPoint::CType;
+
 		t_CPoint m_Stride;
 
 		TCImageStride()
@@ -148,9 +151,9 @@ namespace NMib::NGraphics
 
 	};
 
-	typedef TCImageDimensions<NNumeric::CVec4Duint32> CImageDimensions;
-	typedef TCImageStride<NNumeric::CVec4Duint32> CImageStride;
-	typedef TCImageRect<NNumeric::CVec4Duint32> CImageRect;
+	using CImageDimensions = TCImageDimensions<NNumeric::CVec4Duint32>;
+	using CImageStride = TCImageStride<NNumeric::CVec4Duint32>;
+	using CImageRect = TCImageRect<NNumeric::CVec4Duint32>;
 
 	enum EImageFormatConstant
 	{
@@ -1186,7 +1189,8 @@ EImageFormat_##_Name##_High = (uint32(_PhysicalFormat) << 27 | uint32(_PhysicalE
 	class CImageMemory : public CImage
 	{
 	public:
-		typedef uint8 CStorageType; // Align here in the future
+		using CStorageType = uint8; // Align here in the future
+
 		CImageStride m_Stride;
 
 		NContainer::TCVector<CStorageType> m_Data;

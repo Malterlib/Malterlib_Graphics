@@ -867,8 +867,9 @@ namespace NMib::NGraphics
 				uint32 SrcStride[3] = {uint32(LockSrc.m_Stride[0]), uint32(LockSrc.m_Stride[1]), uint32(LockSrc.m_Stride[2])};
 				uint32 DstStride[3] = {uint32(LockDst.m_Stride[0]), uint32(LockDst.m_Stride[1]), uint32(LockDst.m_Stride[2])};
 
-				typedef int32 CLargeType;
-				typedef uint32 CLargeTypeU;
+				using CLargeType = int32;
+				using CLargeTypeU = uint32;
+
 				enum
 				{
 					EPrecissionBits = 8,
