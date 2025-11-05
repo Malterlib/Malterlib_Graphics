@@ -1,8 +1,8 @@
 {
 	"../../External/libjpeg-turbo": {
-		"Hash": "ce9673b9d1b925c6266767f461d053569f62f9b2"
+		"Hash": "abc11c140d946acc8db8857bc9d05a0fed339b5b"
 	},
 	"../../External/libpng": {
-		"Hash": "f80ca1d8444126455bcfec0452557e6c98cd8ef6"
+		"Hash": "284b0b06c22cde952d692d2fcfb471b8e647cbd0"
 	}
 }

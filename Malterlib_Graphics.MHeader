@@ -1,4 +1,4 @@
-// Copyright © 2015 Hansoft AB 
+// Copyright © 2015 Hansoft AB
 // Distributed under the MIT license, see license text in LICENSE.Malterlib
 
 Import "../Core/Lib_Malterlib.MTarget"
@@ -223,8 +223,6 @@ Compile
 		Dependency.Indirect true
 
 		%Dependency "Lib_libjpeg-turbo_jpeg-static"
-		%Dependency "Lib_libjpeg-turbo_jpeg12-static"
-		%Dependency "Lib_libjpeg-turbo_jpeg16-static"
 		%Dependency "Lib_libpng_png_static"
 	}
 }
@@ -247,7 +245,7 @@ Property
 Property
 {
 	!!MalterlibEnableInternalTests true
-	
+
 	MalterlibTests =+ "Malterlib_Graphics"
 	//MalterlibTestFiles_Malterlib_Graphics: [type(CEntity)] = ["Test/*"->MakeAbsolute()]
 }
