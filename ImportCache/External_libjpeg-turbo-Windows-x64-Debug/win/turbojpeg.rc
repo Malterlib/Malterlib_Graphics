@@ -3,7 +3,7 @@
 
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION 0,4,0,0
- PRODUCTVERSION 3,000,090,0
+ PRODUCTVERSION 3,1,2,0
  FILEFLAGSMASK 0x17L
 #ifndef NDEBUG
  FILEFLAGS VS_FF_DEBUG
@@ -21,10 +21,10 @@ BEGIN
             VALUE "CompanyName", "The libjpeg-turbo Project"
             VALUE "FileDescription", "TurboJPEG API DLL"
             VALUE "FileVersion", "0,4,0,0"
-            VALUE "ProductVersion", "3.0.90"
+            VALUE "ProductVersion", "3.1.2"
             VALUE "ProductName", "libjpeg-turbo"
             VALUE "InternalName", "turbojpeg"
-            VALUE "LegalCopyright", L"Copyright \xA9 1991-2024 The libjpeg-turbo Project and many others"
+            VALUE "LegalCopyright", L"Copyright \xA9 1991-2025 The libjpeg-turbo Project and many others"
             VALUE "OriginalFilename", "turbojpeg.dll"
         END
     END

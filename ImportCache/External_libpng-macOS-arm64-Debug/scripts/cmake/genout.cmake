@@ -1,7 +1,7 @@
 # genout.cmake.in
 # Generate .out from .c with awk (generic), based upon the automake logic.
 
-# Copyright (c) 2022-2024 Cosmin Truta
+# Copyright (c) 2022-2025 Cosmin Truta
 # Copyright (c) 2016 Glenn Randers-Pehrson
 # Written by Roger Leigh, 2016
 #
@@ -16,6 +16,7 @@
 set(SRCDIR "../../../../../../External/libpng")
 set(BINDIR "../..")
 
+set(APPLE "1")
 set(AWK "")
 set(CMAKE_C_COMPILER "../../../../../../Binaries/MalterlibLLVM/macOS/arm64/bin/clang")
 set(CMAKE_C_FLAGS )
@@ -24,7 +25,7 @@ set(INCDIR "../..")
 set(PNG_PREFIX "")
 set(PNGLIB_MAJOR "1")
 set(PNGLIB_MINOR "6")
-set(PNGLIB_VERSION "1.6.44")
+set(PNGLIB_VERSION "1.6.50")
 set(ZLIBINCDIR "../../../../../../External/zlib")
 
 set(PLATFORM_C_FLAGS)

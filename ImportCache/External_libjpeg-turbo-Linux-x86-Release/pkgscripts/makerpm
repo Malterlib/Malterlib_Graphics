@@ -15,8 +15,8 @@ onexit()
 	fi
 }
 
-if [ -f libjpeg-turbo-3.0.90.i386.rpm ]; then
-	rm -f libjpeg-turbo-3.0.90.i386.rpm
+if [ -f libjpeg-turbo-3.1.2.i386.rpm ]; then
+	rm -f libjpeg-turbo-3.1.2.i386.rpm
 fi
 
 umask 022
@@ -26,5 +26,5 @@ mkdir -p $TMPDIR/RPMS
 ln -fs `pwd` $TMPDIR/BUILD
 rpmbuild -bb --define "_blddir $TMPDIR/buildroot" --define "_topdir $TMPDIR" \
 	--target i386 pkgscripts/rpm.spec; \
-cp $TMPDIR/RPMS/i386/libjpeg-turbo-3.0.90-20240923.i386.rpm \
-	libjpeg-turbo-3.0.90.i386.rpm
+cp $TMPDIR/RPMS/i386/libjpeg-turbo-3.1.2-20251105.i386.rpm \
+	libjpeg-turbo-3.1.2.i386.rpm

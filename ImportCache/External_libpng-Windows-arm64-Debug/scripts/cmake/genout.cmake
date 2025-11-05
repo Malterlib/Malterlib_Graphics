@@ -1,7 +1,7 @@
 # genout.cmake.in
 # Generate .out from .c with awk (generic), based upon the automake logic.
 
-# Copyright (c) 2022-2024 Cosmin Truta
+# Copyright (c) 2022-2025 Cosmin Truta
 # Copyright (c) 2016 Glenn Randers-Pehrson
 # Written by Roger Leigh, 2016
 #
@@ -16,15 +16,16 @@
 set(SRCDIR "../../../../../../External/libpng")
 set(BINDIR "../..")
 
+set(APPLE "")
 set(AWK "")
-set(CMAKE_C_COMPILER "C:/Program Files/Microsoft Visual Studio/2022/Professional/VC/Tools/MSVC/14.42.34433/bin/Hostx64/arm64/cl.exe")
-set(CMAKE_C_FLAGS /DWIN32 /D_WINDOWS /W3)
+set(CMAKE_C_COMPILER "C:/Program Files/Microsoft Visual Studio/18/Insiders/VC/Tools/MSVC/14.50.35717/bin/Hostx64/arm64/cl.exe")
+set(CMAKE_C_FLAGS /DWIN32 /D_WINDOWS)
 set(CMAKE_SYSROOT )
 set(INCDIR "../..")
 set(PNG_PREFIX "")
 set(PNGLIB_MAJOR "1")
 set(PNGLIB_MINOR "6")
-set(PNGLIB_VERSION "1.6.44")
+set(PNGLIB_VERSION "1.6.50")
 set(ZLIBINCDIR "../../../../../../External/zlib")
 
 set(PLATFORM_C_FLAGS)

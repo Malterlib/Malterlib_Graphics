@@ -22,7 +22,7 @@ uid()
 }
 
 PKGNAME=libjpeg-turbo
-VERSION=3.0.90
+VERSION=3.1.2
 ARCH=arm64e
 OS=Darwin
 PREFIX=/opt/libjpeg-turbo

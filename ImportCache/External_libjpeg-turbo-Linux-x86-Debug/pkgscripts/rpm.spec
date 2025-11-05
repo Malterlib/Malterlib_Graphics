@@ -41,12 +41,12 @@
 
 Summary: A SIMD-accelerated JPEG codec that provides both the libjpeg and TurboJPEG APIs
 Name: libjpeg-turbo
-Version: 3.0.90
+Version: 3.1.2
 Vendor: The libjpeg-turbo Project
 URL: https://libjpeg-turbo.org
 Group: System Environment/Libraries
 #-->Source0: https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/%{version}/libjpeg-turbo-%{version}.tar.gz
-Release: 20240923
+Release: 20251105
 License: BSD-style
 BuildRoot: %{_blddir}/%{name}-buildroot-%{version}-%{release}
 Requires: /sbin/ldconfig

@@ -1,6 +1,6 @@
 !include x64.nsh
 Name "libjpeg-turbo SDK for Visual C++ 64-bit"
-OutFile ".\${BUILDDIR}libjpeg-turbo-3.0.90-vc64.exe"
+OutFile ".\${BUILDDIR}libjpeg-turbo-3.1.2-vc-arm64.exe"
 InstallDir "c:\libjpeg-turbo64"
 
 SetCompressor bzip2
@@ -110,13 +110,13 @@ Section "libjpeg-turbo SDK for Visual C++ 64-bit (required)"
 	File "../../../../External/libjpeg-turbo\doc\wrjpgcom.1"
 !endif
 
-	WriteRegStr HKLM "SOFTWARE\libjpeg-turbo64 3.0.90" "Install_Dir" "$INSTDIR"
+	WriteRegStr HKLM "SOFTWARE\libjpeg-turbo64 3.1.2" "Install_Dir" "$INSTDIR"
 
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo64 3.0.90" "DisplayName" "libjpeg-turbo SDK v3.0.90 for Visual C++ 64-bit"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo64 3.0.90" "UninstallString" '"$INSTDIR\uninstall_3.0.90.exe"'
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo64 3.0.90" "NoModify" 1
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo64 3.0.90" "NoRepair" 1
-	WriteUninstaller "uninstall_3.0.90.exe"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo64 3.1.2" "DisplayName" "libjpeg-turbo SDK v3.1.2 for Visual C++ 64-bit"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo64 3.1.2" "UninstallString" '"$INSTDIR\uninstall_3.1.2.exe"'
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo64 3.1.2" "NoModify" 1
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo64 3.1.2" "NoRepair" 1
+	WriteUninstaller "uninstall_3.1.2.exe"
 SectionEnd
 
 Section "Uninstall"
@@ -128,8 +128,8 @@ Section "Uninstall"
 
 	SetShellVarContext all
 
-	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo64 3.0.90"
-	DeleteRegKey HKLM "SOFTWARE\libjpeg-turbo64 3.0.90"
+	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo64 3.1.2"
+	DeleteRegKey HKLM "SOFTWARE\libjpeg-turbo64 3.1.2"
 
 !ifdef GCC
 	Delete $INSTDIR\bin\libjpeg-62.dll
@@ -168,7 +168,7 @@ Section "Uninstall"
 	Delete $INSTDIR\include\jmorecfg.h
 	Delete $INSTDIR\include\jpeglib.h
 	Delete $INSTDIR\include\turbojpeg.h
-	Delete $INSTDIR\uninstall_3.0.90.exe
+	Delete $INSTDIR\uninstall_3.1.2.exe
 	Delete $INSTDIR\doc\README.ijg
 	Delete $INSTDIR\doc\README.md
 	Delete $INSTDIR\doc\LICENSE.md

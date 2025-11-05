@@ -15,8 +15,8 @@ onexit()
 	fi
 }
 
-if [ -f libjpeg-turbo-3.0.90.x86_64.rpm ]; then
-	rm -f libjpeg-turbo-3.0.90.x86_64.rpm
+if [ -f libjpeg-turbo-3.1.2.x86_64.rpm ]; then
+	rm -f libjpeg-turbo-3.1.2.x86_64.rpm
 fi
 
 umask 022
@@ -26,5 +26,5 @@ mkdir -p $TMPDIR/RPMS
 ln -fs `pwd` $TMPDIR/BUILD
 rpmbuild -bb --define "_blddir $TMPDIR/buildroot" --define "_topdir $TMPDIR" \
 	--target x86_64 pkgscripts/rpm.spec; \
-cp $TMPDIR/RPMS/x86_64/libjpeg-turbo-3.0.90-20240923.x86_64.rpm \
-	libjpeg-turbo-3.0.90.x86_64.rpm
+cp $TMPDIR/RPMS/x86_64/libjpeg-turbo-3.1.2-20251105.x86_64.rpm \
+	libjpeg-turbo-3.1.2.x86_64.rpm

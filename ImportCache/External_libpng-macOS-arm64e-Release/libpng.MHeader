@@ -1,4 +1,17 @@
 Property.CMakeOutputPath_libpng: string = `@('.'->MakeAbsolute())`->MakeAbsolute()
+%Target "Tool_libpng_png_genfiles"
+{
+	Property.MalterlibTargetNameType "Normal"
+	Compile.AllowNonExisting true
+	Compile.Disabled true
+	Target.Group "External/libpng"
+	{
+		!!Target.Group undefined
+	}
+	Target.Type "Tool"
+	Target.BaseName "libpng_png_genfiles"
+	Target.BaseFileName "png_genfiles"
+}
 %Target "Lib_libpng_png_static"
 {
 	Compile
