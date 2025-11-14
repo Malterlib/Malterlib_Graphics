@@ -18,7 +18,7 @@ set(BINDIR "../..")
 
 set(APPLE "1")
 set(AWK "")
-set(CMAKE_C_COMPILER "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchaincc")
+set(CMAKE_C_COMPILER "cc")
 set(CMAKE_C_FLAGS )
 set(CMAKE_SYSROOT )
 set(INCDIR "../..")

@@ -18,7 +18,7 @@ set(BINDIR "../..")
 
 set(APPLE "")
 set(AWK "")
-set(CMAKE_C_COMPILER "C:/Program Files/Microsoft Visual Studio/18/Insiders/VC/Tools/MSVC/14.50.35717/bin/Hostx64/arm64/cl.exe")
+set(CMAKE_C_COMPILER "C:/Program Files/Microsoft Visual Studio/2022/Professional/VC/Tools/MSVC/14.44.35207/bin/Hostx64/arm64/cl.exe")
 set(CMAKE_C_FLAGS /DWIN32 /D_WINDOWS)
 set(CMAKE_SYSROOT )
 set(INCDIR "../..")
