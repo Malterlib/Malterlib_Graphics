@@ -19,7 +19,7 @@ set(BINDIR "../..")
 set(AWK "")
 set(DFA_XTRA "")
 set(PNG_PREFIX "")
-set(PNGLIB_VERSION "1.6.50")
+set(PNGLIB_VERSION "1.6.51")
 
 if(OUTPUT MATCHES "(scripts/pnglibconf\\.c)\$")
   # Generate "${BINDIR}/scripts/pnglibconf.c"

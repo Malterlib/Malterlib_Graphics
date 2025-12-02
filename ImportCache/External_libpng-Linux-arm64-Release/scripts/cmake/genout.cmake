@@ -25,7 +25,7 @@ set(INCDIR "../..")
 set(PNG_PREFIX "")
 set(PNGLIB_MAJOR "1")
 set(PNGLIB_MINOR "6")
-set(PNGLIB_VERSION "1.6.50")
+set(PNGLIB_VERSION "1.6.51")
 set(ZLIBINCDIR "../../../../../../External/zlib")
 
 set(PLATFORM_C_FLAGS)
