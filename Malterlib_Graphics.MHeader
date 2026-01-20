@@ -42,7 +42,7 @@ Import "../Core/Lib_Malterlib.MTarget"
 	Compile
 	{
 		!!Compile.Type "AssemblerNasm"
-		ExtraCompilerFlags =+ "-g "
+		ExtraCompilerFlags =+ "-g"
 		{
 			!!PlatformFamily "Windows"
 		}
