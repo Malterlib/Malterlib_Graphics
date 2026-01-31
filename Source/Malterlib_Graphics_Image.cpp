@@ -7,6 +7,34 @@
 
 namespace NMib::NGraphics
 {
+	// CImage implementations
+
+	CImage::~CImage() = default;
+
+	bool CImage::f_LockRead(CLockedData &_Data)
+	{
+		return f_LockReadWrite(_Data);
+	}
+
+	bool CImage::f_LockWrite(CLockedData &_Data)
+	{
+		return f_LockReadWrite(_Data);
+	}
+
+	// CImageMemory implementations
+
+	bool CImageMemory::f_LockReadWrite(CLockedData &_Data)
+	{
+		_Data.m_InternalData = 0;
+		_Data.m_pData = m_Data.f_GetArray();
+		_Data.m_Stride = m_Stride;
+		return true;
+	}
+
+	void CImageMemory::f_UnLock(CLockedData &_Data)
+	{
+	}
+
 	// Used for creating unknown types such as FourCC
 	bool CImageMemory::f_Create(const CImage &_Src)
 	{
@@ -832,7 +860,6 @@ namespace NMib::NGraphics
 
 	bool CImage::f_StretchBilinear(CImage &_Dst, fp64 _OffsetX, fp64 _OffsetY)
 	{
-		CImageDimensions Dims = _Dst.m_Dimensions;
 		if (_Dst.m_ImageFormat != m_ImageFormat)
 			return false;
 
@@ -1150,5 +1177,11 @@ namespace NMib::NGraphics
 			f_UnLock(LockSrc);
 		}
 		return false;
+	}
+
+	// CImageIO implementations
+
+	CImageIO::~CImageIO()
+	{
 	}
 }

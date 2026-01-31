@@ -15,26 +15,10 @@ namespace NMib::NGraphics
 
 		t_CPoint m_Corners[2];
 
-		CType f_GetWidth()
-		{
-			return m_Corners[1][0] - m_Corners[0][0];
-		}
-
-		CType f_GetHeight()
-		{
-			return m_Corners[1][1] - m_Corners[0][1];
-		}
-
-		CType f_GetDepth()
-		{
-			return m_Corners[1][2] - m_Corners[0][2];
-		}
-
-		CType f_GetNumArrays()
-		{
-			return m_Corners[1][3] - m_Corners[0][3];
-		}
-
+		CType f_GetWidth();
+		CType f_GetHeight();
+		CType f_GetDepth();
+		CType f_GetNumArrays();
 	};
 
 	template <typename t_CPoint>
@@ -45,66 +29,16 @@ namespace NMib::NGraphics
 
 		t_CPoint m_Dimensions;
 
-		TCImageDimensions(CType _Width = 1, CType _Height = 1, CType _Depth = 1, CType _Arrays = 1)
-		{
-			m_Dimensions[0] = _Width;
-			m_Dimensions[1] = _Height;
-			m_Dimensions[2] = _Depth;
-			m_Dimensions[3] = _Arrays;
-		}
+		TCImageDimensions(CType _Width = 1, CType _Height = 1, CType _Depth = 1, CType _Arrays = 1);
 
-		CType f_GetWidth()
-		{
-			return m_Dimensions[0];
-		}
+		CType f_GetWidth();
+		CType f_GetHeight();
+		CType f_GetDepth();
+		CType f_GetNumArrays();
 
-		CType f_GetHeight()
-		{
-			return m_Dimensions[1];
-		}
-
-		CType f_GetDepth()
-		{
-			return m_Dimensions[2];
-		}
-
-		CType f_GetNumArrays()
-		{
-			return m_Dimensions[3];
-		}
-
-		bool operator == (const TCImageDimensions &_Other) const
-		{
-			if (m_Dimensions[0] != _Other.m_Dimensions[0])
-				return false;
-			if (m_Dimensions[1] != _Other.m_Dimensions[1])
-				return false;
-			if (m_Dimensions[2] != _Other.m_Dimensions[2])
-				return false;
-			if (m_Dimensions[3] != _Other.m_Dimensions[3])
-				return false;
-			return true;
-		}
-
-		COrdering_Strong operator <=> (const TCImageDimensions &_Other) const
-		{
-			if (auto Result = m_Dimensions[0] <=> _Other.m_Dimensions[0]; Result != 0)
-				return Result;
-			if (auto Result = m_Dimensions[1] <=> _Other.m_Dimensions[1]; Result != 0)
-				return Result;
-			if (auto Result = m_Dimensions[2] <=> _Other.m_Dimensions[2]; Result != 0)
-				return Result;
-			if (auto Result = m_Dimensions[3] <=> _Other.m_Dimensions[3]; Result != 0)
-				return Result;
-
-			return COrdering_Strong::equal;
-		}
-
-		CType &operator[] (int _Pos)
-		{
-			return m_Dimensions[_Pos];
-		}
-
+		bool operator == (const TCImageDimensions &_Other) const;
+		COrdering_Strong operator <=> (const TCImageDimensions &_Other) const;
+		CType &operator[] (int _Pos);
 	};
 
 	template <typename t_CPoint>
@@ -115,40 +49,13 @@ namespace NMib::NGraphics
 
 		t_CPoint m_Stride;
 
-		TCImageStride()
-		{
-			m_Stride[0] = 0;
-			m_Stride[1] = 0;
-			m_Stride[2] = 0;
-		}
+		TCImageStride();
+		TCImageStride(CType _Width, CType _Height = 0, CType _Depth = 0);
 
-		TCImageStride(CType _Width, CType _Height = 0, CType _Depth = 0)
-		{
-			m_Stride[0] = _Width;
-			m_Stride[1] = _Height;
-			m_Stride[2] = _Depth;
-		}
-
-		CType f_GetWidth()
-		{
-			return m_Stride[0];
-		}
-
-		CType f_GetHeight()
-		{
-			return m_Stride[1];
-		}
-
-		CType f_GetDepth()
-		{
-			return m_Stride[2];
-		}
-
-		CType &operator[] (int _Pos)
-		{
-			return m_Stride[_Pos];
-		}
-
+		CType f_GetWidth();
+		CType f_GetHeight();
+		CType f_GetDepth();
+		CType &operator[] (int _Pos);
 	};
 
 	using CImageDimensions = TCImageDimensions<NNumeric::CVec4Duint32>;
@@ -1128,44 +1035,15 @@ EImageFormat_##_Name##_High = (uint32(_PhysicalFormat) << 27 | uint32(_PhysicalE
 			CImageStride m_Stride;
 			mint m_InternalData; // Used by the image implementation to store internal data
 		};
-		virtual ~CImage()
-		{
-		}
+		virtual ~CImage();
 
 		template <uint64 _FromFormat, uint64 _ToFormat>
-		static void fs_ConvertImage(CImage &_From, CImage &_To)
-		{
-			CLockedData From;
-			CLockedData To;
-			if (!_From.f_LockRead(From))
-				DMibError("Failed to lock source image");
-			if (!_To.f_LockWrite(To))
-			{
-				_From.f_UnLock(From);
-				DMibError("Failed to lock destinatio image");
-			}
-			CImageDimensions Dimensions;
-			Dimensions.m_Dimensions[0] = fg_Min(_From.m_Dimensions.m_Dimensions[0], _To.m_Dimensions.m_Dimensions[0]);
-			Dimensions.m_Dimensions[1] = fg_Min(_From.m_Dimensions.m_Dimensions[1], _To.m_Dimensions.m_Dimensions[1]);
-			Dimensions.m_Dimensions[2] = fg_Min(_From.m_Dimensions.m_Dimensions[2], _To.m_Dimensions.m_Dimensions[2]);
-			Dimensions.m_Dimensions[3] = fg_Min(_From.m_Dimensions.m_Dimensions[3], _To.m_Dimensions.m_Dimensions[3]);
-
-			TCImageConversion<_FromFormat, _ToFormat>::fs_ConvertImage(From.m_pData, To.m_pData, Dimensions, From.m_Stride, To.m_Stride);
-
-			_To.f_UnLock(To);
-			_From.f_UnLock(From);
-		}
+		static void fs_ConvertImage(CImage &_From, CImage &_To);
 
 		bool f_ConvertInto(CImage &_To);
 
-		virtual bool f_LockRead(CLockedData &_Data)
-		{
-			return f_LockReadWrite(_Data);
-		}
-		virtual bool f_LockWrite(CLockedData &_Data)
-		{
-			return f_LockReadWrite(_Data);
-		}
+		virtual bool f_LockRead(CLockedData &_Data);
+		virtual bool f_LockWrite(CLockedData &_Data);
 
 		virtual bool f_LockReadWrite(CLockedData &_Data) = 0;
 		virtual void f_UnLock(CLockedData &_Data) = 0;
@@ -1200,17 +1078,8 @@ EImageFormat_##_Name##_High = (uint32(_PhysicalFormat) << 27 | uint32(_PhysicalE
 		bool f_Create(const CImage &_Src);
 		bool f_CreateRaw(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride, mint _DataSize);
 
-		bool f_LockReadWrite(CLockedData &_Data)
-		{
-			_Data.m_InternalData = 0;
-			_Data.m_pData = m_Data.f_GetArray();
-			_Data.m_Stride = m_Stride;
-			return true;
-		}
-		void f_UnLock(CLockedData &_Data)
-		{
-
-		}
+		bool f_LockReadWrite(CLockedData &_Data);
+		void f_UnLock(CLockedData &_Data);
 
 		static bool fs_ReadImage(CImageMemory &_Destination, NStr::CStr _FileName);
 		static bool fs_ReadImage(CImageMemory &_Destination, NStream::CBinaryStream &_Stream);
@@ -1219,13 +1088,15 @@ EImageFormat_##_Name##_High = (uint32(_PhysicalFormat) << 27 | uint32(_PhysicalE
 	class CImageIO
 	{
 	public:
-		virtual ~CImageIO() {}
+		virtual ~CImageIO();
 		virtual bool f_DetectFormatFromFilename(const NStr::CStr &_FileName) = 0;
 		virtual bool f_DetectFormatFromStream(NStream::CBinaryStream &_Stream) = 0;
 		virtual bool f_ReadImage(CImageMemory &_Destination, NStream::CBinaryStream &_Stream) = 0;
 		virtual bool f_WriteImage(CImage &_Source, NStream::CBinaryStream &_Stream) = 0;
 	};
 }
+
+#include "Malterlib_Graphics_Image.hpp"
 
 #ifndef DMibPNoShortCuts
 	using namespace NMib::NGraphics;

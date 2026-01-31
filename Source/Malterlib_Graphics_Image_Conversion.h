@@ -84,8 +84,6 @@ public:
 		EFrom_Component3_Usage = DMibGraphicsImageFormat_Get_ComponentUsage(EFrom_Component3),
 		EFrom_Component3_ExpandFormat = DMibGraphicsImageFormat_Get_ComponentExpandFormat(EFrom_Component3),
 
-//		EFrom_Check0 = TCPhysicalFormat<EFrom_PhysicalFormat, EFrom_Component0_NumBits, EFrom_Component1_NumBits, EFrom_Component2_NumBits, EFrom_Component3_NumBits, 0>::ECheck,
-
 		ETo_PhysicalFormat = DMibGraphicsImageFormat_Get_PhysicalFormat(_ToFormat),
 		ETo_PhysicalEdian = DMibGraphicsImageFormat_Get_PhysicalEndian(_ToFormat),
 		ETo_Component0 = DMibGraphicsImageFormat_Get_Component(_ToFormat, 0),
@@ -113,7 +111,6 @@ public:
 		ETo_Component3_Usage = DMibGraphicsImageFormat_Get_ComponentUsage(ETo_Component3),
 		ETo_Component3_ExpandFormat = DMibGraphicsImageFormat_Get_ComponentExpandFormat(ETo_Component3),
 
-//		ETo_Check0 = TCPhysicalFormat<EFrom_PhysicalFormat, EFrom_Component0_NumBits, EFrom_Component1_NumBits, EFrom_Component2_NumBits, EFrom_Component3_NumBits, 0>::ECheck
 	};
 
 	static void fs_ConvertImage(void * _pFrom, void * _pTo, const CImageDimensions &_Dim, const CImageStride &_StrideFrom, const CImageStride &_StrideTo)
