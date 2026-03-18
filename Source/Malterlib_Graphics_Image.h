@@ -36,8 +36,8 @@ namespace NMib::NGraphics
 		CType f_GetDepth();
 		CType f_GetNumArrays();
 
-		bool operator == (const TCImageDimensions &_Other) const;
-		COrdering_Strong operator <=> (const TCImageDimensions &_Other) const;
+		bool operator == (const TCImageDimensions &_Other) const noexcept;
+		COrdering_Strong operator <=> (const TCImageDimensions &_Other) const noexcept;
 		CType &operator[] (int _Pos);
 	};
 

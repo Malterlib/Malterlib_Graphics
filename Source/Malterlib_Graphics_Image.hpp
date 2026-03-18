@@ -67,7 +67,7 @@ namespace NMib::NGraphics
 	}
 
 	template <typename t_CPoint>
-	bool TCImageDimensions<t_CPoint>::operator == (const TCImageDimensions &_Other) const
+	bool TCImageDimensions<t_CPoint>::operator == (const TCImageDimensions &_Other) const noexcept
 	{
 		if (m_Dimensions[0] != _Other.m_Dimensions[0])
 			return false;
@@ -81,7 +81,7 @@ namespace NMib::NGraphics
 	}
 
 	template <typename t_CPoint>
-	COrdering_Strong TCImageDimensions<t_CPoint>::operator <=> (const TCImageDimensions &_Other) const
+	COrdering_Strong TCImageDimensions<t_CPoint>::operator <=> (const TCImageDimensions &_Other) const noexcept
 	{
 		if (auto Result = m_Dimensions[0] <=> _Other.m_Dimensions[0]; Result != 0)
 			return Result;
