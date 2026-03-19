@@ -45,7 +45,7 @@ namespace NMib::NGraphics
 		return f_Create(_Src.m_ImageFormat, _Src.m_Dimensions, _Src.m_Stride);
 	}
 
-	bool CImageMemory::f_CreateRaw(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride, mint _DataSize)
+	bool CImageMemory::f_CreateRaw(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride, umint _DataSize)
 	{
 		DMibFastCheck(_Dimensions.m_Dimensions[0] > 0);
 		DMibFastCheck(_Dimensions.m_Dimensions[1] > 0);
@@ -276,13 +276,13 @@ namespace NMib::NGraphics
 
 				t_ConversionComponentType Intermediate[4];
 
-				for (mint a = 0; a < Arrays; ++a)
+				for (umint a = 0; a < Arrays; ++a)
 				{
-					for (mint z = 0; z < Depth; ++z)
+					for (umint z = 0; z < Depth; ++z)
 					{
-						for (mint y = 0; y < Height; ++y)
+						for (umint y = 0; y < Height; ++y)
 						{
-							for (mint x = 0; x < Width; ++x)
+							for (umint x = 0; x < Width; ++x)
 							{
 								const uint8 *pSrc = ((const uint8 *)LockSrc.m_pData) + x*SrcPixelStride + y*SrcStride[0] + z*SrcStride[1] + a*SrcStride[2];
 								uint8 *pDst = (uint8 *)LockDest.m_pData +  x*DestPixelStride + y*DestStride[0] + z*DestStride[1] + a*DestStride[2];
@@ -331,14 +331,14 @@ namespace NMib::NGraphics
 					uint32 CpyStride = fg_Min(SrcStride[0], DstStride[0]);
 
 
-					for (mint a = 0; a < Arrays; ++a)
+					for (umint a = 0; a < Arrays; ++a)
 					{
-						for (mint z = 0; z < Depth; ++z)
+						for (umint z = 0; z < Depth; ++z)
 						{
 							const uint8 *pSrc = ((const uint8 *)LockSrc.m_pData) + z*SrcStride[1] + a*SrcStride[2];
 							uint8 *pDst = (uint8 *)LockDst.m_pData + z*DstStride[1] + a*DstStride[2];
 
-							for (mint y = 0; y < Height; ++y)
+							for (umint y = 0; y < Height; ++y)
 							{
 								NMemory::fg_MemCopy(pDst, pSrc, CpyStride);
 								pDst += DstStride[0];
@@ -404,14 +404,14 @@ namespace NMib::NGraphics
 					uint32 DstStride[3] = {uint32(LockDst.m_Stride[0]), uint32(LockDst.m_Stride[1]), uint32(LockDst.m_Stride[2])};
 					uint32 CpyStride = fg_Min(SrcStride[0], DstStride[0]);
 
-					for (mint a = 0; a < Arrays; ++a)
+					for (umint a = 0; a < Arrays; ++a)
 					{
-						for (mint z = 0; z < Depth; ++z)
+						for (umint z = 0; z < Depth; ++z)
 						{
 							const uint8 *pSrc = ((const uint8 *)LockSrc.m_pData) + z*SrcStride[1] + a*SrcStride[2];
 							uint8 *pDst = (uint8 *)LockDst.m_pData + z*DstStride[1] + a*DstStride[2];
 
-							for (mint y = 0; y < Height; ++y)
+							for (umint y = 0; y < Height; ++y)
 							{
 								NMemory::fg_MemCopy(pDst, pSrc, CpyStride);
 								pDst += DstStride[0];
@@ -595,14 +595,14 @@ namespace NMib::NGraphics
 				uint32 DstStride[3] = {uint32(LockDst.m_Stride[0]), uint32(LockDst.m_Stride[1]), uint32(LockDst.m_Stride[2])};
 				uint32 CpyStride = fg_Min(SrcStride[0], DstStride[0]);
 
-				for (mint a = 0; a < Arrays; ++a)
+				for (umint a = 0; a < Arrays; ++a)
 				{
-					for (mint z = 0; z < Depth; ++z)
+					for (umint z = 0; z < Depth; ++z)
 					{
 						const uint8 *pSrc = ((const uint8 *)LockSrc.m_pData) + z*SrcStride[1] + a*SrcStride[2];
 						uint8 *pDst = (uint8 *)LockDst.m_pData + z*DstStride[1] + a*DstStride[2] + (Height - 1) * DstStride[0];
 
-						for (mint y = 0; y < Height; ++y)
+						for (umint y = 0; y < Height; ++y)
 						{
 							NMemory::fg_MemCopy(pDst, pSrc, CpyStride);
 							pDst -= DstStride[0];
@@ -637,14 +637,14 @@ namespace NMib::NGraphics
 				uint32 SrcStride[3] = {uint32(LockSrc.m_Stride[0]), uint32(LockSrc.m_Stride[1]), uint32(LockSrc.m_Stride[2])};
 				uint32 DstStride[3] = {uint32(LockDst.m_Stride[0]), uint32(LockDst.m_Stride[1]), uint32(LockDst.m_Stride[2])};
 
-				for (mint a = 0; a < Arrays; ++a)
+				for (umint a = 0; a < Arrays; ++a)
 				{
-					for (mint z = 0; z < Depth; ++z)
+					for (umint z = 0; z < Depth; ++z)
 					{
 						const uint8 *pSrc = ((const uint8 *)LockSrc.m_pData) + z*SrcStride[1] + a*SrcStride[2];
 						uint8 *pDst = (uint8 *)LockDst.m_pData + z*DstStride[1] + a*DstStride[2];
 
-						for (mint y = 0; y < Height; ++y)
+						for (umint y = 0; y < Height; ++y)
 						{
 
 							_Func(pSrc, pDst, Width, SrcStride[0]);
@@ -679,11 +679,11 @@ namespace NMib::NGraphics
 		{
 		case DMibGraphicsImageFormat(R8G8B8_UNorm):
 		case DMibGraphicsImageFormat(B8G8R8_UNorm):
-			return fp_StretchHalfXY_Core(_Dst, [](uint8 const* pSrc, uint8* pDst, mint Width, uint32 SrcStride0){
+			return fp_StretchHalfXY_Core(_Dst, [](uint8 const* pSrc, uint8* pDst, umint Width, uint32 SrcStride0){
 				const uint8 *pSrc0 = (const uint8 *)pSrc;
 				const uint8 *pSrc1 = (const uint8 *)(pSrc + SrcStride0);
 				uint8 *pDst0 = (uint8 *)pDst;
-				for (mint x = 0; x < Width; ++x)
+				for (umint x = 0; x < Width; ++x)
 				{
 					uint32 Pix0R = pSrc0[x*6 + 0];
 					uint32 Pix0G = pSrc0[x*6 + 1];
@@ -710,11 +710,11 @@ namespace NMib::NGraphics
 			break;
 		case DMibGraphicsImageFormat(R8G8B8A8_UNorm):
 		case DMibGraphicsImageFormat(B8G8R8A8_UNorm):
-			return fp_StretchHalfXY_Core(_Dst, [](uint8 const* pSrc, uint8* pDst, mint Width, uint32 SrcStride0){
+			return fp_StretchHalfXY_Core(_Dst, [](uint8 const* pSrc, uint8* pDst, umint Width, uint32 SrcStride0){
 				const uint32 *pSrc0 = (const uint32 *)pSrc;
 				const uint32 *pSrc1 = (const uint32 *)(pSrc + SrcStride0);
 				uint32 *pDst0 = (uint32 *)pDst;
-				for (mint x = 0; x < Width; ++x)
+				for (umint x = 0; x < Width; ++x)
 				{
 					uint32 Pix0 = pSrc0[x*2 + 0];
 					uint32 Pix1 = pSrc0[x*2 + 1];
@@ -776,14 +776,14 @@ namespace NMib::NGraphics
 				uint32 SrcStride[3] = {uint32(LockSrc.m_Stride[0]), uint32(LockSrc.m_Stride[1]), uint32(LockSrc.m_Stride[2])};
 				uint32 DstStride[3] = {uint32(LockDst.m_Stride[0]), uint32(LockDst.m_Stride[1]), uint32(LockDst.m_Stride[2])};
 
-				for (mint a = 0; a < Arrays; ++a)
+				for (umint a = 0; a < Arrays; ++a)
 				{
-					for (mint z = 0; z < Depth; ++z)
+					for (umint z = 0; z < Depth; ++z)
 					{
 						const uint8 *pSrc = ((const uint8 *)LockSrc.m_pData) + z*SrcStride[1] + a*SrcStride[2];
 						uint8 *pDst = (uint8 *)LockDst.m_pData + z*DstStride[1] + a*DstStride[2];
 
-						for (mint y = 0; y < Height; ++y)
+						for (umint y = 0; y < Height; ++y)
 						{
 							switch (m_ImageFormat)
 							{
@@ -792,7 +792,7 @@ namespace NMib::NGraphics
 								{
 									const uint8 *pSrc0 = (const uint8 *)pSrc;
 									uint8 *pDst0 = (uint8 *)pDst;
-									for (mint x = 0; x < Width; ++x)
+									for (umint x = 0; x < Width; ++x)
 									{
 										uint32 Pix0R = pSrc0[x*3 + 0];
 										uint32 Pix0G = pSrc0[x*3 + 1];
@@ -817,7 +817,7 @@ namespace NMib::NGraphics
 								{
 									const uint32 *pSrc0 = (const uint32 *)pSrc;
 									uint32 *pDst0 = (uint32 *)pDst;
-									for (mint x = 0; x < Width; ++x)
+									for (umint x = 0; x < Width; ++x)
 									{
 										uint32 Pix0 = pSrc0[x];
 										uint32 Pix1 = pDst0[x];
@@ -909,15 +909,15 @@ namespace NMib::NGraphics
 				uint32 SourceYAdd = (SrcHeight*EPrecission) / Height;
 				uint32 SourceXAdd = (SrcWidth*EPrecission) / Width;
 
-				for (mint a = 0; a < Arrays; ++a)
+				for (umint a = 0; a < Arrays; ++a)
 				{
-					for (mint z = 0; z < Depth; ++z)
+					for (umint z = 0; z < Depth; ++z)
 					{
 						const uint8 *pSrc = ((const uint8 *)LockSrc.m_pData) + z*SrcStride[1] + a*SrcStride[2];
 						uint8 *pDst = (uint8 *)LockDst.m_pData + z*DstStride[1] + a*DstStride[2];
 
 						CLargeType SourceY = SourceYOffset;
-						for (mint y = 0; y < Height; ++y)
+						for (umint y = 0; y < Height; ++y)
 						{
 							int32 SrcY0 = fg_Clamp(SourceY >> EPrecissionBits, 0, SrcHeight-1);
 							int32 SrcY1 = fg_Clamp(SrcY0 + 1, 0, SrcHeight-1);
@@ -934,8 +934,8 @@ namespace NMib::NGraphics
 
 									CLargeType SourceX = SourceXOffset;
 
-									mint ByteWidth = Width * 3;
-									for (mint x = 0; x < ByteWidth; x+=3)
+									umint ByteWidth = Width * 3;
+									for (umint x = 0; x < ByteWidth; x+=3)
 									{
 										int32 SrcX0 = fg_Clamp((SourceX >> EPrecissionBits), 0, SrcWidth-1);
 										int32 SrcX1 = fg_Clamp(SrcX0 + 1, 0, SrcWidth-1);
@@ -984,7 +984,7 @@ namespace NMib::NGraphics
 									const uint32 *pSrc1 = (const uint32 *)(pSrc + SrcStride[0] * SrcY1);
 									uint32 *pDst0 = (uint32 *)pDst;
 									CLargeType SourceX = SourceXOffset;
-									for (mint x = 0; x < Width; ++x)
+									for (umint x = 0; x < Width; ++x)
 									{
 										int32 SrcX0 = fg_Clamp((SourceX >> EPrecissionBits), 0, SrcWidth-1);
 										int32 SrcX1 = fg_Clamp(SrcX0 + 1, 0, SrcWidth-1);
@@ -1121,14 +1121,14 @@ namespace NMib::NGraphics
 				uint32 SrcStride[3] = {uint32(LockSrc.m_Stride[0]), uint32(LockSrc.m_Stride[1]), uint32(LockSrc.m_Stride[2])};
 				uint32 DstStride[3] = {uint32(LockDst.m_Stride[0]), uint32(LockDst.m_Stride[1]), uint32(LockDst.m_Stride[2])};
 
-				for (mint a = 0; a < Arrays; ++a)
+				for (umint a = 0; a < Arrays; ++a)
 				{
-					for (mint z = 0; z < Depth; ++z)
+					for (umint z = 0; z < Depth; ++z)
 					{
 						const uint8 *pSrc = ((const uint8 *)LockSrc.m_pData) + z*SrcStride[1] + a*SrcStride[2];
 						uint8 *pDst = (uint8 *)LockDst.m_pData + z*DstStride[1] + a*DstStride[2];
 
-						for (mint y = 0; y < Height; ++y)
+						for (umint y = 0; y < Height; ++y)
 						{
 
 							if (m_ImageFormat == DMibGraphicsImageFormat(R8G8B8A8_UNorm) ||
@@ -1136,7 +1136,7 @@ namespace NMib::NGraphics
 							{
 								const uint32 *pSrc0 = (const uint32 *)pSrc;
 								uint32 *pDst0 = (uint32 *)pDst;
-								for (mint x = 0; x < Width; ++x)
+								for (umint x = 0; x < Width; ++x)
 								{
 									pDst0[x] = pSrc0[x] | (0xff << 24);
 								}
@@ -1151,7 +1151,7 @@ namespace NMib::NGraphics
 								}
 								else
 								{
-									for (mint x = 0; x < Width; ++x)
+									for (umint x = 0; x < Width; ++x)
 									{
 										uint32 Pos = x * TotalBits + AlphaBitPos;
 										uint32 BytePos = Pos >> 3;

@@ -1033,7 +1033,7 @@ EImageFormat_##_Name##_High = (uint32(_PhysicalFormat) << 27 | uint32(_PhysicalE
 		public:
 			void *m_pData;
 			CImageStride m_Stride;
-			mint m_InternalData; // Used by the image implementation to store internal data
+			umint m_InternalData; // Used by the image implementation to store internal data
 		};
 		virtual ~CImage();
 
@@ -1076,7 +1076,7 @@ EImageFormat_##_Name##_High = (uint32(_PhysicalFormat) << 27 | uint32(_PhysicalE
 		bool f_Create(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride = CImageStride());
 		bool f_Create(const CImageMemory &_Src);
 		bool f_Create(const CImage &_Src);
-		bool f_CreateRaw(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride, mint _DataSize);
+		bool f_CreateRaw(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride, umint _DataSize);
 
 		bool f_LockReadWrite(CLockedData &_Data);
 		void f_UnLock(CLockedData &_Data);

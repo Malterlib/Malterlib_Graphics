@@ -248,8 +248,8 @@ namespace NMib::NGraphics
 				{
 					uint32 height = png_get_image_height(pPng, pPngInfo);
 					uint8 *pImagePtr = (uint8 *)Data.m_pData;
-					mint DstStride = Data.m_Stride.f_GetWidth();
-					mint RowStride = fg_Min(DstStride, png_get_rowbytes(pPng, pPngInfo));
+					umint DstStride = Data.m_Stride.f_GetWidth();
+					umint RowStride = fg_Min(DstStride, png_get_rowbytes(pPng, pPngInfo));
 					auto pRowPointers = png_get_rows(pPng, pPngInfo);
 					for( uint32 i = 0; i < height; i++ )
 						memcpy( pImagePtr + DstStride * i, pRowPointers[i], RowStride);
