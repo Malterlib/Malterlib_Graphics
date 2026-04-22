@@ -69,7 +69,7 @@ makedeb()
 	mkdir $TMPDIR/DEBIAN
 
 	if [ $SUPPLEMENT = 1 ]; then
-		DESTDIR=$TMPDIR ../../../../../Binaries/Malterlib/macOS/arm64/ninja install
+		DESTDIR=$TMPDIR ../../../../../Binaries/Malterlib/Linux/arm64/ninja install
 		rm -rf $TMPDIR$BINDIR
 		if [ "$DATAROOTDIR" != "$PREFIX" ]; then
 			rm -rf $TMPDIR$DATAROOTDIR
@@ -81,7 +81,7 @@ makedeb()
 		rm -rf $TMPDIR$INCLUDEDIR
 		rm -rf $TMPDIR$MANDIR
 	else
-		DESTDIR=$TMPDIR ../../../../../Binaries/Malterlib/macOS/arm64/ninja install
+		DESTDIR=$TMPDIR ../../../../../Binaries/Malterlib/Linux/arm64/ninja install
 		if [ "$PREFIX" = "/opt/libjpeg-turbo" -a "$DOCDIR" = "/opt/libjpeg-turbo/doc" ]; then
 			safedirmove $TMPDIR/$DOCDIR $TMPDIR/usr/share/doc/$PKGNAME-$VERSION $TMPDIR/__tmpdoc
 			ln -fs /usr/share/doc/$DIRNAME-$VERSION $TMPDIR$DOCDIR

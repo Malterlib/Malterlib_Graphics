@@ -46,7 +46,7 @@ Vendor: The libjpeg-turbo Project
 URL: https://libjpeg-turbo.org
 Group: System Environment/Libraries
 #-->Source0: https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/%{version}/libjpeg-turbo-%{version}.tar.gz
-Release: 20251114
+Release: 20260422
 License: BSD-style
 BuildRoot: %{_blddir}/%{name}-buildroot-%{version}-%{release}
 Requires: /sbin/ldconfig
@@ -108,7 +108,7 @@ reference implementation of the JPEG standard.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-DESTDIR=$RPM_BUILD_ROOT ../../../../../Binaries/Malterlib/macOS/arm64/ninja install
+DESTDIR=$RPM_BUILD_ROOT ../../../../../Binaries/Malterlib/Linux/arm64/ninja install
 /sbin/ldconfig -n $RPM_BUILD_ROOT%{_libdir}
 
 #-->%if 0
