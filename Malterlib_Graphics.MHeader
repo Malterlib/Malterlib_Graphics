@@ -9,6 +9,9 @@ Import "../Core/Lib_Malterlib.MTarget"
 	{
 		Type "External"
 		Remotes += {Name: "upstream", URL: "https://github.com/libjpeg-turbo/libjpeg-turbo.git"}
+		{
+			!!MalterlibAddUpstreams true
+		}
 		DefaultUpstreamBranch "main"
 	}
 }
@@ -110,6 +113,9 @@ Import "../Core/Lib_Malterlib.MTarget"
 	{
 		Type "External"
 		Remotes += {Name: "upstream", URL: "https://github.com/glennrp/libpng.git"}
+		{
+			!!MalterlibAddUpstreams true
+		}
 	}
 }
 
