@@ -1,8 +1,8 @@
 /* libjpeg-turbo build number */
-#define BUILD  "20251114"
+#define BUILD  "20260626"
 
 /* How to hide global symbols. */
-#define HIDDEN  
+#define HIDDEN  __attribute__((visibility("hidden")))
 
 /* Compiler's inline keyword */
 #undef inline
