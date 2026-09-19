@@ -91,6 +91,14 @@ Import "../Core/Lib_Malterlib.MTarget"
 			!!PlatformFamily "Linux"
 		}
 	}
+	Compile
+	{
+		!!CompileDialect "C"
+		Warnings_UnusedButSetVariable false
+		{
+			!!Compiler "Clang"
+		}
+	}
 	%Target "Lib_libjpeg-turbo_jpeg-static"
 	{
 		%Dependency "Lib_libjpeg-turbo_simd"
