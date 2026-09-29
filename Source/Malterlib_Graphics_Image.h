@@ -1023,11 +1023,24 @@ EImageFormat_##_Name##_High = (uint32(_PhysicalFormat) << 27 | uint32(_PhysicalE
 
 	#include "Malterlib_Graphics_Image_Conversion.h"
 
+	// What a file says about the color space of its pixels. A file that says nothing leaves it as it is.
+	struct CImageColorInformation
+	{
+		NContainer::TCVector<uint8> m_Profile; // The ICC profile, as it is in the file
+		bool m_bCodingIndependent = false; // The file has m_CodingIndependent
+		uint8 m_CodingIndependent[4] = {}; // The primaries, the transfer, the matrix and the range of H.273
+		bool m_bSRGB = false; // The file says that it has sRGB
+		pfp64 m_Gamma = 0.0; // The power that the values of the file are the linear values to. 0 when the file does not say
+		bool m_bChromaticities = false; // The file has m_Chromaticities
+		pfp64 m_Chromaticities[8] = {}; // Of white, red, green and blue
+	};
+
 	class CImage
 	{
 	public:
 		uint64 m_ImageFormat;
 		CImageDimensions m_Dimensions;
+		CImageColorInformation m_ColorInformation; // Set when the image is read from a file
 		class CLockedData
 		{
 		public:

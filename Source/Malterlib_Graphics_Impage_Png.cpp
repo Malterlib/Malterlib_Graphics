@@ -48,8 +48,7 @@ namespace NMib::NGraphics
 			try
 			{
 				_Stream.f_ConsumeBytes(Buffer, EPng_SigSize);
-				png_sig_cmp(Buffer, 0, EPng_SigSize);
-				return true;
+				return png_sig_cmp(Buffer, 0, EPng_SigSize) == 0;
 			}
 			catch (NFile::CExceptionFile)
 			{
@@ -243,6 +242,7 @@ namespace NMib::NGraphics
 				}
 
 				_Destination.f_Create(Format, CImageDimensions(png_get_image_width(pPng, pPngInfo), png_get_image_height(pPng, pPngInfo)));
+				fs_ReadColorInformation(pPng, pPngInfo, _Destination.m_ColorInformation);
 				CImage::CLockedData Data;
 				if (_Destination.f_LockWrite(Data))
 				{
@@ -265,6 +265,74 @@ namespace NMib::NGraphics
 			png_destroy_read_struct(&pPng, &pPngInfo, nullptr);
 
 			return bRet;
+		}
+
+		static void fs_ReadColorInformation(png_struct *_pPng, png_info *_pPngInfo, NGraphics::CImageColorInformation &o_Information)
+		{
+			o_Information = NGraphics::CImageColorInformation();
+
+#ifdef PNG_cICP_SUPPORTED
+			{
+				png_byte Primaries = 0;
+				png_byte Transfer = 0;
+				png_byte Matrix = 0;
+				png_byte Range = 0;
+				if (png_get_cICP(_pPng, _pPngInfo, &Primaries, &Transfer, &Matrix, &Range))
+				{
+					o_Information.m_bCodingIndependent = true;
+					o_Information.m_CodingIndependent[0] = Primaries;
+					o_Information.m_CodingIndependent[1] = Transfer;
+					o_Information.m_CodingIndependent[2] = Matrix;
+					o_Information.m_CodingIndependent[3] = Range;
+				}
+			}
+#endif
+
+			{
+				png_charp pName = nullptr;
+				int Compression = 0;
+				png_bytep pProfile = nullptr;
+				png_uint_32 nProfile = 0;
+				if (png_get_iCCP(_pPng, _pPngInfo, &pName, &Compression, &pProfile, &nProfile) && pProfile && nProfile)
+					o_Information.m_Profile.f_Insert(pProfile, nProfile);
+			}
+
+			{
+				int Intent = 0;
+				if (png_get_sRGB(_pPng, _pPngInfo, &Intent))
+					o_Information.m_bSRGB = true;
+			}
+
+			{
+				double Gamma = 0.0;
+				if (png_get_gAMA(_pPng, _pPngInfo, &Gamma) && Gamma > 0.0)
+					o_Information.m_Gamma = Gamma;
+			}
+
+			{
+				double Chromaticities[8] = {};
+				if
+				(
+					png_get_cHRM
+					(
+						_pPng
+						, _pPngInfo
+						, &Chromaticities[0]
+						, &Chromaticities[1]
+						, &Chromaticities[2]
+						, &Chromaticities[3]
+						, &Chromaticities[4]
+						, &Chromaticities[5]
+						, &Chromaticities[6]
+						, &Chromaticities[7]
+					)
+				)
+				{
+					o_Information.m_bChromaticities = true;
+					for (umint i = 0; i < 8; ++i)
+						o_Information.m_Chromaticities[i] = Chromaticities[i];
+				}
+			}
 		}
 
 		bool f_WriteImage(NGraphics::CImage &_Source, NStream::CBinaryStream &_Stream) override

@@ -1,6 +1,7 @@
 // Copyright © Unbroken AB
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
+#include <stdlib.h>
 #include "wchar.h"
 
 #include <setjmp.h>
@@ -310,7 +311,23 @@ namespace NMib::NGraphics
 			DecompressInfo.src = &Source;
 			DecompressInfo.client_data = &Context;
 
+			// The profile for the colors is in markers of the application
+			jpeg_save_markers(&DecompressInfo, JPEG_APP0 + 2, 0xFFFF);
+
 			jpeg_read_header(&DecompressInfo, TRUE);
+
+			_DestinationImage.m_ColorInformation = NGraphics::CImageColorInformation();
+			{
+				JOCTET *pProfile = nullptr;
+				unsigned int nProfile = 0;
+				if (jpeg_read_icc_profile(&DecompressInfo, &pProfile, &nProfile) && pProfile)
+				{
+					if (nProfile)
+						_DestinationImage.m_ColorInformation.m_Profile.f_Insert(pProfile, nProfile);
+
+					free(pProfile);
+				}
+			}
 
 			/* We don't need this as we ask jpeglib to convert to RGB for us.
 			{
