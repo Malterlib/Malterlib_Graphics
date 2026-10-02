@@ -7,7 +7,7 @@
 
 namespace NMib::NGraphics
 {
-	CColorA8R8G8B8::operator CColorR8G8B8() const
+	CColorA8R8G8B8::operator CColorR8G8B8 () const
 	{
 		return CColorR8G8B8::fs_FromRGB(f_Red(), f_Green(), f_Blue());
 	}

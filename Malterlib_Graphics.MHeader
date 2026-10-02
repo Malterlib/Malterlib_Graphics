@@ -159,7 +159,7 @@ Import "../Core/Lib_Malterlib.MTarget"
 	}
 	Compile
 	{
- 		!!CompileDialect "C"
+		!!CompileDialect "C"
 
 		PrefixHeader undefined
 	}
@@ -189,8 +189,14 @@ Compile
 
 Property
 {
-	MalterlibLibJPEGIncludePath: string = GetProperty(&MalterlibTargetIdentityAbsolutePath, "Group:External.Group:libjpeg-turbo.Target:Lib_libjpeg-turbo_jpeg-static.Import:*.Target:Lib_libjpeg-turbo_jpeg-static")
-	MalterlibHasLibJPEG: bool = HasProperty(&MalterlibTargetIdentityAbsolutePath, "Group:External.Group:libjpeg-turbo.Target:Lib_libjpeg-turbo_jpeg-static.Import:*.Target:Lib_libjpeg-turbo_jpeg-static")
+	MalterlibLibJPEGIncludePath: string = GetProperty(
+		&MalterlibTargetIdentityAbsolutePath
+		, "Group:External.Group:libjpeg-turbo.Target:Lib_libjpeg-turbo_jpeg-static.Import:*.Target:Lib_libjpeg-turbo_jpeg-static"
+	)
+	MalterlibHasLibJPEG: bool = HasProperty(
+		&MalterlibTargetIdentityAbsolutePath
+		, "Group:External.Group:libjpeg-turbo.Target:Lib_libjpeg-turbo_jpeg-static.Import:*.Target:Lib_libjpeg-turbo_jpeg-static"
+	)
 	MalterlibUsesLibJPEG: bool = false
 }
 
@@ -239,7 +245,6 @@ Compile
 	}
 }
 
-
 Property
 {
 	MalterlibLibrary_Graphics: bool = MalterlibLibrary_All
@@ -261,4 +266,3 @@ Property
 	MalterlibTests =+ "Malterlib_Graphics"
 	//MalterlibTestFiles_Malterlib_Graphics: [type(CEntity)] = ["Test/*"->MakeAbsolute()]
 }
-

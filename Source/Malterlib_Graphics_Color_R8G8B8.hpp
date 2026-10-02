@@ -27,5 +27,5 @@ namespace NMib::NGraphics
 }
 
 #ifndef DMibPNoShortCuts
-	using namespace NMib::NGraphics;
+using namespace NMib::NGraphics;
 #endif

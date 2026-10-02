@@ -9,7 +9,7 @@ namespace NMib::NGraphics
 
 	struct CColorR8G8B8
 	{
-		operator CColorA8R8G8B8() const;
+		operator CColorA8R8G8B8 () const;
 
 		constexpr auto operator <=> (CColorR8G8B8 const &_Right) const noexcept = default;
 
@@ -24,7 +24,7 @@ namespace NMib::NGraphics
 }
 
 #ifndef DMibPNoShortCuts
-	using namespace NMib::NGraphics;
+using namespace NMib::NGraphics;
 #endif
 
 #include "Malterlib_Graphics_Color_R8G8B8.hpp"
