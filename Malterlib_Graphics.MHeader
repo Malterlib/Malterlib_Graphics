@@ -159,7 +159,7 @@ Import "../Core/Lib_Malterlib.MTarget"
 	}
 	Compile
 	{
- 		!!CompileDialect "C"
+		!!CompileDialect "C"
 
 		PrefixHeader undefined
 	}
@@ -239,7 +239,6 @@ Compile
 	}
 }
 
-
 Property
 {
 	MalterlibLibrary_Graphics: bool = MalterlibLibrary_All
@@ -261,4 +260,3 @@ Property
 	MalterlibTests =+ "Malterlib_Graphics"
 	//MalterlibTestFiles_Malterlib_Graphics: [type(CEntity)] = ["Test/*"->MakeAbsolute()]
 }
-

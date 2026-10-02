@@ -75,38 +75,17 @@ namespace NMib::NGraphics
 
 	constexpr CColorA8R8G8B8 CColorA8R8G8B8::f_Min(CColorA8R8G8B8 _Other) const
 	{
-		return CColorA8R8G8B8::fs_FromRGBA
-			(
-				fg_Min(f_Red(), _Other.f_Red())
-				, fg_Min(f_Green(), _Other.f_Green())
-				, fg_Min(f_Blue(), _Other.f_Blue())
-				, fg_Min(f_Alpha(), _Other.f_Alpha())
-			)
-		;
+		return CColorA8R8G8B8::fs_FromRGBA(fg_Min(f_Red(), _Other.f_Red()), fg_Min(f_Green(), _Other.f_Green()), fg_Min(f_Blue(), _Other.f_Blue()), fg_Min(f_Alpha(), _Other.f_Alpha()));
 	}
 
 	constexpr CColorA8R8G8B8 CColorA8R8G8B8::f_Max(CColorA8R8G8B8 _Other) const
 	{
-		return CColorA8R8G8B8::fs_FromRGBA
-			(
-				fg_Max(f_Red(), _Other.f_Red())
-				, fg_Max(f_Green(), _Other.f_Green())
-				, fg_Max(f_Blue(), _Other.f_Blue())
-				, fg_Max(f_Alpha(), _Other.f_Alpha())
-			)
-		;
+		return CColorA8R8G8B8::fs_FromRGBA(fg_Max(f_Red(), _Other.f_Red()), fg_Max(f_Green(), _Other.f_Green()), fg_Max(f_Blue(), _Other.f_Blue()), fg_Max(f_Alpha(), _Other.f_Alpha()));
 	}
 
 	constexpr CColorA8R8G8B8 CColorA8R8G8B8::f_Invert() const
 	{
-		return CColorA8R8G8B8::fs_FromRGBA
-			(
-				255u - f_Red()
-				, 255u - f_Green()
-				, 255u - f_Blue()
-				, 255u - f_Alpha()
-			)
-		;
+		return CColorA8R8G8B8::fs_FromRGBA(255u - f_Red(), 255u - f_Green(), 255u - f_Blue(), 255u - f_Alpha());
 	}
 
 	constexpr CColorA8R8G8B8 CColorA8R8G8B8::f_Blend(CColorA8R8G8B8 _DestinationColor, CColorBlend const &_Blend)
@@ -156,30 +135,18 @@ namespace NMib::NGraphics
 			{
 				switch (_Operation)
 				{
-					case EColorBlendOperation::mc_Add: return _Color0 + _Color1;
-					case EColorBlendOperation::mc_Subtract: return _Color1 - _Color0;
-					case EColorBlendOperation::mc_ReverseSubtract: return _Color0 - _Color1;
-					case EColorBlendOperation::mc_Min: return _Color0.f_Min(_Color1);
-					case EColorBlendOperation::mc_Max: return _Color0.f_Max(_Color1);
+				case EColorBlendOperation::mc_Add: return _Color0 + _Color1;
+				case EColorBlendOperation::mc_Subtract: return _Color1 - _Color0;
+				case EColorBlendOperation::mc_ReverseSubtract: return _Color0 - _Color1;
+				case EColorBlendOperation::mc_Min: return _Color0.f_Min(_Color1);
+				case EColorBlendOperation::mc_Max: return _Color0.f_Max(_Color1);
 				}
 				return _Color0;
 			}
 		;
 
-		CColorA8R8G8B8 Color = fBlend
-			(
-				_Blend.m_ColorBlendOperation
-				, *this * fGetColor(_Blend.m_SourceColorBlend)
-				, _DestinationColor * fGetColor(_Blend.m_DestinationColorBlend)
-			)
-		;
-		CColorA8R8G8B8 Alpha = fBlend
-			(
-				_Blend.m_AlphaBlendOperation
-				, *this * fGetColor(_Blend.m_SourceAlphaBlend)
-				, _DestinationColor * fGetColor(_Blend.m_DestinationAlphaBlend)
-			)
-		;
+		CColorA8R8G8B8 Color = fBlend(_Blend.m_ColorBlendOperation, *this * fGetColor(_Blend.m_SourceColorBlend), _DestinationColor * fGetColor(_Blend.m_DestinationColorBlend));
+		CColorA8R8G8B8 Alpha = fBlend(_Blend.m_AlphaBlendOperation, *this * fGetColor(_Blend.m_SourceAlphaBlend), _DestinationColor * fGetColor(_Blend.m_DestinationAlphaBlend));
 
 		return CColorA8R8G8B8::fs_FromRGBA(Color.f_Red(), Color.f_Green(), Color.f_Blue(), Alpha.f_Alpha());
 	}
