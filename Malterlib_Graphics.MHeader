@@ -259,6 +259,6 @@ Property
 	!!MalterlibEnableInternalTests true
 
 	MalterlibTests =+ "Malterlib_Graphics"
-	//MalterlibTestFiles_Malterlib_Graphics: [type(CEntity)] = ["Test/*"->MakeAbsolute()]
+	MalterlibTestFiles_Malterlib_Graphics: [type(CEntity)] = ["Test/*"->MakeAbsolute()]
 }
 
