@@ -3,17 +3,16 @@
 
 #pragma once
 
-#include <Mib/Numeric/Vector>
 
 namespace NMib::NGraphics
 {
-	template <typename t_CPoint>
+	template <typename t_CType>
 	class TCImageRect
 	{
 	public:
-		using CType = typename t_CPoint::CType;
+		using CType = t_CType;
 
-		t_CPoint m_Corners[2];
+		CType m_Corners[2][4];
 
 		CType f_GetWidth();
 		CType f_GetHeight();
@@ -21,13 +20,13 @@ namespace NMib::NGraphics
 		CType f_GetNumArrays();
 	};
 
-	template <typename t_CPoint>
+	template <typename t_CType>
 	class TCImageDimensions
 	{
 	public:
-		using CType = typename t_CPoint::CType;
+		using CType = t_CType;
 
-		t_CPoint m_Dimensions;
+		CType m_Dimensions[4];
 
 		TCImageDimensions(CType _Width = 1, CType _Height = 1, CType _Depth = 1, CType _Arrays = 1);
 
@@ -41,13 +40,13 @@ namespace NMib::NGraphics
 		CType &operator[] (int _Pos);
 	};
 
-	template <typename t_CPoint>
+	template <typename t_CType>
 	class TCImageStride
 	{
 	public:
-		using CType = typename t_CPoint::CType;
+		using CType = t_CType;
 
-		t_CPoint m_Stride;
+		CType m_Stride[4];
 
 		TCImageStride();
 		TCImageStride(CType _Width, CType _Height = 0, CType _Depth = 0);
@@ -58,9 +57,9 @@ namespace NMib::NGraphics
 		CType &operator[] (int _Pos);
 	};
 
-	using CImageDimensions = TCImageDimensions<NNumeric::CVec4Duint32>;
-	using CImageStride = TCImageStride<NNumeric::CVec4Duint32>;
-	using CImageRect = TCImageRect<NNumeric::CVec4Duint32>;
+	using CImageDimensions = TCImageDimensions<uint32>;
+	using CImageStride = TCImageStride<uint32>;
+	using CImageRect = TCImageRect<uint32>;
 
 	enum EImageFormatConstant
 	{

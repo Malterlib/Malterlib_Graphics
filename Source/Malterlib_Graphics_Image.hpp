@@ -7,34 +7,34 @@ namespace NMib::NGraphics
 {
 	// TCImageRect implementations
 
-	template <typename t_CPoint>
-	typename TCImageRect<t_CPoint>::CType TCImageRect<t_CPoint>::f_GetWidth()
+	template <typename t_CType>
+	typename TCImageRect<t_CType>::CType TCImageRect<t_CType>::f_GetWidth()
 	{
 		return m_Corners[1][0] - m_Corners[0][0];
 	}
 
-	template <typename t_CPoint>
-	typename TCImageRect<t_CPoint>::CType TCImageRect<t_CPoint>::f_GetHeight()
+	template <typename t_CType>
+	typename TCImageRect<t_CType>::CType TCImageRect<t_CType>::f_GetHeight()
 	{
 		return m_Corners[1][1] - m_Corners[0][1];
 	}
 
-	template <typename t_CPoint>
-	typename TCImageRect<t_CPoint>::CType TCImageRect<t_CPoint>::f_GetDepth()
+	template <typename t_CType>
+	typename TCImageRect<t_CType>::CType TCImageRect<t_CType>::f_GetDepth()
 	{
 		return m_Corners[1][2] - m_Corners[0][2];
 	}
 
-	template <typename t_CPoint>
-	typename TCImageRect<t_CPoint>::CType TCImageRect<t_CPoint>::f_GetNumArrays()
+	template <typename t_CType>
+	typename TCImageRect<t_CType>::CType TCImageRect<t_CType>::f_GetNumArrays()
 	{
 		return m_Corners[1][3] - m_Corners[0][3];
 	}
 
 	// TCImageDimensions implementations
 
-	template <typename t_CPoint>
-	TCImageDimensions<t_CPoint>::TCImageDimensions(CType _Width, CType _Height, CType _Depth, CType _Arrays)
+	template <typename t_CType>
+	TCImageDimensions<t_CType>::TCImageDimensions(CType _Width, CType _Height, CType _Depth, CType _Arrays)
 	{
 		m_Dimensions[0] = _Width;
 		m_Dimensions[1] = _Height;
@@ -42,32 +42,32 @@ namespace NMib::NGraphics
 		m_Dimensions[3] = _Arrays;
 	}
 
-	template <typename t_CPoint>
-	typename TCImageDimensions<t_CPoint>::CType TCImageDimensions<t_CPoint>::f_GetWidth()
+	template <typename t_CType>
+	typename TCImageDimensions<t_CType>::CType TCImageDimensions<t_CType>::f_GetWidth()
 	{
 		return m_Dimensions[0];
 	}
 
-	template <typename t_CPoint>
-	typename TCImageDimensions<t_CPoint>::CType TCImageDimensions<t_CPoint>::f_GetHeight()
+	template <typename t_CType>
+	typename TCImageDimensions<t_CType>::CType TCImageDimensions<t_CType>::f_GetHeight()
 	{
 		return m_Dimensions[1];
 	}
 
-	template <typename t_CPoint>
-	typename TCImageDimensions<t_CPoint>::CType TCImageDimensions<t_CPoint>::f_GetDepth()
+	template <typename t_CType>
+	typename TCImageDimensions<t_CType>::CType TCImageDimensions<t_CType>::f_GetDepth()
 	{
 		return m_Dimensions[2];
 	}
 
-	template <typename t_CPoint>
-	typename TCImageDimensions<t_CPoint>::CType TCImageDimensions<t_CPoint>::f_GetNumArrays()
+	template <typename t_CType>
+	typename TCImageDimensions<t_CType>::CType TCImageDimensions<t_CType>::f_GetNumArrays()
 	{
 		return m_Dimensions[3];
 	}
 
-	template <typename t_CPoint>
-	bool TCImageDimensions<t_CPoint>::operator == (const TCImageDimensions &_Other) const noexcept
+	template <typename t_CType>
+	bool TCImageDimensions<t_CType>::operator == (const TCImageDimensions &_Other) const noexcept
 	{
 		if (m_Dimensions[0] != _Other.m_Dimensions[0])
 			return false;
@@ -80,8 +80,8 @@ namespace NMib::NGraphics
 		return true;
 	}
 
-	template <typename t_CPoint>
-	COrdering_Strong TCImageDimensions<t_CPoint>::operator <=> (const TCImageDimensions &_Other) const noexcept
+	template <typename t_CType>
+	COrdering_Strong TCImageDimensions<t_CType>::operator <=> (const TCImageDimensions &_Other) const noexcept
 	{
 		if (auto Result = m_Dimensions[0] <=> _Other.m_Dimensions[0]; Result != 0)
 			return Result;
@@ -95,50 +95,50 @@ namespace NMib::NGraphics
 		return COrdering_Strong::equal;
 	}
 
-	template <typename t_CPoint>
-	typename TCImageDimensions<t_CPoint>::CType &TCImageDimensions<t_CPoint>::operator[] (int _Pos)
+	template <typename t_CType>
+	typename TCImageDimensions<t_CType>::CType &TCImageDimensions<t_CType>::operator[] (int _Pos)
 	{
 		return m_Dimensions[_Pos];
 	}
 
 	// TCImageStride implementations
 
-	template <typename t_CPoint>
-	TCImageStride<t_CPoint>::TCImageStride()
+	template <typename t_CType>
+	TCImageStride<t_CType>::TCImageStride()
 	{
 		m_Stride[0] = 0;
 		m_Stride[1] = 0;
 		m_Stride[2] = 0;
 	}
 
-	template <typename t_CPoint>
-	TCImageStride<t_CPoint>::TCImageStride(CType _Width, CType _Height, CType _Depth)
+	template <typename t_CType>
+	TCImageStride<t_CType>::TCImageStride(CType _Width, CType _Height, CType _Depth)
 	{
 		m_Stride[0] = _Width;
 		m_Stride[1] = _Height;
 		m_Stride[2] = _Depth;
 	}
 
-	template <typename t_CPoint>
-	typename TCImageStride<t_CPoint>::CType TCImageStride<t_CPoint>::f_GetWidth()
+	template <typename t_CType>
+	typename TCImageStride<t_CType>::CType TCImageStride<t_CType>::f_GetWidth()
 	{
 		return m_Stride[0];
 	}
 
-	template <typename t_CPoint>
-	typename TCImageStride<t_CPoint>::CType TCImageStride<t_CPoint>::f_GetHeight()
+	template <typename t_CType>
+	typename TCImageStride<t_CType>::CType TCImageStride<t_CType>::f_GetHeight()
 	{
 		return m_Stride[1];
 	}
 
-	template <typename t_CPoint>
-	typename TCImageStride<t_CPoint>::CType TCImageStride<t_CPoint>::f_GetDepth()
+	template <typename t_CType>
+	typename TCImageStride<t_CType>::CType TCImageStride<t_CType>::f_GetDepth()
 	{
 		return m_Stride[2];
 	}
 
-	template <typename t_CPoint>
-	typename TCImageStride<t_CPoint>::CType &TCImageStride<t_CPoint>::operator[] (int _Pos)
+	template <typename t_CType>
+	typename TCImageStride<t_CType>::CType &TCImageStride<t_CType>::operator[] (int _Pos)
 	{
 		return m_Stride[_Pos];
 	}
