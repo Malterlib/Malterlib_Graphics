@@ -5,3 +5,9 @@ path = ["ImportCache/**", "**/ImportCache/**", "IC/**", "**/IC/**", "**.MRepo", 
 precedence = "override"
 SPDX-FileCopyrightText = "Unbroken AB"
 SPDX-License-Identifier = "Apache-2.0 WITH LLVM-exception"
+
+[[annotations]]
+path = "Fonts/Unbroken/**"
+precedence = "override"
+SPDX-FileCopyrightText = "Unbroken AB, with Reserved Font Names Unbroken, Unbroken Retina, Unbroken 12 Retina and the others in Fonts/Unbroken/OFL.txt"
+SPDX-License-Identifier = "OFL-1.1"

@@ -9,6 +9,8 @@ The Graphics module has images, the colors of their pixels, and color spaces:
 - **Pixels** - `CColorR8G8B8` and `CColorA8R8G8B8`, and blending
 - **Color spaces** - primaries, curves and the conversions between color spaces, which images and
   renderers use
+- **Fonts** - `CFont`, which renders glyphs with FreeType, and `CPixelFontSet`, fonts that are drawn on
+  a grid of pixels at the sizes where they are pixel perfect
 
 The namespace is `NMib::NGraphics`.
 
@@ -60,9 +62,50 @@ for (umint i = 0; i < 3; ++i)
 Matrix.f_Transform(Linear, Linear);
 ```
 
+## Fonts
+
+`Mib/Graphics/Font` has `CFont`, a font file that FreeType renders glyphs of as coverage at a size in
+pixels for each em, with the grid fitting of the font or, with `EFontGridFitting::mc_None`, the outlines
+as they are. FreeType is `External/freetype`, a fork of the official mirror on GitHub, imported with
+CMake without zlib, bzip2, PNG, HarfBuzz, Brotli and HVF, since only fonts with outlines are rendered. Text is not shaped: a code point is a glyph.
+
+`Mib/Graphics/PixelFont` has `CPixelFontSet`, designs of a font that are drawn on a grid of pixels,
+each at its size in pixels and its cell, the advance and the line. A design is pixel perfect at whole
+multiples of its size, up to `m_MaxScale`, and has the styles that are pixel perfect in it.
+
+- `f_GetSizes` gives every cell that the designs give with a style. Where two give the same cell, the
+  one at the smaller multiple of its size is used, as the standard design at 2 is Retina at 1.
+- `f_Choose` takes a size in points and the pixels for each point of the display, and gives the cell
+  whose height in points is nearest by ratio. On a display with 1.5 pixels for each point, 10 points
+  are the 20 pixels of Retina, which are 13.3 points.
+
+`Mib/Graphics/UnbrokenFont` makes the set of the Unbroken font, from the files in `Fonts/Unbroken`,
+with the sizes and styles that the onboarding of Unbroken Code has:
+
+| Design | Pixels for each em | Cell | Styles | Used at |
+|---|---|---|---|---|
+| Unbroken | 10 | 6x10 | Regular | 1, 3 and 5 times |
+| Unbroken Retina | 20 | 12x20 | Regular and bold | 1 to 5 times |
+| Unbroken 12 Retina | 24 | 14x24 | Regular and bold | 1 to 5 times |
+
+- The strokes of bold and italic are not on whole pixels in the design of 10 pixels, and italics are
+  slanted in all of them, so the set does not have them.
+- The fonts are rendered without grid fitting. Their outlines are drawn on the grid of pixels, and the
+  instructions that ttfautohint added to the files move details off it: the dot of `0` is moved up and
+  is heavier at the top than at the bottom, where without them it is in the middle, and the strokes of
+  bold have pixels that are 1 % short of whole.
+- Straight strokes cover whole pixels, and curves and diagonals are drawn with pixels that are partly
+  covered by the design. Some edges of the files are a unit or two off the grid, which leaves 1 % of
+  a pixel.
+- The fonts are under the SIL Open Font License, `Fonts/Unbroken/OFL.txt`. They are the release of
+  December 2025 from https://unbroken.se/font (`/downloads/UnbrokenFont.zip`), which is updated by
+  replacing the files with the ones of a newer release.
+
 ## Testing
 
 ```bash
 MalterlibBuildShowProgress=false ./mib build-target Tests Com_Test_Malterlib_Graphics
 /opt/Deploy/Tests/RunAllTests --paths '["Malterlib/Graphics/*"]'
 ```
+
+The tests of fonts read `Fonts/Unbroken` from where the source of the test is.

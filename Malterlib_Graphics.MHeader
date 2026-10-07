@@ -3,6 +3,17 @@
 
 Import "../Core/Lib_Malterlib.MTarget"
 
+Repository
+{
+	License #<ReuseAnnotations> =+ [{
+			Path: ["Fonts/Unbroken/*"]
+			, CopyrightText: "Unbroken AB, with Reserved Font Names Unbroken, Unbroken Retina, Unbroken 12 Retina and the others in Fonts/Unbroken/OFL.txt"
+			, LicenseIdentifier: "OFL-1.1"
+			, Precedence: "override"
+		}
+	]
+}
+
 %Repository "libjpeg-turbo"
 {
 	Repository
@@ -167,6 +178,39 @@ Import "../Core/Lib_Malterlib.MTarget"
 
 Import "../../External/zlib/zlib.MTarget"
 
+// The upstream is the official mirror of https://gitlab.freedesktop.org/freetype/freetype
+%Repository "freetype"
+{
+	Repository
+	{
+		Type "External"
+		Remotes += {Name: "upstream", URL: "https://github.com/freetype/freetype.git"}
+		{
+			!!MalterlibAddUpstreams true
+		}
+	}
+}
+
+%Import "../../External/freetype/CMakeLists.txt"
+{
+	Import.CMake_Variables =+ [
+		"BUILD_SHARED_LIBS=OFF"
+		, "FT_DISABLE_ZLIB=ON"
+		, "FT_DISABLE_BZIP2=ON"
+		, "FT_DISABLE_PNG=ON"
+		, "FT_DISABLE_HARFBUZZ=ON"
+		, "FT_DISABLE_BROTLI=ON"
+		, "FT_DISABLE_HVF=ON"
+	]
+
+	Compile
+	{
+		!!CompileDialect "C"
+
+		PrefixHeader undefined
+	}
+}
+
 Property
 {
 	MalterlibTargetIdentityAbsolutePath: string = Target:this.IdentityAsAbsolutePath->GetPath()
@@ -205,12 +249,29 @@ Compile
 	SearchPath =+ [MalterlibLibJPEGIncludePath, "../../External/libjpeg-turbo/src"->MakeAbsolute()]
 }
 
+Property
+{
+	MalterlibUsesFreeType: bool = false
+}
+
+Compile
+{
+	&
+	{
+		CompileDialect "C"
+		MalterlibUsesFreeType true
+		!DocumentationEnabled true
+	}
+	SearchPath =+ ["../../External/freetype/include"->MakeAbsolute()]
+}
+
 %Group "{Malterlib}/{Lib_Malterlib_Graphics}"
 {
 	Property
 	{
 		MalterlibUsesLibJPEG true
 		MalterlibUsesLibPNG true
+		MalterlibUsesFreeType true
 	}
 	%Group "Graphics"
 	{
@@ -236,6 +297,7 @@ Compile
 
 		%Dependency "Lib_libjpeg-turbo_jpeg-static"
 		%Dependency "Lib_libpng_png_static"
+		%Dependency "Lib_freetype_freetype"
 	}
 }
 
