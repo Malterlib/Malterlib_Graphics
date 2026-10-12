@@ -1,4 +1,7 @@
 {
+	"../../External/freetype": {
+		"Hash": "d5d4bef0c6d5363931d346a6b2380317a32b8601"
+	},
 	"../../External/libjpeg-turbo": {
 		"Hash": "abc11c140d946acc8db8857bc9d05a0fed339b5b"
 	},
