@@ -1,0 +1,609 @@
+Property.CMakeOutputPath_freetype: string = `@('.'->MakeAbsolute())`->MakeAbsolute()
+%Target "Lib_freetype_freetype"
+{
+	Compile
+	{
+		!!Compile.Type "C"
+		SearchPath += [
+			`@('.'->MakeAbsolute())/include`->MakeAbsolute(),
+			`@(CMakeIntermediateDirectory)/External_freetype`->MakeAbsolute(),
+			`@('../../../../External/freetype'->MakeAbsolute())/include`->MakeAbsolute(),
+			`@('.'->MakeAbsolute())/include/freetype/config`->MakeAbsolute(),
+			`@(CMakeIntermediateDirectory)/External_freetype`->MakeAbsolute()
+		]
+		PreprocessorDefines += [
+			"FT2_BUILD_LIBRARY"
+		]
+	}
+	Property.MalterlibTargetNameType "Normal"
+	Compile.AllowNonExisting true
+	Target.Group "External/freetype"
+	{
+		!!Target.Group undefined
+	}
+	Target.Type "StaticLibrary"
+	Target.BaseName "freetype_freetype"
+	Target.BaseFileName "freetype"
+	%Group "include"
+	{
+		%Group "freetype"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/freetype.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftadvanc.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftbbox.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftbdf.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftbitmap.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftbzip2.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftcache.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftchapters.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftcid.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftcolor.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftdriver.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/fterrdef.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/fterrors.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftfntfmt.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftgasp.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftglyph.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftgxval.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftgzip.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftimage.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftincrem.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftlcdfil.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftlist.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftlogging.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftlzw.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftmac.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftmm.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftmodapi.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftmoderr.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftotval.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftoutln.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftparams.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftpfr.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftrender.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftsizes.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftsnames.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftstroke.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftsynth.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftsystem.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/fttrigon.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/fttypes.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ftwinfnt.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/otsvg.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/t1tables.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/ttnameid.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/tttables.h`
+			{
+				Compile.Disabled true
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/tttags.h`
+			{
+				Compile.Disabled true
+			}
+			%Group "config"
+			{
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/config/ftconfig.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/config/ftheader.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/config/ftmodule.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/config/ftoption.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/config/ftstdlib.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/config/integer-types.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/config/mac-support.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/config/public-macros.h`
+				{
+					Compile.Disabled true
+				}
+			}
+			%Group "internal"
+			{
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/autohint.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/cffotypes.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/cfftypes.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/compiler-macros.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/ftcalc.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/ftdebug.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/ftdrv.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/ftgloadr.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/fthash.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/ftmemory.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/ftmmtypes.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/ftobjs.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/ftpsprop.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/ftrfork.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/ftserv.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/ftstream.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/fttrace.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/ftvalid.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/psaux.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/pshints.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/sfnt.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/svginterface.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/t1types.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/tttypes.h`
+				{
+					Compile.Disabled true
+				}
+				%File `@('../../../../External/freetype'->MakeAbsolute())/include/freetype/internal/wofftypes.h`
+				{
+					Compile.Disabled true
+				}
+			}
+		}
+		%File `@('../../../../External/freetype'->MakeAbsolute())/include/ft2build.h`
+		{
+			Compile.Disabled true
+		}
+	}
+	%Group "src"
+	{
+		%Group "autofit"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/autofit/autofit.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "base"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftbase.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftbbox.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftbdf.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftbitmap.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftcid.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftfstype.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftgasp.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftglyph.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftgxval.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftinit.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftmm.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftotval.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftpatent.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftpfr.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftstroke.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftsynth.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/fttype1.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftwinfnt.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/base/ftdebug.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "bdf"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/bdf/bdf.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "bzip2"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/bzip2/ftbzip2.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "cache"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/cache/ftcache.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "cff"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/cff/cff.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "cid"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/cid/type1cid.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "gzip"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/gzip/ftgzip.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "hvf"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/hvf/hvf.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "lzw"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/lzw/ftlzw.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "pcf"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/pcf/pcf.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "pfr"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/pfr/pfr.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "psaux"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/psaux/psaux.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "pshinter"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/pshinter/pshinter.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "psnames"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/psnames/psnames.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "raster"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/raster/raster.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "sdf"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/sdf/sdf.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "sfnt"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/sfnt/sfnt.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "smooth"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/smooth/smooth.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "svg"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/svg/svg.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "truetype"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/truetype/truetype.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "type1"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/type1/type1.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "type42"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/type42/type42.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%Group "winfonts"
+		{
+			%File `@('../../../../External/freetype'->MakeAbsolute())/src/winfonts/winfnt.c`
+			{
+				Compile.Type "C"
+			}
+		}
+	}
+	%Group "builds"
+	{
+		%File `@('../../../../External/freetype'->MakeAbsolute())/builds/unix/ftsystem.c`
+		{
+			Compile.Type "C"
+		}
+	}
+}
