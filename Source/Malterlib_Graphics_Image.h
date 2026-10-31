@@ -166,8 +166,10 @@ namespace NMib::NGraphics
 
 	// Component0_Component|Component0_Type<<4|Component
 
-#define DMibGraphicsImageFormat_Component(_nBits, _SourceComponent, _Usage, _ExpandFormat) ((uint32(_nBits) << 8) | (uint32(_SourceComponent) << 5) | (uint32(_Usage) << 2) | uint32(_ExpandFormat))
-#define DMibGraphicsImageFormat_Build(_Component0, _Component1, _Component2, _Component3) ((uint64(_Component0) << 14*3) | (uint64(_Component1) << 14*2) | (uint64(_Component2) << 14*1)| (uint64(_Component3)))
+#define DMibGraphicsImageFormat_Component(_nBits, _SourceComponent, _Usage, _ExpandFormat) \
+	((uint32(_nBits) << 8) | (uint32(_SourceComponent) << 5) | (uint32(_Usage) << 2) | uint32(_ExpandFormat))
+#define DMibGraphicsImageFormat_Build(_Component0, _Component1, _Component2, _Component3) \
+	((uint64(_Component0) << 14*3) | (uint64(_Component1) << 14*2) | (uint64(_Component2) << 14*1)| (uint64(_Component3)))
 #define DMibGraphicsImageFormat_Build_Low(_Component0, _Component1, _Component2, _Component3) (DMibGraphicsImageFormat_Build(_Component0, _Component1, _Component2, _Component3) & 0xFFFFffff)
 #define DMibGraphicsImageFormat_Build_High(_Component0, _Component1, _Component2, _Component3) (DMibGraphicsImageFormat_Build(_Component0, _Component1, _Component2, _Component3) >> 32)
 #define DMibGraphicsImageFormat_DefineEnums(_Name, _PhysicalFormat, _PhysicalEndian, _Component0, _Component1, _Component2, _Component3) \
