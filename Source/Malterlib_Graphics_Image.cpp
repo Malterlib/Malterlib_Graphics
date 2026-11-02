@@ -362,30 +362,30 @@ namespace NMib::NGraphics
 			return false;
 		}
 
-#define MAKE_CONVERSION(_FromFormat, _ToFormat, _CompType)					\
-	else if (SrcFormat == _FromFormat && DstFormat == _ToFormat)	\
+#define DMakeConversion(d_FromFormat, d_ToFormat, d_CompType)					\
+	else if (SrcFormat == d_FromFormat && DstFormat == d_ToFormat)	\
 	{																\
-		return fs_Convert<_FromFormat, _ToFormat, _CompType>(*this, _To);	\
+		return fs_Convert<d_FromFormat, d_ToFormat, d_CompType>(*this, _To);	\
 	}
 
 		if (0)
 		{
 		}
-		MAKE_CONVERSION(DMibGraphicsImageFormat(B8G8R8A8_UNorm), DMibGraphicsImageFormat(R8G8B8A8_UNorm), uint8)
-		MAKE_CONVERSION(DMibGraphicsImageFormat(B8G8R8A8_UNorm), DMibGraphicsImageFormat(R8G8B8_UNorm), uint8)
-		MAKE_CONVERSION(DMibGraphicsImageFormat(B8G8R8A8_UNorm), DMibGraphicsImageFormat(B8G8R8_UNorm), uint8)
+		DMakeConversion(DMibGraphicsImageFormat(B8G8R8A8_UNorm), DMibGraphicsImageFormat(R8G8B8A8_UNorm), uint8)
+		DMakeConversion(DMibGraphicsImageFormat(B8G8R8A8_UNorm), DMibGraphicsImageFormat(R8G8B8_UNorm), uint8)
+		DMakeConversion(DMibGraphicsImageFormat(B8G8R8A8_UNorm), DMibGraphicsImageFormat(B8G8R8_UNorm), uint8)
 
-		MAKE_CONVERSION(DMibGraphicsImageFormat(B8G8R8_UNorm), DMibGraphicsImageFormat(B8G8R8A8_UNorm), uint8)
-		MAKE_CONVERSION(DMibGraphicsImageFormat(B8G8R8_UNorm), DMibGraphicsImageFormat(R8G8B8A8_UNorm), uint8)
-		MAKE_CONVERSION(DMibGraphicsImageFormat(B8G8R8_UNorm), DMibGraphicsImageFormat(R8G8B8_UNorm), uint8)
+		DMakeConversion(DMibGraphicsImageFormat(B8G8R8_UNorm), DMibGraphicsImageFormat(B8G8R8A8_UNorm), uint8)
+		DMakeConversion(DMibGraphicsImageFormat(B8G8R8_UNorm), DMibGraphicsImageFormat(R8G8B8A8_UNorm), uint8)
+		DMakeConversion(DMibGraphicsImageFormat(B8G8R8_UNorm), DMibGraphicsImageFormat(R8G8B8_UNorm), uint8)
 
-		MAKE_CONVERSION(DMibGraphicsImageFormat(R8G8B8A8_UNorm), DMibGraphicsImageFormat(B8G8R8A8_UNorm), uint8)
-		MAKE_CONVERSION(DMibGraphicsImageFormat(R8G8B8A8_UNorm), DMibGraphicsImageFormat(R8G8B8_UNorm), uint8)
-		MAKE_CONVERSION(DMibGraphicsImageFormat(R8G8B8A8_UNorm), DMibGraphicsImageFormat(B8G8R8_UNorm), uint8)
+		DMakeConversion(DMibGraphicsImageFormat(R8G8B8A8_UNorm), DMibGraphicsImageFormat(B8G8R8A8_UNorm), uint8)
+		DMakeConversion(DMibGraphicsImageFormat(R8G8B8A8_UNorm), DMibGraphicsImageFormat(R8G8B8_UNorm), uint8)
+		DMakeConversion(DMibGraphicsImageFormat(R8G8B8A8_UNorm), DMibGraphicsImageFormat(B8G8R8_UNorm), uint8)
 
-		MAKE_CONVERSION(DMibGraphicsImageFormat(R8G8B8_UNorm), DMibGraphicsImageFormat(B8G8R8A8_UNorm), uint8)
-		MAKE_CONVERSION(DMibGraphicsImageFormat(R8G8B8_UNorm), DMibGraphicsImageFormat(R8G8B8A8_UNorm), uint8)
-		MAKE_CONVERSION(DMibGraphicsImageFormat(R8G8B8_UNorm), DMibGraphicsImageFormat(B8G8R8_UNorm), uint8)
+		DMakeConversion(DMibGraphicsImageFormat(R8G8B8_UNorm), DMibGraphicsImageFormat(B8G8R8A8_UNorm), uint8)
+		DMakeConversion(DMibGraphicsImageFormat(R8G8B8_UNorm), DMibGraphicsImageFormat(R8G8B8A8_UNorm), uint8)
+		DMakeConversion(DMibGraphicsImageFormat(R8G8B8_UNorm), DMibGraphicsImageFormat(B8G8R8_UNorm), uint8)
 		else
 		{
 			uint32 SrcPhysical = DMibGraphicsImageFormat_Get_PhysicalFormat(SrcFormat);

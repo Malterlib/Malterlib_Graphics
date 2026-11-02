@@ -166,15 +166,18 @@ namespace NMib::NGraphics
 
 	// Component0_Component|Component0_Type<<4|Component
 
-#define DMibGraphicsImageFormat_Component(_nBits, _SourceComponent, _Usage, _ExpandFormat) \
-	((uint32(_nBits) << 8) | (uint32(_SourceComponent) << 5) | (uint32(_Usage) << 2) | uint32(_ExpandFormat))
-#define DMibGraphicsImageFormat_Build(_Component0, _Component1, _Component2, _Component3) \
-	((uint64(_Component0) << 14*3) | (uint64(_Component1) << 14*2) | (uint64(_Component2) << 14*1)| (uint64(_Component3)))
-#define DMibGraphicsImageFormat_Build_Low(_Component0, _Component1, _Component2, _Component3) (DMibGraphicsImageFormat_Build(_Component0, _Component1, _Component2, _Component3) & 0xFFFFffff)
-#define DMibGraphicsImageFormat_Build_High(_Component0, _Component1, _Component2, _Component3) (DMibGraphicsImageFormat_Build(_Component0, _Component1, _Component2, _Component3) >> 32)
-#define DMibGraphicsImageFormat_DefineEnums(_Name, _PhysicalFormat, _PhysicalEndian, _Component0, _Component1, _Component2, _Component3) \
-	EImageFormat_##_Name##_Low = DMibGraphicsImageFormat_Build_Low(_Component0, _Component1, _Component2, _Component3),\
-	EImageFormat_##_Name##_High = (uint32(_PhysicalFormat) << 27 | uint32(_PhysicalEndian) << 24) | DMibGraphicsImageFormat_Build_High(_Component0, _Component1, _Component2, _Component3)
+#define DMibGraphicsImageFormat_Component(d_nBits, d_SourceComponent, d_Usage, d_ExpandFormat) \
+	((uint32(d_nBits) << 8) | (uint32(d_SourceComponent) << 5) | (uint32(d_Usage) << 2) | uint32(d_ExpandFormat))
+#define DMibGraphicsImageFormat_Build(d_Component0, d_Component1, d_Component2, d_Component3) \
+	((uint64(d_Component0) << 14*3) | (uint64(d_Component1) << 14*2) | (uint64(d_Component2) << 14*1)| (uint64(d_Component3)))
+#define DMibGraphicsImageFormat_Build_Low(d_Component0, d_Component1, d_Component2, d_Component3) \
+	(DMibGraphicsImageFormat_Build(d_Component0, d_Component1, d_Component2, d_Component3) & 0xFFFFffff)
+#define DMibGraphicsImageFormat_Build_High(d_Component0, d_Component1, d_Component2, d_Component3) \
+	(DMibGraphicsImageFormat_Build(d_Component0, d_Component1, d_Component2, d_Component3) >> 32)
+#define DMibGraphicsImageFormat_DefineEnums(d_Name, d_PhysicalFormat, d_PhysicalEndian, d_Component0, d_Component1, d_Component2, d_Component3) \
+	EImageFormat_##d_Name##_Low = DMibGraphicsImageFormat_Build_Low(d_Component0, d_Component1, d_Component2, d_Component3),\
+	EImageFormat_##d_Name##_High = (uint32(d_PhysicalFormat) << 27 | uint32(d_PhysicalEndian) << 24) \
+		| DMibGraphicsImageFormat_Build_High(d_Component0, d_Component1, d_Component2, d_Component3)
 
 	enum EImageFormat
 	{
@@ -1623,15 +1626,15 @@ namespace NMib::NGraphics
 		)
 	};
 
-#define DMibGraphicsImageFormat(_Name) (uint64(NGraphics::EImageFormat_##_Name##_High) << 32 | uint64(NGraphics::EImageFormat_##_Name##_Low))
+#define DMibGraphicsImageFormat(d_Name) (uint64(NGraphics::EImageFormat_##d_Name##_High) << 32 | uint64(NGraphics::EImageFormat_##d_Name##_Low))
 
-#define DMibGraphicsImageFormat_Get_Component(_Format, _Component) ((_Format >> (3-_Component) * 14) & ((1 << 14) - 1))
-#define DMibGraphicsImageFormat_Get_ComponentExpandFormat(_Component) (_Component & 3)
-#define DMibGraphicsImageFormat_Get_ComponentUsage(_Component) ((_Component >> 2) & 7)
-#define DMibGraphicsImageFormat_Get_ComponentSourceComponent(_Component) ((_Component >> 5) & 7)
-#define DMibGraphicsImageFormat_Get_ComponentNumBits(_Component) ((_Component >> 8) & 63)
-#define DMibGraphicsImageFormat_Get_PhysicalEndian(_Format) ((_Format >> (32+24)) & (7))
-#define DMibGraphicsImageFormat_Get_PhysicalFormat(_Format) (_Format >> (32+27))
+#define DMibGraphicsImageFormat_Get_Component(d_Format, d_Component) ((d_Format >> (3-d_Component) * 14) & ((1 << 14) - 1))
+#define DMibGraphicsImageFormat_Get_ComponentExpandFormat(d_Component) (d_Component & 3)
+#define DMibGraphicsImageFormat_Get_ComponentUsage(d_Component) ((d_Component >> 2) & 7)
+#define DMibGraphicsImageFormat_Get_ComponentSourceComponent(d_Component) ((d_Component >> 5) & 7)
+#define DMibGraphicsImageFormat_Get_ComponentNumBits(d_Component) ((d_Component >> 8) & 63)
+#define DMibGraphicsImageFormat_Get_PhysicalEndian(d_Format) ((d_Format >> (32+24)) & (7))
+#define DMibGraphicsImageFormat_Get_PhysicalFormat(d_Format) (d_Format >> (32+27))
 
 #include "Malterlib_Graphics_Image_Conversion.h"
 

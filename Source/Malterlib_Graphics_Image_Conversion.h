@@ -37,9 +37,9 @@ public:
 		};
 	};
 
-#define ETemp_ImplementCheck(_Format, _nBits0, _nBits1, _nBits2, _nBits3) \
+#define DTemp_ImplementCheck(d_Format, d_nBits0, d_nBits1, d_nBits2, d_nBits3) \
 	template <uint32 _MakePartial>\
-	class TCPhysicalFormat<_Format, _nBits0, _nBits1, _nBits2, _nBits3, _MakePartial>\
+	class TCPhysicalFormat<d_Format, d_nBits0, d_nBits1, d_nBits2, d_nBits3, _MakePartial>\
 	{\
 	public:\
 		enum\
@@ -48,9 +48,9 @@ public:
 		};\
 	}
 
-	ETemp_ImplementCheck(EImageFormatConstant_Format_Float, 32, 32, 32, 32);
+	DTemp_ImplementCheck(EImageFormatConstant_Format_Float, 32, 32, 32, 32);
 
-#undef ETemp_ImplementCheck
+#undef DTemp_ImplementCheck
 
 	enum
 	{
