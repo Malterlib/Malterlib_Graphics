@@ -1661,8 +1661,8 @@ namespace NMib::NGraphics
 		virtual bool f_LockReadWrite(CLockedData &_Data) = 0;
 		virtual void f_UnLock(CLockedData &_Data) = 0;
 
-		static bool fs_WriteImage(CImage &_Destination, NStr::CStr _FileName);
-		static bool fs_WriteImage(CImage &_Destination, NStream::CBinaryStream &_Stream, NStr::CStr _Type);
+		static bool fs_WriteImage(CImage &_Destination, NStr::CStr const &_FileName);
+		static bool fs_WriteImage(CImage &_Destination, NStream::CBinaryStream &_Stream, NStr::CStr const &_Type);
 
 		bool f_FlipHorizontal(CImage &_Dst);
 		bool f_RemoveAlpha(CImage &_Dst);
@@ -1693,7 +1693,7 @@ namespace NMib::NGraphics
 		bool f_LockReadWrite(CLockedData &_Data);
 		void f_UnLock(CLockedData &_Data);
 
-		static bool fs_ReadImage(CImageMemory &_Destination, NStr::CStr _FileName);
+		static bool fs_ReadImage(CImageMemory &_Destination, NStr::CStr const &_FileName);
 		static bool fs_ReadImage(CImageMemory &_Destination, NStream::CBinaryStream &_Stream);
 	};
 

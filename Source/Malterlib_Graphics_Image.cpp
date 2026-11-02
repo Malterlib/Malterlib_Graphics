@@ -462,7 +462,7 @@ namespace NMib::NGraphics
 		return false;
 	}
 
-	bool CImageMemory::fs_ReadImage(CImageMemory &_Destination, NStr::CStr _FileName)
+	bool CImageMemory::fs_ReadImage(CImageMemory &_Destination, NStr::CStr const &_FileName)
 	{
 		NMib::CRunTimeObjectInfo *pTests = fg_GetRuntimeTypeInfo("NMib::NGraphics::CImageIO");
 		NFile::TCBinaryStreamFile<> Stream;
@@ -523,7 +523,7 @@ namespace NMib::NGraphics
 		return false;
 	}
 
-	bool CImage::fs_WriteImage(CImage &_Source, NStr::CStr _FileName)
+	bool CImage::fs_WriteImage(CImage &_Source, NStr::CStr const &_FileName)
 	{
 		NMib::CRunTimeObjectInfo *pTests = fg_GetRuntimeTypeInfo("NMib::NGraphics::CImageIO");
 		bool bRet = false;
@@ -550,7 +550,7 @@ namespace NMib::NGraphics
 		return bRet;
 	}
 
-	bool CImage::fs_WriteImage(CImage &_Source, NStream::CBinaryStream &_Stream, NStr::CStr _Type)
+	bool CImage::fs_WriteImage(CImage &_Source, NStream::CBinaryStream &_Stream, NStr::CStr const &_Type)
 	{
 		NMib::CRunTimeObjectInfo *pTests = fg_GetRuntimeTypeInfo("NMib::NGraphics::CImageIO");
 
