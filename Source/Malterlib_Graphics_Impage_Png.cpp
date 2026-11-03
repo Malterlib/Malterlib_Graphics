@@ -245,13 +245,13 @@ namespace NMib::NGraphics
 				CImage::CLockedData Data;
 				if (_Destination.f_LockWrite(Data))
 				{
-					uint32 height = png_get_image_height(pPng, pPngInfo);
+					uint32 Height = png_get_image_height(pPng, pPngInfo);
 					uint8 *pImagePtr = (uint8 *)Data.m_pData;
 					umint DstStride = Data.m_Stride.f_GetWidth();
 					umint RowStride = fg_Min(DstStride, png_get_rowbytes(pPng, pPngInfo));
 					auto pRowPointers = png_get_rows(pPng, pPngInfo);
-					for (uint32 i = 0; i < height; i++)
-						memcpy(pImagePtr + DstStride * i, pRowPointers[i], RowStride);
+					for (uint32 iRow = 0; iRow < Height; iRow++)
+						memcpy(pImagePtr + DstStride * iRow, pRowPointers[iRow], RowStride);
 
 					_Destination.f_UnLock(Data);
 					bRet = true;
@@ -325,12 +325,12 @@ namespace NMib::NGraphics
 					png_bytep pImagePtr = (png_bytep)Data.m_pData;
 					uint32 Stride = Data.m_Stride[0];
 					uint32 Height = _Source.m_Dimensions.f_GetHeight();
-					NContainer::TCVector<png_bytep> lRowPointers;
-					lRowPointers.f_SetLen(Height);
-					for (uint32 i = 0; i < Height; i++)
-						lRowPointers[i] = pImagePtr + i * Stride;
+					NContainer::TCVector<png_bytep> RowPointers;
+					RowPointers.f_SetLen(Height);
+					for (uint32 iRow = 0; iRow < Height; iRow++)
+						RowPointers[iRow] = pImagePtr + iRow * Stride;
 
-					png_write_image(pPng, lRowPointers.f_GetArray());
+					png_write_image(pPng, RowPointers.f_GetArray());
 					_Source.f_UnLock(Data);
 					png_write_end(pPng, pPngInfo);
 					bRet = true;

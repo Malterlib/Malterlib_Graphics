@@ -157,15 +157,15 @@ namespace NMib::NGraphics
 				{
 					uint8 *pRowPtr = pImagePtr;
 
-					for (uint32 iX = 0; iX < Width; ++iX)
+					for (uint32 iColumn = 0; iColumn < Width; ++iColumn)
 					{
-						uint8 R = pRowPtr[0];
-						uint8 G = pRowPtr[1];
-						uint8 B = pRowPtr[2];
+						uint8 Red = pRowPtr[0];
+						uint8 Green = pRowPtr[1];
+						uint8 Blue = pRowPtr[2];
 
-						pRowPtr[0] = B;
-						pRowPtr[1] = G;
-						pRowPtr[2] = R;
+						pRowPtr[0] = Blue;
+						pRowPtr[1] = Green;
+						pRowPtr[2] = Red;
 
 						pRowPtr += 3;
 					}

@@ -284,16 +284,16 @@ namespace NMib::NGraphics
 
 				tf_CConversionComponent Intermediate[4];
 
-				for (umint a = 0; a < Arrays; ++a)
+				for (umint iArray = 0; iArray < Arrays; ++iArray)
 				{
-					for (umint z = 0; z < Depth; ++z)
+					for (umint iDepth = 0; iDepth < Depth; ++iDepth)
 					{
-						for (umint y = 0; y < Height; ++y)
+						for (umint iRow = 0; iRow < Height; ++iRow)
 						{
-							for (umint x = 0; x < Width; ++x)
+							for (umint iColumn = 0; iColumn < Width; ++iColumn)
 							{
-								uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + x * SrcPixelStride + y * SrcStride[0] + z * SrcStride[1] + a * SrcStride[2];
-								uint8 *pDst = (uint8 *)LockDest.m_pData + x * DestPixelStride + y * DestStride[0] + z * DestStride[1] + a * DestStride[2];
+								uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + iColumn * SrcPixelStride + iRow * SrcStride[0] + iDepth * SrcStride[1] + iArray * SrcStride[2];
+								uint8 *pDst = (uint8 *)LockDest.m_pData + iColumn * DestPixelStride + iRow * DestStride[0] + iDepth * DestStride[1] + iArray * DestStride[2];
 
 								fg_DecodePixel<tf_InputPixelType, tf_CConversionComponent>(pSrc, Intermediate);
 								fg_EncodePixel<tf_CConversionComponent, tf_OutputPixelType>(Intermediate, pDst);
@@ -337,14 +337,14 @@ namespace NMib::NGraphics
 					uint32 DstStride[3] = {uint32(LockDst.m_Stride[0]), uint32(LockDst.m_Stride[1]), uint32(LockDst.m_Stride[2])};
 					uint32 CpyStride = fg_Min(SrcStride[0], DstStride[0]);
 
-					for (umint a = 0; a < Arrays; ++a)
+					for (umint iArray = 0; iArray < Arrays; ++iArray)
 					{
-						for (umint z = 0; z < Depth; ++z)
+						for (umint iDepth = 0; iDepth < Depth; ++iDepth)
 						{
-							uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + z * SrcStride[1] + a * SrcStride[2];
-							uint8 *pDst = (uint8 *)LockDst.m_pData + z * DstStride[1] + a * DstStride[2];
+							uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + iDepth * SrcStride[1] + iArray * SrcStride[2];
+							uint8 *pDst = (uint8 *)LockDst.m_pData + iDepth * DstStride[1] + iArray * DstStride[2];
 
-							for (umint y = 0; y < Height; ++y)
+							for (umint iRow = 0; iRow < Height; ++iRow)
 							{
 								NMemory::fg_MemCopy(pDst, pSrc, CpyStride);
 								pDst += DstStride[0];
@@ -410,14 +410,14 @@ namespace NMib::NGraphics
 						uint32 DstStride[3] = {uint32(LockDst.m_Stride[0]), uint32(LockDst.m_Stride[1]), uint32(LockDst.m_Stride[2])};
 						uint32 CpyStride = fg_Min(SrcStride[0], DstStride[0]);
 
-						for (umint a = 0; a < Arrays; ++a)
+						for (umint iArray = 0; iArray < Arrays; ++iArray)
 						{
-							for (umint z = 0; z < Depth; ++z)
+							for (umint iDepth = 0; iDepth < Depth; ++iDepth)
 							{
-								uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + z * SrcStride[1] + a * SrcStride[2];
-								uint8 *pDst = (uint8 *)LockDst.m_pData + z * DstStride[1] + a * DstStride[2];
+								uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + iDepth * SrcStride[1] + iArray * SrcStride[2];
+								uint8 *pDst = (uint8 *)LockDst.m_pData + iDepth * DstStride[1] + iArray * DstStride[2];
 
-								for (umint y = 0; y < Height; ++y)
+								for (umint iRow = 0; iRow < Height; ++iRow)
 								{
 									NMemory::fg_MemCopy(pDst, pSrc, CpyStride);
 									pDst += DstStride[0];
@@ -596,14 +596,14 @@ namespace NMib::NGraphics
 				uint32 DstStride[3] = {uint32(LockDst.m_Stride[0]), uint32(LockDst.m_Stride[1]), uint32(LockDst.m_Stride[2])};
 				uint32 CpyStride = fg_Min(SrcStride[0], DstStride[0]);
 
-				for (umint a = 0; a < Arrays; ++a)
+				for (umint iArray = 0; iArray < Arrays; ++iArray)
 				{
-					for (umint z = 0; z < Depth; ++z)
+					for (umint iDepth = 0; iDepth < Depth; ++iDepth)
 					{
-						uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + z * SrcStride[1] + a * SrcStride[2];
-						uint8 *pDst = (uint8 *)LockDst.m_pData + z * DstStride[1] + a * DstStride[2] + (Height - 1) * DstStride[0];
+						uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + iDepth * SrcStride[1] + iArray * SrcStride[2];
+						uint8 *pDst = (uint8 *)LockDst.m_pData + iDepth * DstStride[1] + iArray * DstStride[2] + (Height - 1) * DstStride[0];
 
-						for (umint y = 0; y < Height; ++y)
+						for (umint iRow = 0; iRow < Height; ++iRow)
 						{
 							NMemory::fg_MemCopy(pDst, pSrc, CpyStride);
 							pDst -= DstStride[0];
@@ -638,14 +638,14 @@ namespace NMib::NGraphics
 				uint32 SrcStride[3] = {uint32(LockSrc.m_Stride[0]), uint32(LockSrc.m_Stride[1]), uint32(LockSrc.m_Stride[2])};
 				uint32 DstStride[3] = {uint32(LockDst.m_Stride[0]), uint32(LockDst.m_Stride[1]), uint32(LockDst.m_Stride[2])};
 
-				for (umint a = 0; a < Arrays; ++a)
+				for (umint iArray = 0; iArray < Arrays; ++iArray)
 				{
-					for (umint z = 0; z < Depth; ++z)
+					for (umint iDepth = 0; iDepth < Depth; ++iDepth)
 					{
-						uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + z * SrcStride[1] + a * SrcStride[2];
-						uint8 *pDst = (uint8 *)LockDst.m_pData + z * DstStride[1] + a * DstStride[2];
+						uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + iDepth * SrcStride[1] + iArray * SrcStride[2];
+						uint8 *pDst = (uint8 *)LockDst.m_pData + iDepth * DstStride[1] + iArray * DstStride[2];
 
-						for (umint y = 0; y < Height; ++y)
+						for (umint iRow = 0; iRow < Height; ++iRow)
 						{
 							_Func(pSrc, pDst, Width, SrcStride[0]);
 
@@ -687,28 +687,28 @@ namespace NMib::NGraphics
 						uint8 const *pSrc0 = (uint8 const *)_pSrc;
 						uint8 const *pSrc1 = (uint8 const *)(_pSrc + _SrcStride0);
 						uint8 *pDst0 = (uint8 *)_pDst;
-						for (umint x = 0; x < _Width; ++x)
+						for (umint iColumn = 0; iColumn < _Width; ++iColumn)
 						{
-							uint32 Pix0R = pSrc0[x * 6 + 0];
-							uint32 Pix0G = pSrc0[x * 6 + 1];
-							uint32 Pix0B = pSrc0[x * 6 + 2];
-							uint32 Pix1R = pSrc0[x * 6 + 3];
-							uint32 Pix1G = pSrc0[x * 6 + 4];
-							uint32 Pix1B = pSrc0[x * 6 + 5];
-							uint32 Pix2R = pSrc1[x * 6 + 0];
-							uint32 Pix2G = pSrc1[x * 6 + 1];
-							uint32 Pix2B = pSrc1[x * 6 + 2];
-							uint32 Pix3R = pSrc1[x * 6 + 3];
-							uint32 Pix3G = pSrc1[x * 6 + 4];
-							uint32 Pix3B = pSrc1[x * 6 + 5];
+							uint32 Pix0R = pSrc0[iColumn * 6 + 0];
+							uint32 Pix0G = pSrc0[iColumn * 6 + 1];
+							uint32 Pix0B = pSrc0[iColumn * 6 + 2];
+							uint32 Pix1R = pSrc0[iColumn * 6 + 3];
+							uint32 Pix1G = pSrc0[iColumn * 6 + 4];
+							uint32 Pix1B = pSrc0[iColumn * 6 + 5];
+							uint32 Pix2R = pSrc1[iColumn * 6 + 0];
+							uint32 Pix2G = pSrc1[iColumn * 6 + 1];
+							uint32 Pix2B = pSrc1[iColumn * 6 + 2];
+							uint32 Pix3R = pSrc1[iColumn * 6 + 3];
+							uint32 Pix3G = pSrc1[iColumn * 6 + 4];
+							uint32 Pix3B = pSrc1[iColumn * 6 + 5];
 
 							uint32 Comp0 = (Pix0R + Pix1R + Pix2R + Pix3R) >> 2;
 							uint32 Comp1 = (Pix0G + Pix1G + Pix2G + Pix3G) >> 2;
 							uint32 Comp2 = (Pix0B + Pix1B + Pix2B + Pix3B) >> 2;
 
-							pDst0[x * 3 + 0] = Comp0;
-							pDst0[x * 3 + 1] = Comp1;
-							pDst0[x * 3 + 2] = Comp2;
+							pDst0[iColumn * 3 + 0] = Comp0;
+							pDst0[iColumn * 3 + 1] = Comp1;
+							pDst0[iColumn * 3 + 2] = Comp2;
 						}
 					}
 				)
@@ -724,19 +724,19 @@ namespace NMib::NGraphics
 						uint32 const *pSrc0 = (uint32 const *)_pSrc;
 						uint32 const *pSrc1 = (uint32 const *)(_pSrc + _SrcStride0);
 						uint32 *pDst0 = (uint32 *)_pDst;
-						for (umint x = 0; x < _Width; ++x)
+						for (umint iColumn = 0; iColumn < _Width; ++iColumn)
 						{
-							uint32 Pix0 = pSrc0[x * 2 + 0];
-							uint32 Pix1 = pSrc0[x * 2 + 1];
-							uint32 Pix2 = pSrc1[x * 2 + 0];
-							uint32 Pix3 = pSrc1[x * 2 + 1];
+							uint32 Pix0 = pSrc0[iColumn * 2 + 0];
+							uint32 Pix1 = pSrc0[iColumn * 2 + 1];
+							uint32 Pix2 = pSrc1[iColumn * 2 + 0];
+							uint32 Pix3 = pSrc1[iColumn * 2 + 1];
 
 							uint32 Comp0 = (((Pix0 >> 0) & 0xff) + ((Pix1 >> 0) & 0xff) + ((Pix2 >> 0) & 0xff) + ((Pix3 >> 0) & 0xff)) >> 2;
 							uint32 Comp1 = (((Pix0 >> 8) & 0xff) + ((Pix1 >> 8) & 0xff) + ((Pix2 >> 8) & 0xff) + ((Pix3 >> 8) & 0xff)) >> 2;
 							uint32 Comp2 = (((Pix0 >> 16) & 0xff) + ((Pix1 >> 16) & 0xff) + ((Pix2 >> 16) & 0xff) + ((Pix3 >> 16) & 0xff)) >> 2;
 							uint32 Comp3 = (((Pix0 >> 24) & 0xff) + ((Pix1 >> 24) & 0xff) + ((Pix2 >> 24) & 0xff) + ((Pix3 >> 24) & 0xff)) >> 2;
 
-							pDst0[x] = Comp0 | (Comp1 << 8) | (Comp2 << 16) | (Comp3 << 24);
+							pDst0[iColumn] = Comp0 | (Comp1 << 8) | (Comp2 << 16) | (Comp3 << 24);
 						}
 					}
 				)
@@ -783,14 +783,14 @@ namespace NMib::NGraphics
 				uint32 SrcStride[3] = {uint32(LockSrc.m_Stride[0]), uint32(LockSrc.m_Stride[1]), uint32(LockSrc.m_Stride[2])};
 				uint32 DstStride[3] = {uint32(LockDst.m_Stride[0]), uint32(LockDst.m_Stride[1]), uint32(LockDst.m_Stride[2])};
 
-				for (umint a = 0; a < Arrays; ++a)
+				for (umint iArray = 0; iArray < Arrays; ++iArray)
 				{
-					for (umint z = 0; z < Depth; ++z)
+					for (umint iDepth = 0; iDepth < Depth; ++iDepth)
 					{
-						uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + z * SrcStride[1] + a * SrcStride[2];
-						uint8 *pDst = (uint8 *)LockDst.m_pData + z * DstStride[1] + a * DstStride[2];
+						uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + iDepth * SrcStride[1] + iArray * SrcStride[2];
+						uint8 *pDst = (uint8 *)LockDst.m_pData + iDepth * DstStride[1] + iArray * DstStride[2];
 
-						for (umint y = 0; y < Height; ++y)
+						for (umint iRow = 0; iRow < Height; ++iRow)
 						{
 							switch (m_ImageFormat)
 							{
@@ -799,23 +799,23 @@ namespace NMib::NGraphics
 								{
 									uint8 const *pSrc0 = (uint8 const *)pSrc;
 									uint8 *pDst0 = (uint8 *)pDst;
-									for (umint x = 0; x < Width; ++x)
+									for (umint iColumn = 0; iColumn < Width; ++iColumn)
 									{
-										uint32 Pix0R = pSrc0[x * 3 + 0];
-										uint32 Pix0G = pSrc0[x * 3 + 1];
-										uint32 Pix0B = pSrc0[x * 3 + 2];
+										uint32 Pix0R = pSrc0[iColumn * 3 + 0];
+										uint32 Pix0G = pSrc0[iColumn * 3 + 1];
+										uint32 Pix0B = pSrc0[iColumn * 3 + 2];
 
-										uint32 Pix1R = pDst0[x * 3 + 0];
-										uint32 Pix1G = pDst0[x * 3 + 1];
-										uint32 Pix1B = pDst0[x * 3 + 2];
+										uint32 Pix1R = pDst0[iColumn * 3 + 0];
+										uint32 Pix1G = pDst0[iColumn * 3 + 1];
+										uint32 Pix1B = pDst0[iColumn * 3 + 2];
 
 										uint64 ResultR = (Pix0R * SrcFraction + Pix1R * DstFraction) >> c_PrecissionBits;
 										uint64 ResultG = (Pix0G * SrcFraction + Pix1G * DstFraction) >> c_PrecissionBits;
 										uint64 ResultB = (Pix0B * SrcFraction + Pix1B * DstFraction) >> c_PrecissionBits;
 
-										pDst0[x * 3 + 0] = ResultR;
-										pDst0[x * 3 + 1] = ResultG;
-										pDst0[x * 3 + 2] = ResultB;
+										pDst0[iColumn * 3 + 0] = ResultR;
+										pDst0[iColumn * 3 + 1] = ResultG;
+										pDst0[iColumn * 3 + 2] = ResultB;
 									}
 								}
 								break;
@@ -824,10 +824,10 @@ namespace NMib::NGraphics
 								{
 									uint32 const *pSrc0 = (uint32 const *)pSrc;
 									uint32 *pDst0 = (uint32 *)pDst;
-									for (umint x = 0; x < Width; ++x)
+									for (umint iColumn = 0; iColumn < Width; ++iColumn)
 									{
-										uint32 Pix0 = pSrc0[x];
-										uint32 Pix1 = pDst0[x];
+										uint32 Pix0 = pSrc0[iColumn];
+										uint32 Pix1 = pDst0[iColumn];
 
 										uint32 Pix0R = ((Pix0 >> 0) & 0xff);
 										uint32 Pix0G = ((Pix0 >> 8) & 0xff);
@@ -843,7 +843,7 @@ namespace NMib::NGraphics
 										uint64 ResultB = (Pix0B * SrcFraction + Pix1B * DstFraction) >> c_PrecissionBits;
 										uint64 ResultA = (Pix0A * SrcFraction + Pix1A * DstFraction) >> c_PrecissionBits;
 
-										pDst0[x] = ResultR | (ResultG << 8) | (ResultB << 16) | (ResultA << 24);
+										pDst0[iColumn] = ResultR | (ResultG << 8) | (ResultB << 16) | (ResultA << 24);
 									}
 								}
 								break;
@@ -912,15 +912,15 @@ namespace NMib::NGraphics
 				uint32 SourceYAdd = (SrcHeight*c_Precission) / Height;
 				uint32 SourceXAdd = (SrcWidth*c_Precission) / Width;
 
-				for (umint a = 0; a < Arrays; ++a)
+				for (umint iArray = 0; iArray < Arrays; ++iArray)
 				{
-					for (umint z = 0; z < Depth; ++z)
+					for (umint iDepth = 0; iDepth < Depth; ++iDepth)
 					{
-						uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + z * SrcStride[1] + a * SrcStride[2];
-						uint8 *pDst = (uint8 *)LockDst.m_pData + z * DstStride[1] + a * DstStride[2];
+						uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + iDepth * SrcStride[1] + iArray * SrcStride[2];
+						uint8 *pDst = (uint8 *)LockDst.m_pData + iDepth * DstStride[1] + iArray * DstStride[2];
 
 						CLargeType SourceY = SourceYOffset;
-						for (umint y = 0; y < Height; ++y)
+						for (umint iRow = 0; iRow < Height; ++iRow)
 						{
 							int32 SrcY0 = fg_Clamp(SourceY >> c_PrecissionBits, 0, SrcHeight - 1);
 							int32 SrcY1 = fg_Clamp(SrcY0 + 1, 0, SrcHeight - 1);
@@ -938,7 +938,7 @@ namespace NMib::NGraphics
 									CLargeType SourceX = SourceXOffset;
 
 									umint ByteWidth = Width * 3;
-									for (umint x = 0; x < ByteWidth; x += 3)
+									for (umint iColumn = 0; iColumn < ByteWidth; iColumn += 3)
 									{
 										int32 SrcX0 = fg_Clamp((SourceX >> c_PrecissionBits), 0, SrcWidth - 1);
 										int32 SrcX1 = fg_Clamp(SrcX0 + 1, 0, SrcWidth - 1);
@@ -974,9 +974,9 @@ namespace NMib::NGraphics
 										CLargeTypeU Result1B = (Pix2B * SrcXFraction + Pix3B * SrcXFractionInv);
 										uint32 ResultB = (Result0B * SrcYFraction + Result1B * SrcYFractionInv) >> (c_PrecissionBits * 2);
 
-										pDst0[x + 0] = ResultR;
-										pDst0[x + 1] = ResultG;
-										pDst0[x + 2] = ResultB;
+										pDst0[iColumn + 0] = ResultR;
+										pDst0[iColumn + 1] = ResultG;
+										pDst0[iColumn + 2] = ResultB;
 									}
 								}
 								break;
@@ -987,7 +987,7 @@ namespace NMib::NGraphics
 									uint32 const *pSrc1 = (uint32 const *)(pSrc + SrcStride[0] * SrcY1);
 									uint32 *pDst0 = (uint32 *)pDst;
 									CLargeType SourceX = SourceXOffset;
-									for (umint x = 0; x < Width; ++x)
+									for (umint iColumn = 0; iColumn < Width; ++iColumn)
 									{
 										int32 SrcX0 = fg_Clamp((SourceX >> c_PrecissionBits), 0, SrcWidth - 1);
 										int32 SrcX1 = fg_Clamp(SrcX0 + 1, 0, SrcWidth - 1);
@@ -1033,7 +1033,7 @@ namespace NMib::NGraphics
 										CLargeTypeU Result1A = (Pix2A * SrcXFraction + Pix3A * SrcXFractionInv);
 										uint32 ResultA = (Result0A * SrcYFraction + Result1A * SrcYFractionInv) >> (c_PrecissionBits * 2);
 
-										pDst0[x] = ResultR | (ResultG << 8) | (ResultB << 16) | (ResultA << 24);
+										pDst0[iColumn] = ResultR | (ResultG << 8) | (ResultB << 16) | (ResultA << 24);
 									}
 								}
 								break;
@@ -1123,21 +1123,21 @@ namespace NMib::NGraphics
 				uint32 SrcStride[3] = {uint32(LockSrc.m_Stride[0]), uint32(LockSrc.m_Stride[1]), uint32(LockSrc.m_Stride[2])};
 				uint32 DstStride[3] = {uint32(LockDst.m_Stride[0]), uint32(LockDst.m_Stride[1]), uint32(LockDst.m_Stride[2])};
 
-				for (umint a = 0; a < Arrays; ++a)
+				for (umint iArray = 0; iArray < Arrays; ++iArray)
 				{
-					for (umint z = 0; z < Depth; ++z)
+					for (umint iDepth = 0; iDepth < Depth; ++iDepth)
 					{
-						uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + z * SrcStride[1] + a * SrcStride[2];
-						uint8 *pDst = (uint8 *)LockDst.m_pData + z * DstStride[1] + a * DstStride[2];
+						uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + iDepth * SrcStride[1] + iArray * SrcStride[2];
+						uint8 *pDst = (uint8 *)LockDst.m_pData + iDepth * DstStride[1] + iArray * DstStride[2];
 
-						for (umint y = 0; y < Height; ++y)
+						for (umint iRow = 0; iRow < Height; ++iRow)
 						{
 							if (m_ImageFormat == DMibGraphicsImageFormat(R8G8B8A8_UNorm) || m_ImageFormat == DMibGraphicsImageFormat(B8G8R8A8_UNorm))
 							{
 								uint32 const *pSrc0 = (uint32 const *)pSrc;
 								uint32 *pDst0 = (uint32 *)pDst;
-								for (umint x = 0; x < Width; ++x)
-									pDst0[x] = pSrc0[x] | (0xff << 24);
+								for (umint iColumn = 0; iColumn < Width; ++iColumn)
+									pDst0[iColumn] = pSrc0[iColumn] | (0xff << 24);
 							}
 							else
 							{
@@ -1149,9 +1149,9 @@ namespace NMib::NGraphics
 								}
 								else
 								{
-									for (umint x = 0; x < Width; ++x)
+									for (umint iColumn = 0; iColumn < Width; ++iColumn)
 									{
-										uint32 Pos = x * TotalBits + AlphaBitPos;
+										uint32 Pos = iColumn * TotalBits + AlphaBitPos;
 										uint32 BytePos = Pos >> 3;
 										uint32 BitPos = Pos - (BytePos << 3);
 										uint32 nBits0 = fg_Min(8 - BitPos, BitsA);
