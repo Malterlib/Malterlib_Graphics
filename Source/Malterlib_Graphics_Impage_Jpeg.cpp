@@ -14,196 +14,8 @@
 
 namespace NMib::NGraphics
 {
-	class CImageIO_Jpeg : public NMib::NGraphics::CImageIO
+	struct CImageIO_Jpeg : public NMib::NGraphics::CImageIO
 	{
-	private:
-		struct CIOContext
-		{
-			NStream::CBinaryStream *m_pStream;
-			NContainer::CByteVector m_Buffer;
-		};
-
-		enum
-		{
-			EJpeg_BufferSize = 1024
-		};
-
-		// Jpeg Source Methods
-		static void fs_JpegInitSource(j_decompress_ptr _pInfo)
-		{
-			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
-			pContext->m_Buffer.f_SetLen(EJpeg_BufferSize);
-		}
-
-		static boolean fs_JpegFillInputBuffer(j_decompress_ptr _pInfo)
-		{
-			jpeg_source_mgr *pSource = _pInfo->src;
-			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
-
-			NStream::CFilePos ReadAmount = fg_Min(pContext->m_pStream->f_GetLength() - pContext->m_pStream->f_GetPosition(), EJpeg_BufferSize);
-
-			try
-			{
-				pContext->m_pStream->f_ConsumeBytes((void *)pContext->m_Buffer.f_GetArray(), ReadAmount);
-			}
-			catch (NFile::CExceptionFile)
-			{
-				pSource->next_input_byte = nullptr;
-				pSource->bytes_in_buffer = 0;
-				return 0;
-			}
-
-			pSource->next_input_byte = pContext->m_Buffer.f_GetArray();
-			pSource->bytes_in_buffer = (size_t)ReadAmount;
-			return 1;
-		}
-
-		static void fs_JpegSkipInputData(j_decompress_ptr _pInfo, long _nBytes)
-		{
-			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
-			jpeg_source_mgr *pSource = _pInfo->src;
-
-			if (size_t(_nBytes) > pSource->bytes_in_buffer)
-			{
-				try
-				{
-					pContext->m_pStream->f_SetPosition(pContext->m_pStream->f_GetPosition() + (_nBytes - pSource->bytes_in_buffer));
-				}
-				catch (NFile::CExceptionFile)
-				{
-					return;
-				}
-				pSource->bytes_in_buffer = 0;
-			}
-			else
-			{
-				pSource->next_input_byte += _nBytes;
-				pSource->bytes_in_buffer -= _nBytes;
-			}
-		}
-
-		static boolean fs_JpegResyncToRestart(j_decompress_ptr _pInfo, int _Desired)
-		{
-			return jpeg_resync_to_restart(_pInfo, _Desired);
-		}
-
-		static void fs_JpegTermSource(j_decompress_ptr _pInfo)
-		{
-			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
-			pContext->m_Buffer.f_Clear();
-		}
-
-		static void fs_JpegInitDestination(j_compress_ptr _pInfo)
-		{
-			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
-			jpeg_destination_mgr *pDest = _pInfo->dest;
-
-			pContext->m_Buffer.f_SetLen(EJpeg_BufferSize);
-			pDest->free_in_buffer = EJpeg_BufferSize;
-			pDest->next_output_byte = pContext->m_Buffer.f_GetArray();
-		}
-
-		static boolean fs_JpegEmptyOutputBuffer(j_compress_ptr _pInfo)
-		{
-			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
-			jpeg_destination_mgr *pDest = _pInfo->dest;
-
-			try
-			{
-				pContext->m_pStream->f_FeedBytes(pContext->m_Buffer.f_GetArray(), EJpeg_BufferSize);
-			}
-			catch (NFile::CExceptionFile)
-			{
-				return 0;
-			}
-
-			pDest->free_in_buffer = EJpeg_BufferSize;
-			pDest->next_output_byte = pContext->m_Buffer.f_GetArray();
-
-			return 1;
-		}
-
-		static void fs_JpegTermDestination(j_compress_ptr _pInfo)
-		{
-			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
-			jpeg_destination_mgr *pDest = _pInfo->dest;
-
-			try
-			{
-				pContext->m_pStream->f_FeedBytes(pContext->m_Buffer.f_GetArray(), EJpeg_BufferSize - pDest->free_in_buffer);
-			}
-			catch (NFile::CExceptionFile)
-			{
-			}
-
-			pContext->m_Buffer.f_Clear();
-		}
-
-		// Jpeg Error Methods
-
-		struct CJpegErrorManager
-		{
-			struct jpeg_error_mgr m_Public;
-			jmp_buf m_SetJmpBuffer;
-		};
-
-		static void fs_JpegErrorExit(j_common_ptr _pInfo)
-		{
-			CJpegErrorManager *pErrorManager = (CJpegErrorManager *)_pInfo->err;
-
-			longjmp(pErrorManager->m_SetJmpBuffer, 1);
-		}
-
-		static void fs_JpegEmitMessage(j_common_ptr _pInfo, int _MsgLevel)
-		{
-		}
-
-		static void fs_JpegOutputMessage(j_common_ptr _pInfo)
-		{
-			char Buffer[JMSG_LENGTH_MAX];
-
-			(*_pInfo->err->format_message)(_pInfo, Buffer);
-			DMibTrace("{}" DMibNewLine, Buffer);
-		}
-
-		static void fs_JpegFormatMessage(j_common_ptr _pInfo, char *buffer)
-		{
-		}
-
-		static void fs_JpegResetErrorManager(j_common_ptr _pInfo)
-		{
-		}
-
-		// Jpeg Util.
-
-		void fp_JpegFillSourceManager(jpeg_source_mgr *_pSrc)
-		{
-			_pSrc->next_input_byte = nullptr;
-			_pSrc->bytes_in_buffer = 0;
-			_pSrc->init_source = fs_JpegInitSource;
-			_pSrc->fill_input_buffer = fs_JpegFillInputBuffer;
-			_pSrc->skip_input_data = fs_JpegSkipInputData;
-			_pSrc->resync_to_restart = fs_JpegResyncToRestart;
-			_pSrc->term_source = fs_JpegTermSource;
-		}
-
-		void fp_JpegFillDestinationManager(jpeg_destination_mgr *_pDest)
-		{
-			_pDest->free_in_buffer = 0;
-			_pDest->next_output_byte = nullptr;
-			_pDest->init_destination = fs_JpegInitDestination;
-			_pDest->empty_output_buffer = fs_JpegEmptyOutputBuffer;
-			_pDest->term_destination = fs_JpegTermDestination;
-		}
-
-		void fp_JpegFillErrorManager(CJpegErrorManager *_pManager)
-		{
-			jpeg_std_error(&_pManager->m_Public);
-			_pManager->m_Public.error_exit = fs_JpegErrorExit;
-			_pManager->m_Public.output_message = fs_JpegOutputMessage;
-		}
-
-	public:
 		bool f_DetectFormatFromFilename(NStr::CStr const &_FileName) override
 		{
 			if (_FileName.f_FindNoCase(".jpg") >= 0)
@@ -434,6 +246,193 @@ namespace NMib::NGraphics
 			jpeg_destroy_compress(&CompressInfo);
 
 			return true;
+		}
+
+	private:
+		struct CIOContext
+		{
+			NStream::CBinaryStream *m_pStream;
+			NContainer::CByteVector m_Buffer;
+		};
+
+		enum
+		{
+			EJpeg_BufferSize = 1024
+		};
+
+		// Jpeg Source Methods
+		static void fs_JpegInitSource(j_decompress_ptr _pInfo)
+		{
+			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
+			pContext->m_Buffer.f_SetLen(EJpeg_BufferSize);
+		}
+
+		static boolean fs_JpegFillInputBuffer(j_decompress_ptr _pInfo)
+		{
+			jpeg_source_mgr *pSource = _pInfo->src;
+			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
+
+			NStream::CFilePos ReadAmount = fg_Min(pContext->m_pStream->f_GetLength() - pContext->m_pStream->f_GetPosition(), EJpeg_BufferSize);
+
+			try
+			{
+				pContext->m_pStream->f_ConsumeBytes((void *)pContext->m_Buffer.f_GetArray(), ReadAmount);
+			}
+			catch (NFile::CExceptionFile)
+			{
+				pSource->next_input_byte = nullptr;
+				pSource->bytes_in_buffer = 0;
+				return 0;
+			}
+
+			pSource->next_input_byte = pContext->m_Buffer.f_GetArray();
+			pSource->bytes_in_buffer = (size_t)ReadAmount;
+			return 1;
+		}
+
+		static void fs_JpegSkipInputData(j_decompress_ptr _pInfo, long _nBytes)
+		{
+			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
+			jpeg_source_mgr *pSource = _pInfo->src;
+
+			if (size_t(_nBytes) > pSource->bytes_in_buffer)
+			{
+				try
+				{
+					pContext->m_pStream->f_SetPosition(pContext->m_pStream->f_GetPosition() + (_nBytes - pSource->bytes_in_buffer));
+				}
+				catch (NFile::CExceptionFile)
+				{
+					return;
+				}
+				pSource->bytes_in_buffer = 0;
+			}
+			else
+			{
+				pSource->next_input_byte += _nBytes;
+				pSource->bytes_in_buffer -= _nBytes;
+			}
+		}
+
+		static boolean fs_JpegResyncToRestart(j_decompress_ptr _pInfo, int _Desired)
+		{
+			return jpeg_resync_to_restart(_pInfo, _Desired);
+		}
+
+		static void fs_JpegTermSource(j_decompress_ptr _pInfo)
+		{
+			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
+			pContext->m_Buffer.f_Clear();
+		}
+
+		static void fs_JpegInitDestination(j_compress_ptr _pInfo)
+		{
+			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
+			jpeg_destination_mgr *pDest = _pInfo->dest;
+
+			pContext->m_Buffer.f_SetLen(EJpeg_BufferSize);
+			pDest->free_in_buffer = EJpeg_BufferSize;
+			pDest->next_output_byte = pContext->m_Buffer.f_GetArray();
+		}
+
+		static boolean fs_JpegEmptyOutputBuffer(j_compress_ptr _pInfo)
+		{
+			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
+			jpeg_destination_mgr *pDest = _pInfo->dest;
+
+			try
+			{
+				pContext->m_pStream->f_FeedBytes(pContext->m_Buffer.f_GetArray(), EJpeg_BufferSize);
+			}
+			catch (NFile::CExceptionFile)
+			{
+				return 0;
+			}
+
+			pDest->free_in_buffer = EJpeg_BufferSize;
+			pDest->next_output_byte = pContext->m_Buffer.f_GetArray();
+
+			return 1;
+		}
+
+		static void fs_JpegTermDestination(j_compress_ptr _pInfo)
+		{
+			CIOContext *pContext = (CIOContext *)_pInfo->client_data;
+			jpeg_destination_mgr *pDest = _pInfo->dest;
+
+			try
+			{
+				pContext->m_pStream->f_FeedBytes(pContext->m_Buffer.f_GetArray(), EJpeg_BufferSize - pDest->free_in_buffer);
+			}
+			catch (NFile::CExceptionFile)
+			{
+			}
+
+			pContext->m_Buffer.f_Clear();
+		}
+
+		// Jpeg Error Methods
+
+		struct CJpegErrorManager
+		{
+			struct jpeg_error_mgr m_Public;
+			jmp_buf m_SetJmpBuffer;
+		};
+
+		static void fs_JpegErrorExit(j_common_ptr _pInfo)
+		{
+			CJpegErrorManager *pErrorManager = (CJpegErrorManager *)_pInfo->err;
+
+			longjmp(pErrorManager->m_SetJmpBuffer, 1);
+		}
+
+		static void fs_JpegEmitMessage(j_common_ptr _pInfo, int _MsgLevel)
+		{
+		}
+
+		static void fs_JpegOutputMessage(j_common_ptr _pInfo)
+		{
+			char Buffer[JMSG_LENGTH_MAX];
+
+			(*_pInfo->err->format_message)(_pInfo, Buffer);
+			DMibTrace("{}" DMibNewLine, Buffer);
+		}
+
+		static void fs_JpegFormatMessage(j_common_ptr _pInfo, char *buffer)
+		{
+		}
+
+		static void fs_JpegResetErrorManager(j_common_ptr _pInfo)
+		{
+		}
+
+		// Jpeg Util.
+
+		void fp_JpegFillSourceManager(jpeg_source_mgr *_pSrc)
+		{
+			_pSrc->next_input_byte = nullptr;
+			_pSrc->bytes_in_buffer = 0;
+			_pSrc->init_source = fs_JpegInitSource;
+			_pSrc->fill_input_buffer = fs_JpegFillInputBuffer;
+			_pSrc->skip_input_data = fs_JpegSkipInputData;
+			_pSrc->resync_to_restart = fs_JpegResyncToRestart;
+			_pSrc->term_source = fs_JpegTermSource;
+		}
+
+		void fp_JpegFillDestinationManager(jpeg_destination_mgr *_pDest)
+		{
+			_pDest->free_in_buffer = 0;
+			_pDest->next_output_byte = nullptr;
+			_pDest->init_destination = fs_JpegInitDestination;
+			_pDest->empty_output_buffer = fs_JpegEmptyOutputBuffer;
+			_pDest->term_destination = fs_JpegTermDestination;
+		}
+
+		void fp_JpegFillErrorManager(CJpegErrorManager *_pManager)
+		{
+			jpeg_std_error(&_pManager->m_Public);
+			_pManager->m_Public.error_exit = fs_JpegErrorExit;
+			_pManager->m_Public.output_message = fs_JpegOutputMessage;
 		}
 	};
 }

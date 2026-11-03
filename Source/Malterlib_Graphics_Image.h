@@ -8,9 +8,8 @@
 namespace NMib::NGraphics
 {
 	template <typename t_CPoint>
-	class TCImageRect
+	struct TCImageRect
 	{
-	public:
 		using CType = typename t_CPoint::CType;
 
 		t_CPoint m_Corners[2];
@@ -22,9 +21,8 @@ namespace NMib::NGraphics
 	};
 
 	template <typename t_CPoint>
-	class TCImageDimensions
+	struct TCImageDimensions
 	{
-	public:
 		using CType = typename t_CPoint::CType;
 
 		t_CPoint m_Dimensions;
@@ -42,9 +40,8 @@ namespace NMib::NGraphics
 	};
 
 	template <typename t_CPoint>
-	class TCImageStride
+	struct TCImageStride
 	{
-	public:
 		using CType = typename t_CPoint::CType;
 
 		t_CPoint m_Stride;
@@ -1638,14 +1635,12 @@ namespace NMib::NGraphics
 
 #include "Malterlib_Graphics_Image_Conversion.h"
 
-	class CImage
+	struct CImage
 	{
-	public:
 		uint64 m_ImageFormat;
 		CImageDimensions m_Dimensions;
-		class CLockedData
+		struct CLockedData
 		{
-		public:
 			void *m_pData;
 			CImageStride m_Stride;
 			umint m_InternalData; // Used by the image implementation to store internal data
@@ -1679,9 +1674,8 @@ namespace NMib::NGraphics
 		bool fp_StretchHalfXY_Core(CImage &_Dst, t_Func _Func);
 	};
 
-	class CImageMemory : public CImage
+	struct CImageMemory : public CImage
 	{
-	public:
 		using CStorageType = uint8; // Align here in the future
 
 		CImageStride m_Stride;
@@ -1700,9 +1694,8 @@ namespace NMib::NGraphics
 		static bool fs_ReadImage(CImageMemory &_Destination, NStream::CBinaryStream &_Stream);
 	};
 
-	class CImageIO
+	struct CImageIO
 	{
-	public:
 		virtual ~CImageIO();
 		virtual bool f_DetectFormatFromFilename(NStr::CStr const &_FileName) = 0;
 		virtual bool f_DetectFormatFromStream(NStream::CBinaryStream &_Stream) = 0;

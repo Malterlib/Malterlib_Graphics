@@ -2,14 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 template <uint32 _Check>
-class TCStaticCheck
+struct TCStaticCheck
 {
 };
 
 template <>
-class TCStaticCheck<1>
+struct TCStaticCheck<1>
 {
-public:
 	enum
 	{
 		ECheck = 1
@@ -17,19 +16,16 @@ public:
 };
 
 template <uint64 const _FromFormat, uint64 const _ToFormat>
-class TCImageConversion
+struct TCImageConversion
 {
-public:
 	template <uint32 _PhysicalFormat, uint32 _nBits0, uint32 _nBits1, uint32 _nBits2, uint32 _nBits3, uint32 _MakePartial>
-	class TCPhysicalFormat
+	struct TCPhysicalFormat
 	{
-	public:
 	};
 
 	template <uint32 _nBits0, uint32 _nBits1, uint32 _nBits2, uint32 _nBits3, uint32 _MakePartial>
-	class TCPhysicalFormat<EImageFormatConstant_Format_Int, _nBits0, _nBits1, _nBits2, _nBits3, _MakePartial>
+	struct TCPhysicalFormat<EImageFormatConstant_Format_Int, _nBits0, _nBits1, _nBits2, _nBits3, _MakePartial>
 	{
-	public:
 		enum
 		{
 			ENumBits = _nBits0 + _nBits1 + _nBits2 + _nBits3
@@ -39,7 +35,7 @@ public:
 
 #define DTemp_ImplementCheck(d_Format, d_nBits0, d_nBits1, d_nBits2, d_nBits3) \
 	template <uint32 _MakePartial>\
-	class TCPhysicalFormat<d_Format, d_nBits0, d_nBits1, d_nBits2, d_nBits3, _MakePartial>\
+	struct TCPhysicalFormat<d_Format, d_nBits0, d_nBits1, d_nBits2, d_nBits3, _MakePartial>\
 	{\
 	public:\
 		enum\
