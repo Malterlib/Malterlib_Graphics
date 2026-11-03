@@ -160,7 +160,7 @@ namespace NMib::NGraphics
 	// Decode to RGBA
 
 	template <uint64 _InputPixelType, typename t_ConversionComponentType>
-	inline_always void fs_DecodePixel(uint8 const *_pIn, t_ConversionComponentType _Dest[4])
+	inline_always void fg_DecodePixel(uint8 const *_pIn, t_ConversionComponentType _Dest[4])
 	{
 		_Dest[0] = 0;
 		_Dest[1] = 0;
@@ -169,7 +169,7 @@ namespace NMib::NGraphics
 	}
 
 	template <>
-	inline_always void fs_DecodePixel<DMibGraphicsImageFormat(R8G8B8_UNorm), uint8>(uint8 const *_pIn, uint8 _Dest[4])
+	inline_always void fg_DecodePixel<DMibGraphicsImageFormat(R8G8B8_UNorm), uint8>(uint8 const *_pIn, uint8 _Dest[4])
 	{
 		_Dest[0] = _pIn[0];
 		_Dest[1] = _pIn[1];
@@ -178,7 +178,7 @@ namespace NMib::NGraphics
 	}
 
 	template <>
-	inline_always void fs_DecodePixel<DMibGraphicsImageFormat(B8G8R8_UNorm), uint8>(uint8 const *_pIn, uint8 _Dest[4])
+	inline_always void fg_DecodePixel<DMibGraphicsImageFormat(B8G8R8_UNorm), uint8>(uint8 const *_pIn, uint8 _Dest[4])
 	{
 		_Dest[0] = _pIn[2];
 		_Dest[1] = _pIn[1];
@@ -187,7 +187,7 @@ namespace NMib::NGraphics
 	}
 
 	template <>
-	inline_always void fs_DecodePixel<DMibGraphicsImageFormat(R8G8B8A8_UNorm), uint8>(uint8 const *_pIn, uint8 _Dest[4])
+	inline_always void fg_DecodePixel<DMibGraphicsImageFormat(R8G8B8A8_UNorm), uint8>(uint8 const *_pIn, uint8 _Dest[4])
 	{
 		_Dest[0] = _pIn[0];
 		_Dest[1] = _pIn[1];
@@ -196,7 +196,7 @@ namespace NMib::NGraphics
 	}
 
 	template <>
-	inline_always void fs_DecodePixel<DMibGraphicsImageFormat(B8G8R8A8_UNorm), uint8>(uint8 const *_pIn, uint8 _Dest[4])
+	inline_always void fg_DecodePixel<DMibGraphicsImageFormat(B8G8R8A8_UNorm), uint8>(uint8 const *_pIn, uint8 _Dest[4])
 	{
 		_Dest[0] = _pIn[2];
 		_Dest[1] = _pIn[1];
@@ -207,12 +207,12 @@ namespace NMib::NGraphics
 	// Encode from RGBA
 
 	template <typename t_ConversionComponentType, uint64 _OutputPixelType>
-	inline_always void fs_EncodePixel(t_ConversionComponentType _Dest[4], uint8 *_pOut)
+	inline_always void fg_EncodePixel(t_ConversionComponentType _Dest[4], uint8 *_pOut)
 	{
 	}
 
 	template <>
-	inline_always void fs_EncodePixel<uint8, DMibGraphicsImageFormat(R8G8B8_UNorm)>(uint8 _Src[4], uint8 *_pOut)
+	inline_always void fg_EncodePixel<uint8, DMibGraphicsImageFormat(R8G8B8_UNorm)>(uint8 _Src[4], uint8 *_pOut)
 	{
 		_pOut[0] = _Src[0];
 		_pOut[1] = _Src[1];
@@ -220,7 +220,7 @@ namespace NMib::NGraphics
 	}
 
 	template <>
-	inline_always void fs_EncodePixel<uint8, DMibGraphicsImageFormat(B8G8R8_UNorm)>(uint8 _Src[4], uint8 *_pOut)
+	inline_always void fg_EncodePixel<uint8, DMibGraphicsImageFormat(B8G8R8_UNorm)>(uint8 _Src[4], uint8 *_pOut)
 	{
 		_pOut[0] = _Src[2];
 		_pOut[1] = _Src[1];
@@ -228,7 +228,7 @@ namespace NMib::NGraphics
 	}
 
 	template <>
-	inline_always void fs_EncodePixel<uint8, DMibGraphicsImageFormat(R8G8B8A8_UNorm)>(uint8 _Src[4], uint8 *_pOut)
+	inline_always void fg_EncodePixel<uint8, DMibGraphicsImageFormat(R8G8B8A8_UNorm)>(uint8 _Src[4], uint8 *_pOut)
 	{
 		_pOut[0] = _Src[0];
 		_pOut[1] = _Src[1];
@@ -237,7 +237,7 @@ namespace NMib::NGraphics
 	}
 
 	template <>
-	inline_always void fs_EncodePixel<uint8, DMibGraphicsImageFormat(B8G8R8A8_UNorm)>(uint8 _Src[4], uint8 *_pOut)
+	inline_always void fg_EncodePixel<uint8, DMibGraphicsImageFormat(B8G8R8A8_UNorm)>(uint8 _Src[4], uint8 *_pOut)
 	{
 		_pOut[0] = _Src[2];
 		_pOut[1] = _Src[1];
@@ -246,7 +246,7 @@ namespace NMib::NGraphics
 	}
 
 	template <uint64 _InputPixelType, uint64 _OutputPixelType, typename t_ConversionComponentType>
-	inline_always bool fs_Convert(CImage &_From, CImage &_To)
+	inline_always bool fg_Convert(CImage &_From, CImage &_To)
 	{
 		CImage::CLockedData LockSrc;
 		CImage::CLockedData LockDest;
@@ -295,8 +295,8 @@ namespace NMib::NGraphics
 								uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + x * SrcPixelStride + y * SrcStride[0] + z * SrcStride[1] + a * SrcStride[2];
 								uint8 *pDst = (uint8 *)LockDest.m_pData + x * DestPixelStride + y * DestStride[0] + z * DestStride[1] + a * DestStride[2];
 
-								fs_DecodePixel<_InputPixelType, t_ConversionComponentType>(pSrc, Intermediate);
-								fs_EncodePixel<t_ConversionComponentType, _OutputPixelType>(Intermediate, pDst);
+								fg_DecodePixel<_InputPixelType, t_ConversionComponentType>(pSrc, Intermediate);
+								fg_EncodePixel<t_ConversionComponentType, _OutputPixelType>(Intermediate, pDst);
 							}
 						}
 					}
@@ -365,7 +365,7 @@ namespace NMib::NGraphics
 #define DMakeConversion(d_FromFormat, d_ToFormat, d_CompType)					\
 	else if (SrcFormat == d_FromFormat && DstFormat == d_ToFormat)	\
 	{																\
-		return fs_Convert<d_FromFormat, d_ToFormat, d_CompType>(*this, _To);	\
+		return fg_Convert<d_FromFormat, d_ToFormat, d_CompType>(*this, _To);	\
 	}
 
 		if (0)

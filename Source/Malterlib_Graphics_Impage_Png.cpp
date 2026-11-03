@@ -103,7 +103,7 @@ namespace NMib::NGraphics
 			return 0;
 		}
 
-		bool fs_CImageFormatToPngFormat(NGraphics::CImage *_pImg, uint32 &_nBitDepth, uint32 &_nColorType, bool &_bBgr)
+		static bool fs_CImageFormatToPngFormat(NGraphics::CImage *_pImg, uint32 &_nBitDepth, uint32 &_nColorType, bool &_bBgr)
 		{
 			switch (_pImg->m_ImageFormat)
 			{
