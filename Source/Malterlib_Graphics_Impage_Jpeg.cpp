@@ -398,7 +398,7 @@ namespace NMib::NGraphics
 			DMibTrace("{}" DMibNewLine, Buffer);
 		}
 
-		static void fsp_JpegFormatMessage(j_common_ptr _pInfo, char *buffer)
+		static void fsp_JpegFormatMessage(j_common_ptr _pInfo, char *_pBuffer)
 		{
 		}
 

@@ -145,7 +145,7 @@ namespace NMib::NGraphics
 
 	// CImage template implementations
 
-	template <uint64 _FromFormat, uint64 _ToFormat>
+	template <uint64 tf_FromFormat, uint64 tf_ToFormat>
 	void CImage::fs_ConvertImage(CImage &_From, CImage &_To)
 	{
 		CLockedData From;
@@ -163,7 +163,7 @@ namespace NMib::NGraphics
 		Dimensions.m_Dimensions[2] = fg_Min(_From.m_Dimensions.m_Dimensions[2], _To.m_Dimensions.m_Dimensions[2]);
 		Dimensions.m_Dimensions[3] = fg_Min(_From.m_Dimensions.m_Dimensions[3], _To.m_Dimensions.m_Dimensions[3]);
 
-		TCImageConversion<_FromFormat, _ToFormat>::fs_ConvertImage(From.m_pData, To.m_pData, Dimensions, From.m_Stride, To.m_Stride);
+		TCImageConversion<tf_FromFormat, tf_ToFormat>::fs_ConvertImage(From.m_pData, To.m_pData, Dimensions, From.m_Stride, To.m_Stride);
 
 		_To.f_UnLock(To);
 		_From.f_UnLock(From);

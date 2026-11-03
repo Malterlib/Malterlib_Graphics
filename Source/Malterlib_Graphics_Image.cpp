@@ -159,8 +159,8 @@ namespace NMib::NGraphics
 
 	// Decode to RGBA
 
-	template <uint64 _InputPixelType, typename t_ConversionComponentType>
-	inline_always void fg_DecodePixel(uint8 const *_pIn, t_ConversionComponentType _Dest[4])
+	template <uint64 tf_InputPixelType, typename tf_CConversionComponent>
+	inline_always void fg_DecodePixel(uint8 const *_pIn, tf_CConversionComponent _Dest[4])
 	{
 		_Dest[0] = 0;
 		_Dest[1] = 0;
@@ -206,8 +206,8 @@ namespace NMib::NGraphics
 
 	// Encode from RGBA
 
-	template <typename t_ConversionComponentType, uint64 _OutputPixelType>
-	inline_always void fg_EncodePixel(t_ConversionComponentType _Dest[4], uint8 *_pOut)
+	template <typename tf_CConversionComponent, uint64 tf_OutputPixelType>
+	inline_always void fg_EncodePixel(tf_CConversionComponent _Dest[4], uint8 *_pOut)
 	{
 	}
 
@@ -245,7 +245,7 @@ namespace NMib::NGraphics
 		_pOut[3] = _Src[3];
 	}
 
-	template <uint64 _InputPixelType, uint64 _OutputPixelType, typename t_ConversionComponentType>
+	template <uint64 tf_InputPixelType, uint64 tf_OutputPixelType, typename tf_CConversionComponent>
 	inline_always bool fg_Convert(CImage &_From, CImage &_To)
 	{
 		CImage::CLockedData LockSrc;
@@ -265,24 +265,24 @@ namespace NMib::NGraphics
 
 				uint32 SrcPixelStride =
 					(
-						DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(_InputPixelType, 0))
-						+ DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(_InputPixelType, 1))
-						+ DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(_InputPixelType, 2))
-						+ DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(_InputPixelType, 3))
+						DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(tf_InputPixelType, 0))
+						+ DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(tf_InputPixelType, 1))
+						+ DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(tf_InputPixelType, 2))
+						+ DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(tf_InputPixelType, 3))
 					)
 					>> 3
 				;
 				uint32 DestPixelStride =
 					(
-						DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(_OutputPixelType, 0))
-						+ DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(_OutputPixelType, 1))
-						+ DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(_OutputPixelType, 2))
-						+ DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(_OutputPixelType, 3))
+						DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(tf_OutputPixelType, 0))
+						+ DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(tf_OutputPixelType, 1))
+						+ DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(tf_OutputPixelType, 2))
+						+ DMibGraphicsImageFormat_Get_ComponentNumBits(DMibGraphicsImageFormat_Get_Component(tf_OutputPixelType, 3))
 					)
 					>> 3
 				;
 
-				t_ConversionComponentType Intermediate[4];
+				tf_CConversionComponent Intermediate[4];
 
 				for (umint a = 0; a < Arrays; ++a)
 				{
@@ -295,8 +295,8 @@ namespace NMib::NGraphics
 								uint8 const *pSrc = ((uint8 const *)LockSrc.m_pData) + x * SrcPixelStride + y * SrcStride[0] + z * SrcStride[1] + a * SrcStride[2];
 								uint8 *pDst = (uint8 *)LockDest.m_pData + x * DestPixelStride + y * DestStride[0] + z * DestStride[1] + a * DestStride[2];
 
-								fg_DecodePixel<_InputPixelType, t_ConversionComponentType>(pSrc, Intermediate);
-								fg_EncodePixel<t_ConversionComponentType, _OutputPixelType>(Intermediate, pDst);
+								fg_DecodePixel<tf_InputPixelType, tf_CConversionComponent>(pSrc, Intermediate);
+								fg_EncodePixel<tf_CConversionComponent, tf_OutputPixelType>(Intermediate, pDst);
 							}
 						}
 					}
@@ -621,8 +621,8 @@ namespace NMib::NGraphics
 		return false;
 	}
 
-	template <typename t_Func>
-	bool CImage::fp_StretchHalfXY_Core(CImage &_Dst, t_Func _Func)
+	template <typename tf_FFunction>
+	bool CImage::fp_StretchHalfXY_Core(CImage &_Dst, tf_FFunction _Func)
 	{
 		CLockedData LockSrc;
 		CLockedData LockDst;
@@ -682,12 +682,12 @@ namespace NMib::NGraphics
 			return fp_StretchHalfXY_Core
 				(
 					_Dst
-					, [](uint8 const *pSrc, uint8 *pDst, umint Width, uint32 SrcStride0)
+					, [](uint8 const *_pSrc, uint8 *_pDst, umint _Width, uint32 _SrcStride0)
 					{
-						uint8 const *pSrc0 = (uint8 const *)pSrc;
-						uint8 const *pSrc1 = (uint8 const *)(pSrc + SrcStride0);
-						uint8 *pDst0 = (uint8 *)pDst;
-						for (umint x = 0; x < Width; ++x)
+						uint8 const *pSrc0 = (uint8 const *)_pSrc;
+						uint8 const *pSrc1 = (uint8 const *)(_pSrc + _SrcStride0);
+						uint8 *pDst0 = (uint8 *)_pDst;
+						for (umint x = 0; x < _Width; ++x)
 						{
 							uint32 Pix0R = pSrc0[x * 6 + 0];
 							uint32 Pix0G = pSrc0[x * 6 + 1];
@@ -719,12 +719,12 @@ namespace NMib::NGraphics
 			return fp_StretchHalfXY_Core
 				(
 					_Dst
-					, [](uint8 const *pSrc, uint8 *pDst, umint Width, uint32 SrcStride0)
+					, [](uint8 const *_pSrc, uint8 *_pDst, umint _Width, uint32 _SrcStride0)
 					{
-						uint32 const *pSrc0 = (uint32 const *)pSrc;
-						uint32 const *pSrc1 = (uint32 const *)(pSrc + SrcStride0);
-						uint32 *pDst0 = (uint32 *)pDst;
-						for (umint x = 0; x < Width; ++x)
+						uint32 const *pSrc0 = (uint32 const *)_pSrc;
+						uint32 const *pSrc1 = (uint32 const *)(_pSrc + _SrcStride0);
+						uint32 *pDst0 = (uint32 *)_pDst;
+						for (umint x = 0; x < _Width; ++x)
 						{
 							uint32 Pix0 = pSrc0[x * 2 + 0];
 							uint32 Pix1 = pSrc0[x * 2 + 1];

@@ -1648,7 +1648,7 @@ namespace NMib::NGraphics
 
 		virtual ~CImage();
 
-		template <uint64 _FromFormat, uint64 _ToFormat>
+		template <uint64 tf_FromFormat, uint64 tf_ToFormat>
 		static void fs_ConvertImage(CImage &_From, CImage &_To);
 
 		bool f_ConvertInto(CImage &_To);
@@ -1670,8 +1670,8 @@ namespace NMib::NGraphics
 		uint32 f_PixelSize();
 
 	private:
-		template <typename t_Func>
-		bool fp_StretchHalfXY_Core(CImage &_Dst, t_Func _Func);
+		template <typename tf_FFunction>
+		bool fp_StretchHalfXY_Core(CImage &_Dst, tf_FFunction _Func);
 	};
 
 	struct CImageMemory : public CImage
