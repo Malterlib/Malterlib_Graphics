@@ -470,11 +470,11 @@ namespace NMib::NGraphics
 
 		if (pTests)
 		{
-			auto Iter = pTests->m_Children.f_GetIterator();
+			auto iChild = pTests->m_Children.f_GetIterator();
 
-			while (Iter)
+			while (iChild)
 			{
-				NMib::NStorage::TCUniquePointer<CImageIO> pObject((CImageIO *)Iter->f_CreateObject());
+				NMib::NStorage::TCUniquePointer<CImageIO> pObject((CImageIO *)iChild->f_CreateObject());
 				if (pObject)
 				{
 					if (pObject->f_DetectFormatFromFilename(_FileName))
@@ -489,7 +489,7 @@ namespace NMib::NGraphics
 					}
 				}
 
-				++Iter;
+				++iChild;
 			}
 		}
 		return false;
@@ -501,11 +501,11 @@ namespace NMib::NGraphics
 
 		if (pTests)
 		{
-			auto Iter = pTests->m_Children.f_GetIterator();
+			auto iChild = pTests->m_Children.f_GetIterator();
 
-			while (Iter)
+			while (iChild)
 			{
-				NMib::NStorage::TCUniquePointer<CImageIO> pObject((CImageIO *)Iter->f_CreateObject());
+				NMib::NStorage::TCUniquePointer<CImageIO> pObject((CImageIO *)iChild->f_CreateObject());
 				if (pObject)
 				{
 					_Stream.f_SetPosition(0);
@@ -517,7 +517,7 @@ namespace NMib::NGraphics
 					}
 				}
 
-				++Iter;
+				++iChild;
 			}
 		}
 		return false;
@@ -530,11 +530,11 @@ namespace NMib::NGraphics
 
 		if (pTests)
 		{
-			auto Iter = pTests->m_Children.f_GetIterator();
+			auto iChild = pTests->m_Children.f_GetIterator();
 
-			while (Iter && !bRet)
+			while (iChild && !bRet)
 			{
-				NMib::NStorage::TCUniquePointer<CImageIO> pObject((CImageIO *)Iter->f_CreateObject());
+				NMib::NStorage::TCUniquePointer<CImageIO> pObject((CImageIO *)iChild->f_CreateObject());
 				if (pObject)
 				{
 					if (pObject->f_DetectFormatFromFilename(_FileName))
@@ -544,7 +544,7 @@ namespace NMib::NGraphics
 						bRet = pObject->f_WriteImage(_Source, Stream);
 					}
 				}
-				++Iter;
+				++iChild;
 			}
 		}
 		return bRet;
@@ -557,17 +557,17 @@ namespace NMib::NGraphics
 		bool bRet = false;
 		if (pTests)
 		{
-			auto Iter = pTests->m_Children.f_GetIterator();
+			auto iChild = pTests->m_Children.f_GetIterator();
 
-			while (Iter && !bRet)
+			while (iChild && !bRet)
 			{
-				NMib::NStorage::TCUniquePointer<CImageIO> pObject((CImageIO *)Iter->f_CreateObject());
+				NMib::NStorage::TCUniquePointer<CImageIO> pObject((CImageIO *)iChild->f_CreateObject());
 				if (pObject)
 				{
 					if (pObject->f_DetectFormatFromFilename(_Type))
 						bRet = pObject->f_WriteImage(_Source, _Stream);
 				}
-				++Iter;
+				++iChild;
 			}
 		}
 
@@ -622,7 +622,7 @@ namespace NMib::NGraphics
 	}
 
 	template <typename tf_FFunction>
-	bool CImage::fp_StretchHalfXY_Core(CImage &_Dst, tf_FFunction _Func)
+	bool CImage::fp_StretchHalfXY_Core(CImage &_Dst, tf_FFunction _fFunc)
 	{
 		CLockedData LockSrc;
 		CLockedData LockDst;
@@ -647,7 +647,7 @@ namespace NMib::NGraphics
 
 						for (umint iRow = 0; iRow < Height; ++iRow)
 						{
-							_Func(pSrc, pDst, Width, SrcStride[0]);
+							_fFunc(pSrc, pDst, Width, SrcStride[0]);
 
 							pSrc += SrcStride[0] * 2;
 							pDst += DstStride[0];

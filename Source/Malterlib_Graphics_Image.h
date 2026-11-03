@@ -1671,7 +1671,7 @@ namespace NMib::NGraphics
 
 	private:
 		template <typename tf_FFunction>
-		bool fp_StretchHalfXY_Core(CImage &_Dst, tf_FFunction _Func);
+		bool fp_StretchHalfXY_Core(CImage &_Dst, tf_FFunction _fFunc);
 	};
 
 	struct CImageMemory : public CImage
