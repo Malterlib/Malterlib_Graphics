@@ -763,14 +763,11 @@ namespace NMib::NGraphics
 			break;
 		default: return false;
 		}
-		enum
-		{
-			EPrecissionBits = 16
-			, EPrecission   = 1 << EPrecissionBits
-		};
+		constexpr aint c_PrecissionBits = 16;
+		constexpr aint c_Precission = 1 << c_PrecissionBits;
 
-		uint32 SrcFraction = (_SrcBlend * fp64(EPrecission)).f_ToIntRound();
-		uint32 DstFraction = (_DstBlend * fp64(EPrecission)).f_ToIntRound();
+		uint32 SrcFraction = (_SrcBlend * fp64(c_Precission)).f_ToIntRound();
+		uint32 DstFraction = (_DstBlend * fp64(c_Precission)).f_ToIntRound();
 
 		CLockedData LockSrc;
 		CLockedData LockDst;
@@ -812,9 +809,9 @@ namespace NMib::NGraphics
 										uint32 Pix1G = pDst0[x * 3 + 1];
 										uint32 Pix1B = pDst0[x * 3 + 2];
 
-										uint64 ResultR = (Pix0R * SrcFraction + Pix1R * DstFraction) >> EPrecissionBits;
-										uint64 ResultG = (Pix0G * SrcFraction + Pix1G * DstFraction) >> EPrecissionBits;
-										uint64 ResultB = (Pix0B * SrcFraction + Pix1B * DstFraction) >> EPrecissionBits;
+										uint64 ResultR = (Pix0R * SrcFraction + Pix1R * DstFraction) >> c_PrecissionBits;
+										uint64 ResultG = (Pix0G * SrcFraction + Pix1G * DstFraction) >> c_PrecissionBits;
+										uint64 ResultB = (Pix0B * SrcFraction + Pix1B * DstFraction) >> c_PrecissionBits;
 
 										pDst0[x * 3 + 0] = ResultR;
 										pDst0[x * 3 + 1] = ResultG;
@@ -841,10 +838,10 @@ namespace NMib::NGraphics
 										uint32 Pix1B = ((Pix1 >> 16) & 0xff);
 										uint32 Pix1A = ((Pix1 >> 24) & 0xff);
 
-										uint64 ResultR = (Pix0R * SrcFraction + Pix1R * DstFraction) >> EPrecissionBits;
-										uint64 ResultG = (Pix0G * SrcFraction + Pix1G * DstFraction) >> EPrecissionBits;
-										uint64 ResultB = (Pix0B * SrcFraction + Pix1B * DstFraction) >> EPrecissionBits;
-										uint64 ResultA = (Pix0A * SrcFraction + Pix1A * DstFraction) >> EPrecissionBits;
+										uint64 ResultR = (Pix0R * SrcFraction + Pix1R * DstFraction) >> c_PrecissionBits;
+										uint64 ResultG = (Pix0G * SrcFraction + Pix1G * DstFraction) >> c_PrecissionBits;
+										uint64 ResultB = (Pix0B * SrcFraction + Pix1B * DstFraction) >> c_PrecissionBits;
+										uint64 ResultA = (Pix0A * SrcFraction + Pix1A * DstFraction) >> c_PrecissionBits;
 
 										pDst0[x] = ResultR | (ResultG << 8) | (ResultB << 16) | (ResultA << 24);
 									}
@@ -906,17 +903,14 @@ namespace NMib::NGraphics
 				using CLargeType = int32;
 				using CLargeTypeU = uint32;
 
-				enum
-				{
-					EPrecissionBits = 8
-					, EPrecission   = 1 << EPrecissionBits
-				};
+				constexpr aint c_PrecissionBits = 8;
+				constexpr aint c_Precission = 1 << c_PrecissionBits;
 
-				int32 SourceXOffset = (_OffsetX * EPrecission).f_ToIntRound();
-				int32 SourceYOffset = (_OffsetY * EPrecission).f_ToIntRound();
+				int32 SourceXOffset = (_OffsetX * c_Precission).f_ToIntRound();
+				int32 SourceYOffset = (_OffsetY * c_Precission).f_ToIntRound();
 
-				uint32 SourceYAdd = (SrcHeight*EPrecission) / Height;
-				uint32 SourceXAdd = (SrcWidth*EPrecission) / Width;
+				uint32 SourceYAdd = (SrcHeight*c_Precission) / Height;
+				uint32 SourceXAdd = (SrcWidth*c_Precission) / Width;
 
 				for (umint a = 0; a < Arrays; ++a)
 				{
@@ -928,10 +922,10 @@ namespace NMib::NGraphics
 						CLargeType SourceY = SourceYOffset;
 						for (umint y = 0; y < Height; ++y)
 						{
-							int32 SrcY0 = fg_Clamp(SourceY >> EPrecissionBits, 0, SrcHeight - 1);
+							int32 SrcY0 = fg_Clamp(SourceY >> c_PrecissionBits, 0, SrcHeight - 1);
 							int32 SrcY1 = fg_Clamp(SrcY0 + 1, 0, SrcHeight - 1);
-							uint32 SrcYFractionInv = SourceY - (SrcY0 << EPrecissionBits);
-							uint32 SrcYFraction = EPrecission - SrcYFractionInv;
+							uint32 SrcYFractionInv = SourceY - (SrcY0 << c_PrecissionBits);
+							uint32 SrcYFraction = c_Precission - SrcYFractionInv;
 							switch (m_ImageFormat)
 							{
 							case DMibGraphicsImageFormat(R8G8B8_UNorm):
@@ -946,10 +940,10 @@ namespace NMib::NGraphics
 									umint ByteWidth = Width * 3;
 									for (umint x = 0; x < ByteWidth; x += 3)
 									{
-										int32 SrcX0 = fg_Clamp((SourceX >> EPrecissionBits), 0, SrcWidth - 1);
+										int32 SrcX0 = fg_Clamp((SourceX >> c_PrecissionBits), 0, SrcWidth - 1);
 										int32 SrcX1 = fg_Clamp(SrcX0 + 1, 0, SrcWidth - 1);
-										uint32 SrcXFractionInv = SourceX - (SrcX0 << EPrecissionBits);
-										uint32 SrcXFraction = EPrecission - SrcXFractionInv;
+										uint32 SrcXFractionInv = SourceX - (SrcX0 << c_PrecissionBits);
+										uint32 SrcXFraction = c_Precission - SrcXFractionInv;
 										SourceX += SourceXAdd;
 
 										SrcX0 *= 3;
@@ -970,15 +964,15 @@ namespace NMib::NGraphics
 
 										CLargeTypeU Result0R = (Pix0R * SrcXFraction + Pix1R * SrcXFractionInv);
 										CLargeTypeU Result1R = (Pix2R * SrcXFraction + Pix3R * SrcXFractionInv);
-										uint32 ResultR = (Result0R * SrcYFraction + Result1R * SrcYFractionInv) >> (EPrecissionBits * 2);
+										uint32 ResultR = (Result0R * SrcYFraction + Result1R * SrcYFractionInv) >> (c_PrecissionBits * 2);
 
 										CLargeTypeU Result0G = (Pix0G * SrcXFraction + Pix1G * SrcXFractionInv);
 										CLargeTypeU Result1G = (Pix2G * SrcXFraction + Pix3G * SrcXFractionInv);
-										uint32 ResultG = (Result0G * SrcYFraction + Result1G * SrcYFractionInv) >> (EPrecissionBits * 2);
+										uint32 ResultG = (Result0G * SrcYFraction + Result1G * SrcYFractionInv) >> (c_PrecissionBits * 2);
 
 										CLargeTypeU Result0B = (Pix0B * SrcXFraction + Pix1B * SrcXFractionInv);
 										CLargeTypeU Result1B = (Pix2B * SrcXFraction + Pix3B * SrcXFractionInv);
-										uint32 ResultB = (Result0B * SrcYFraction + Result1B * SrcYFractionInv) >> (EPrecissionBits * 2);
+										uint32 ResultB = (Result0B * SrcYFraction + Result1B * SrcYFractionInv) >> (c_PrecissionBits * 2);
 
 										pDst0[x + 0] = ResultR;
 										pDst0[x + 1] = ResultG;
@@ -995,10 +989,10 @@ namespace NMib::NGraphics
 									CLargeType SourceX = SourceXOffset;
 									for (umint x = 0; x < Width; ++x)
 									{
-										int32 SrcX0 = fg_Clamp((SourceX >> EPrecissionBits), 0, SrcWidth - 1);
+										int32 SrcX0 = fg_Clamp((SourceX >> c_PrecissionBits), 0, SrcWidth - 1);
 										int32 SrcX1 = fg_Clamp(SrcX0 + 1, 0, SrcWidth - 1);
-										uint32 SrcXFractionInv = SourceX - (SrcX0 << EPrecissionBits);
-										uint32 SrcXFraction = EPrecission - SrcXFractionInv;
+										uint32 SrcXFractionInv = SourceX - (SrcX0 << c_PrecissionBits);
+										uint32 SrcXFraction = c_Precission - SrcXFractionInv;
 										SourceX += SourceXAdd;
 
 										uint32 Pix0 = pSrc0[SrcX0];
@@ -1025,19 +1019,19 @@ namespace NMib::NGraphics
 
 										CLargeTypeU Result0R = (Pix0R * SrcXFraction + Pix1R * SrcXFractionInv);
 										CLargeTypeU Result1R = (Pix2R * SrcXFraction + Pix3R * SrcXFractionInv);
-										uint32 ResultR = (Result0R * SrcYFraction + Result1R * SrcYFractionInv) >> (EPrecissionBits * 2);
+										uint32 ResultR = (Result0R * SrcYFraction + Result1R * SrcYFractionInv) >> (c_PrecissionBits * 2);
 
 										CLargeTypeU Result0G = (Pix0G * SrcXFraction + Pix1G * SrcXFractionInv);
 										CLargeTypeU Result1G = (Pix2G * SrcXFraction + Pix3G * SrcXFractionInv);
-										uint32 ResultG = (Result0G * SrcYFraction + Result1G * SrcYFractionInv) >> (EPrecissionBits * 2);
+										uint32 ResultG = (Result0G * SrcYFraction + Result1G * SrcYFractionInv) >> (c_PrecissionBits * 2);
 
 										CLargeTypeU Result0B = (Pix0B * SrcXFraction + Pix1B * SrcXFractionInv);
 										CLargeTypeU Result1B = (Pix2B * SrcXFraction + Pix3B * SrcXFractionInv);
-										uint32 ResultB = (Result0B * SrcYFraction + Result1B * SrcYFractionInv) >> (EPrecissionBits * 2);
+										uint32 ResultB = (Result0B * SrcYFraction + Result1B * SrcYFractionInv) >> (c_PrecissionBits * 2);
 
 										CLargeTypeU Result0A = (Pix0A * SrcXFraction + Pix1A * SrcXFractionInv);
 										CLargeTypeU Result1A = (Pix2A * SrcXFraction + Pix3A * SrcXFractionInv);
-										uint32 ResultA = (Result0A * SrcYFraction + Result1A * SrcYFractionInv) >> (EPrecissionBits * 2);
+										uint32 ResultA = (Result0A * SrcYFraction + Result1A * SrcYFractionInv) >> (c_PrecissionBits * 2);
 
 										pDst0[x] = ResultR | (ResultG << 8) | (ResultB << 16) | (ResultA << 24);
 									}

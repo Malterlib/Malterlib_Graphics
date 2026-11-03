@@ -21,7 +21,7 @@ namespace NMib::NGraphics
 			return false;
 		}
 
-		enum
+		enum EPng
 		{
 			EPng_SigSize = 4
 		};
@@ -347,10 +347,10 @@ namespace NMib::NGraphics
 	};
 }
 
-using NMib_NGraphics_CImageIO_Png = NMib::NGraphics::CImageIO_Png;
-DMibRuntimeClassNamedCasted(NMib::NGraphics::CImageIO, NMib_NGraphics_CImageIO_Png, NMib::NGraphics::CImageIO_Png, NMib::NGraphics::CImageIO);
+using CImageIOPngAlias = NMib::NGraphics::CImageIO_Png;
+DMibRuntimeClassNamedCasted(NMib::NGraphics::CImageIO, CImageIOPngAlias, NMib::NGraphics::CImageIO_Png, NMib::NGraphics::CImageIO);
 
 void fg_Malterlib_Graphics_MakeActive_Png()
 {
-	DMibRuntimeClassMakeActive(NMib_NGraphics_CImageIO_Png);
+	DMibRuntimeClassMakeActive(CImageIOPngAlias);
 }

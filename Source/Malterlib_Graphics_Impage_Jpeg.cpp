@@ -255,7 +255,7 @@ namespace NMib::NGraphics
 			NContainer::CByteVector m_Buffer;
 		};
 
-		enum
+		enum EJpeg
 		{
 			EJpeg_BufferSize = 1024
 		};
@@ -437,10 +437,10 @@ namespace NMib::NGraphics
 	};
 }
 
-using NMib_NGraphics_CImageIO_Jpeg = NMib::NGraphics::CImageIO_Jpeg;
-DMibRuntimeClassNamedCasted(NMib::NGraphics::CImageIO, NMib_NGraphics_CImageIO_Jpeg, NMib::NGraphics::CImageIO_Jpeg, NMib::NGraphics::CImageIO);
+using CImageIOJpegAlias = NMib::NGraphics::CImageIO_Jpeg;
+DMibRuntimeClassNamedCasted(NMib::NGraphics::CImageIO, CImageIOJpegAlias, NMib::NGraphics::CImageIO_Jpeg, NMib::NGraphics::CImageIO);
 
 void fg_Malterlib_Graphics_MakeActive_Jpeg()
 {
-	DMibRuntimeClassMakeActive(NMib_NGraphics_CImageIO_Jpeg);
+	DMibRuntimeClassMakeActive(CImageIOJpegAlias);
 }
