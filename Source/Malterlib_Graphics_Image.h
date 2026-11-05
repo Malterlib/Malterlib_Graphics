@@ -12,20 +12,18 @@ namespace NMib::NGraphics
 	{
 		using CType = typename t_CPoint::CType;
 
-		t_CPoint m_Corners[2];
-
 		CType f_GetWidth();
 		CType f_GetHeight();
 		CType f_GetDepth();
 		CType f_GetNumArrays();
+
+		t_CPoint m_Corners[2];
 	};
 
 	template <typename t_CPoint>
 	struct TCImageDimensions
 	{
 		using CType = typename t_CPoint::CType;
-
-		t_CPoint m_Dimensions;
 
 		TCImageDimensions(CType _Width = 1, CType _Height = 1, CType _Depth = 1, CType _Arrays = 1);
 
@@ -37,14 +35,14 @@ namespace NMib::NGraphics
 		bool operator == (TCImageDimensions const &_Other) const noexcept;
 		COrdering_Strong operator <=> (TCImageDimensions const &_Other) const noexcept;
 		CType &operator [] (int _Pos);
+
+		t_CPoint m_Dimensions;
 	};
 
 	template <typename t_CPoint>
 	struct TCImageStride
 	{
 		using CType = typename t_CPoint::CType;
-
-		t_CPoint m_Stride;
 
 		TCImageStride();
 		TCImageStride(CType _Width, CType _Height = 0, CType _Depth = 0);
@@ -53,6 +51,8 @@ namespace NMib::NGraphics
 		CType f_GetHeight();
 		CType f_GetDepth();
 		CType &operator [] (int _Pos);
+
+		t_CPoint m_Stride;
 	};
 
 	using CImageDimensions = TCImageDimensions<NNumeric::CVec4Duint32>;
@@ -1637,8 +1637,6 @@ namespace NMib::NGraphics
 
 	struct CImage
 	{
-		uint64 m_ImageFormat;
-		CImageDimensions m_Dimensions;
 		struct CLockedData
 		{
 			void *m_pData;
@@ -1669,6 +1667,9 @@ namespace NMib::NGraphics
 		bool f_StretchBilinear(CImage &_Dst, fp64 _OffsetX, fp64 _OffsetY);
 		uint32 f_PixelSize();
 
+		uint64 m_ImageFormat;
+		CImageDimensions m_Dimensions;
+
 	private:
 		template <typename tf_FFunction>
 		bool fp_StretchHalfXY_Core(CImage &_Dst, tf_FFunction _fFunc);
@@ -1677,10 +1678,6 @@ namespace NMib::NGraphics
 	struct CImageMemory : public CImage
 	{
 		using CStorageType = uint8; // Align here in the future
-
-		CImageStride m_Stride;
-
-		NContainer::TCVector<CStorageType> m_Data;
 
 		bool f_Create(uint64 _ImageFormat, CImageDimensions _Dimensions, CImageStride _Stride = CImageStride());
 		bool f_Create(CImageMemory const &_Src);
@@ -1692,6 +1689,10 @@ namespace NMib::NGraphics
 
 		static bool fs_ReadImage(CImageMemory &_Destination, NStr::CStr const &_FileName);
 		static bool fs_ReadImage(CImageMemory &_Destination, NStream::CBinaryStream &_Stream);
+
+		CImageStride m_Stride;
+
+		NContainer::TCVector<CStorageType> m_Data;
 	};
 
 	struct CImageIO
