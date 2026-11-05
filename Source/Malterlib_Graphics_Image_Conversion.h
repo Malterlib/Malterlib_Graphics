@@ -39,6 +39,8 @@ struct TCImageConversion
 
 #undef DTemp_ImplementCheck
 
+	static void fs_ConvertImage(void *_pFrom, void *_pTo, CImageDimensions const &_Dim, CImageStride const &_StrideFrom, CImageStride const &_StrideTo);
+
 	static constexpr aint mc_From_PhysicalFormat = DMibGraphicsImageFormat_Get_PhysicalFormat(t_FromFormat);
 	static constexpr aint mc_From_PhysicalEdian = DMibGraphicsImageFormat_Get_PhysicalEndian(t_FromFormat);
 	static constexpr aint mc_From_Component0 = DMibGraphicsImageFormat_Get_Component(t_FromFormat, 0);
@@ -83,8 +85,6 @@ struct TCImageConversion
 	static constexpr aint mc_To_Component3_SourceComponent = DMibGraphicsImageFormat_Get_ComponentSourceComponent(mc_To_Component3);
 	static constexpr aint mc_To_Component3_Usage = DMibGraphicsImageFormat_Get_ComponentUsage(mc_To_Component3);
 	static constexpr aint mc_To_Component3_ExpandFormat = DMibGraphicsImageFormat_Get_ComponentExpandFormat(mc_To_Component3);
-
-	static void fs_ConvertImage(void *_pFrom, void *_pTo, CImageDimensions const &_Dim, CImageStride const &_StrideFrom, CImageStride const &_StrideTo);
 };
 
 #include "Malterlib_Graphics_Image_Conversion.hpp"
