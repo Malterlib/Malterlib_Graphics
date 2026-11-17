@@ -3,12 +3,14 @@
 %define _bindir  /opt/libjpeg-turbo/bin
 %define _datarootdir  /opt/libjpeg-turbo
 %define _includedir  /opt/libjpeg-turbo/include
-%define _javadir  
 %define _mandir  /opt/libjpeg-turbo/man
 %define _enable_static  1
 %define _enable_shared  1
 %define _with_turbojpeg  1
-%define _with_java  0
+%define _with_jna  %{nil}
+%if "%{_with_jna}" != ""
+%define _javadir  
+%endif
 
 %if "%{?__isa_bits:1}" == "1"
 %define _bits  %{__isa_bits}
@@ -30,23 +32,28 @@
 #-->%if 1
 %if "%{_bits}" == "64"
 %define _libdir  %{_exec_prefix}/lib64
+%define _rellibdir  lib64
 %else
 %if "%{_prefix}" == "/opt/libjpeg-turbo"
 %define _libdir  %{_exec_prefix}/lib32
+%define _rellibdir  lib32
 %endif
 %endif
 #-->%else
 %define _libdir  /opt/libjpeg-turbo/lib64
+%define _rellibdir  lib64
 #-->%endif
+
+%define __requires_exclude_from  ^%{_libdir}/cmake/libjpeg-turbo/.*$
 
 Summary: A SIMD-accelerated JPEG codec that provides both the libjpeg and TurboJPEG APIs
 Name: libjpeg-turbo
-Version: 3.1.2
+Version: 3.2.1
 Vendor: The libjpeg-turbo Project
 URL: https://libjpeg-turbo.org
 Group: System Environment/Libraries
 #-->Source0: https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/%{version}/libjpeg-turbo-%{version}.tar.gz
-Release: 20260422
+Release: Malterlib
 License: BSD-style
 BuildRoot: %{_blddir}/%{name}-buildroot-%{version}-%{release}
 Requires: /sbin/ldconfig
@@ -58,19 +65,17 @@ Provides: %{name} = %{version}-%{release}, libjpeg-turbo = %{version}-%{release}
 
 %description
 libjpeg-turbo is a JPEG image codec that uses SIMD instructions to accelerate
-baseline JPEG compression and decompression on x86, x86-64, Arm, PowerPC, and
-MIPS systems, as well as progressive JPEG compression on x86, x86-64, and Arm
-systems.  On such systems, libjpeg-turbo is generally 2-6x as fast as libjpeg,
-all else being equal.  On other types of systems, libjpeg-turbo can still
-outperform libjpeg by a significant amount, by virtue of its highly-optimized
-Huffman coding routines.  In many cases, the performance of libjpeg-turbo
-rivals that of proprietary high-speed JPEG codecs.
+baseline and progressive JPEG compression and decompression on systems with
+common CPU architectures.  On such systems, libjpeg-turbo is generally 2-6x as
+fast as libjpeg, all else being equal.  On other types of systems,
+libjpeg-turbo can still outperform libjpeg by a significant amount, by virtue
+of its highly-optimized Huffman coding routines.  In many cases, the
+performance of libjpeg-turbo rivals that of proprietary high-speed JPEG codecs.
 
 libjpeg-turbo implements both the traditional libjpeg API as well as the less
 powerful but more straightforward TurboJPEG API.  libjpeg-turbo also features
 colorspace extensions that allow it to compress from/decompress to 32-bit and
-big-endian pixel buffers (RGBX, XBGR, etc.), as well as a full-featured Java
-interface.
+big-endian pixel buffers (RGBX, XBGR, etc.)
 
 libjpeg-turbo was originally based on libjpeg/SIMD, an MMX-accelerated
 derivative of libjpeg v6b developed by Miyasaka Masaru.  The TigerVNC and
@@ -89,9 +94,9 @@ reference implementation of the JPEG standard.
 #-->  -DCMAKE_INSTALL_BINDIR=%{_bindir} \
 #-->  -DCMAKE_INSTALL_DATAROOTDIR=%{_datarootdir} \
 #-->  -DCMAKE_INSTALL_DOCDIR=%{_docdir} \
-#-->  -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
+#-->  -DCMAKE_INSTALL_INCLUDEDIR=include \
 #-->  -DCMAKE_INSTALL_JAVADIR=%{_javadir} \
-#-->  -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+#-->  -DCMAKE_INSTALL_LIBDIR=%{_rellibdir} \
 #-->  -DCMAKE_INSTALL_MANDIR=%{_mandir} \
 #-->  -DCMAKE_INSTALL_PREFIX=%{_prefix} \
 #-->  -DCMAKE_POSITION_INDEPENDENT_CODE=0 \
@@ -101,14 +106,18 @@ reference implementation of the JPEG standard.
 #-->  -DJPEG_LIB_VERSION=62 \
 #-->  -DREQUIRE_SIMD=0 \
 #-->  -DWITH_ARITH_DEC=1 -DWITH_ARITH_ENC=1 \
-#-->  -DWITH_JAVA=0 \
+#-->  -DWITH_JNA= \
 #-->  -DWITH_JPEG7=0 -DWITH_JPEG8=0 \
 #-->  -DWITH_SIMD=0 -DWITH_TURBOJPEG=1 .
 #-->make DESTDIR=$RPM_BUILD_ROOT
 
 %install
 rm -rf $RPM_BUILD_ROOT
-DESTDIR=$RPM_BUILD_ROOT ../../../../../Binaries/Malterlib/Linux/arm64/ninja install
+%if "%{_config}" == ""
+	DESTDIR=$RPM_BUILD_ROOT ../../../../../Binaries/Malterlib/macOS/arm64/MToolCMake --build . -t install
+%else
+	DESTDIR=$RPM_BUILD_ROOT ../../../../../Binaries/Malterlib/macOS/arm64/MToolCMake --build . -t install --config %{_config}
+%endif
 /sbin/ldconfig -n $RPM_BUILD_ROOT%{_libdir}
 
 #-->%if 0
@@ -166,6 +175,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %dir %{_docdir}
 %doc %{_docdir}/*
+%if "%{_with_jna}" != ""
+	%dir %{_docdir}/jna
+%endif
 %dir %{_prefix}
 %if "%{_prefix}" == "/opt/libjpeg-turbo" && "%{_docdir}" != "%{_prefix}/doc"
 	%{_prefix}/doc
@@ -194,10 +206,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/libjpeg.pc
 %dir %{_libdir}/cmake
 %dir %{_libdir}/cmake/libjpeg-turbo
-%{_libdir}/cmake/libjpeg-turbo
+%{_libdir}/cmake/libjpeg-turbo/*
 %if "%{_with_turbojpeg}" == "1"
-	%if "%{_enable_shared}" == "1" || "%{_with_java}" == "1"
-		%{_libdir}/libturbojpeg.so.0.4.0
+	%if "%{_enable_shared}" == "1" || "%{_with_jna}" != ""
+		%{_libdir}/libturbojpeg.so.0.5.0
 		%{_libdir}/libturbojpeg.so.0
 		%{_libdir}/libturbojpeg.so
 	%endif
@@ -224,9 +236,9 @@ rm -rf $RPM_BUILD_ROOT
 %if "%{_prefix}" != "%{_datarootdir}"
 	%dir %{_datarootdir}
 %endif
-%if "%{_with_java}" == "1"
+%if "%{_with_jna}" != ""
 	%dir %{_javadir}
-	%{_javadir}/turbojpeg.jar
+	%{_javadir}/turbojpeg-jna.jar
 %endif
 
 %changelog

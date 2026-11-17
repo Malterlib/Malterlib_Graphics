@@ -1,6 +1,9 @@
 CMakeFiles/croptest.rule
 CMakeFiles/deb.rule
 CMakeFiles/dist.rule
+CMakeFiles/droptest.rule
+CMakeFiles/indexedcolortest.rule
+CMakeFiles/rgb565test.rule
 CMakeFiles/rpm.rule
 CMakeFiles/srpm.rule
 CMakeFiles/tarball.rule

@@ -1,6 +1,6 @@
 !include x64.nsh
 Name "libjpeg-turbo SDK for Visual C++"
-OutFile ".\${BUILDDIR}libjpeg-turbo-3.1.2-vc-x86.exe"
+OutFile ".\${BUILDDIR}libjpeg-turbo-3.2.1-vc-x86.exe"
 InstallDir "c:\libjpeg-turbo"
 
 SetCompressor bzip2
@@ -76,9 +76,9 @@ Section "libjpeg-turbo SDK for Visual C++ (required)"
 	File ".\pkgscripts\libjpeg-turboConfigVersion.cmake"
 	File ".\win\libjpeg-turboTargets.cmake"
 	File ".\win\libjpeg-turboTargets-release.cmake"
-!ifdef JAVA
+!ifdef JNA
 	SetOutPath $INSTDIR\classes
-	File ".\java\turbojpeg.jar"
+	File ".\jna\turbojpeg-jna.jar"
 !endif
 	SetOutPath $INSTDIR\include
 	File ".\jconfig.h"
@@ -98,9 +98,11 @@ Section "libjpeg-turbo SDK for Visual C++ (required)"
 	File "../../../../External/libjpeg-turbo\src\tjcomp.c"
 	File "../../../../External/libjpeg-turbo\src\tjdecomp.c"
 	File "../../../../External/libjpeg-turbo\src\tjtran.c"
-	File "../../../../External/libjpeg-turbo\java\TJComp.java"
-	File "../../../../External/libjpeg-turbo\java\TJDecomp.java"
-	File "../../../../External/libjpeg-turbo\java\TJTran.java"
+	SetOutPath $INSTDIR\doc\jna
+	File "../../../../External/libjpeg-turbo\jna\TJ.java"
+	File "../../../../External/libjpeg-turbo\jna\TJComp.java"
+	File "../../../../External/libjpeg-turbo\jna\TJDecomp.java"
+	File "../../../../External/libjpeg-turbo\jna\TJTran.java"
 !ifdef GCC
 	SetOutPath $INSTDIR\man\man1
 	File "../../../../External/libjpeg-turbo\doc\cjpeg.1"
@@ -110,13 +112,13 @@ Section "libjpeg-turbo SDK for Visual C++ (required)"
 	File "../../../../External/libjpeg-turbo\doc\wrjpgcom.1"
 !endif
 
-	WriteRegStr HKLM "SOFTWARE\libjpeg-turbo 3.1.2" "Install_Dir" "$INSTDIR"
+	WriteRegStr HKLM "SOFTWARE\libjpeg-turbo 3.2.1" "Install_Dir" "$INSTDIR"
 
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo 3.1.2" "DisplayName" "libjpeg-turbo SDK v3.1.2 for Visual C++"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo 3.1.2" "UninstallString" '"$INSTDIR\uninstall_3.1.2.exe"'
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo 3.1.2" "NoModify" 1
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo 3.1.2" "NoRepair" 1
-	WriteUninstaller "uninstall_3.1.2.exe"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo 3.2.1" "DisplayName" "libjpeg-turbo SDK v3.2.1 for Visual C++"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo 3.2.1" "UninstallString" '"$INSTDIR\uninstall_3.2.1.exe"'
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo 3.2.1" "NoModify" 1
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo 3.2.1" "NoRepair" 1
+	WriteUninstaller "uninstall_3.2.1.exe"
 SectionEnd
 
 Section "Uninstall"
@@ -128,8 +130,8 @@ Section "Uninstall"
 
 	SetShellVarContext all
 
-	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo 3.1.2"
-	DeleteRegKey HKLM "SOFTWARE\libjpeg-turbo 3.1.2"
+	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libjpeg-turbo 3.2.1"
+	DeleteRegKey HKLM "SOFTWARE\libjpeg-turbo 3.2.1"
 
 !ifdef GCC
 	Delete $INSTDIR\bin\libjpeg-62.dll
@@ -154,8 +156,8 @@ Section "Uninstall"
 	Delete $INSTDIR\lib\cmake\libjpeg-turbo\libjpeg-turboConfigVersion.cmake
 	Delete $INSTDIR\lib\cmake\libjpeg-turbo\libjpeg-turboTargets.cmake
 	Delete $INSTDIR\lib\cmake\libjpeg-turbo\libjpeg-turboTargets-release.cmake
-!ifdef JAVA
-	Delete $INSTDIR\classes\turbojpeg.jar
+!ifdef JNA
+	Delete $INSTDIR\classes\turbojpeg-jna.jar
 !endif
 	Delete $INSTDIR\bin\cjpeg.exe
 	Delete $INSTDIR\bin\djpeg.exe
@@ -168,7 +170,7 @@ Section "Uninstall"
 	Delete $INSTDIR\include\jmorecfg.h
 	Delete $INSTDIR\include\jpeglib.h
 	Delete $INSTDIR\include\turbojpeg.h
-	Delete $INSTDIR\uninstall_3.1.2.exe
+	Delete $INSTDIR\uninstall_3.2.1.exe
 	Delete $INSTDIR\doc\README.ijg
 	Delete $INSTDIR\doc\README.md
 	Delete $INSTDIR\doc\LICENSE.md
@@ -180,9 +182,10 @@ Section "Uninstall"
 	Delete $INSTDIR\doc\tjcomp.c
 	Delete $INSTDIR\doc\tjdecomp.c
 	Delete $INSTDIR\doc\tjtran.c
-	Delete $INSTDIR\doc\TJComp.java
-	Delete $INSTDIR\doc\TJDecomp.java
-	Delete $INSTDIR\doc\TJTran.java
+	Delete $INSTDIR\doc\jna\TJ.java
+	Delete $INSTDIR\doc\jna\TJComp.java
+	Delete $INSTDIR\doc\jna\TJDecomp.java
+	Delete $INSTDIR\doc\jna\TJTran.java
 !ifdef GCC
 	Delete $INSTDIR\man\man1\cjpeg.1
 	Delete $INSTDIR\man\man1\djpeg.1
@@ -196,12 +199,13 @@ Section "Uninstall"
 	RMDir "$INSTDIR\lib\cmake\libjpeg-turbo"
 	RMDir "$INSTDIR\lib\cmake"
 	RMDir "$INSTDIR\lib"
+	RMDir "$INSTDIR\doc\jna"
 	RMDir "$INSTDIR\doc"
 !ifdef GCC
 	RMDir "$INSTDIR\man\man1"
 	RMDir "$INSTDIR\man"
 !endif
-!ifdef JAVA
+!ifdef JNA
 	RMDir "$INSTDIR\classes"
 !endif
 	RMDir "$INSTDIR\bin"
