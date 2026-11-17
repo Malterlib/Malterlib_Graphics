@@ -1,6 +1,9 @@
 CMakeFiles/croptest.rule
 CMakeFiles/dist.rule
+CMakeFiles/droptest.rule
+CMakeFiles/indexedcolortest.rule
 CMakeFiles/installer.rule
+CMakeFiles/rgb565test.rule
 CMakeFiles/tarball.rule
 CMakeFiles/testclean.rule
 CMakeFiles/tjdoc.rule

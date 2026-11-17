@@ -19,7 +19,9 @@ Property.CMakeOutputPath_libpng: string = `@('.'->MakeAbsolute())`->MakeAbsolute
 		!!Compile.Type "C"
 		SearchPath += [
 			`@('../../../../External/libpng'->MakeAbsolute())`->MakeAbsolute(),
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
+		]
+		SystemSearchPath += [
 			`@('../../../..'->MakeAbsolute())/External/zlib`->MakeAbsolute()
 		]
 		PreprocessorDefines += [

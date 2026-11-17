@@ -43,12 +43,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -481,11 +478,13 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
 		PreprocessorDefines += [
-			"NEON_INTRINSICS",
+			"BMP_SUPPORTED",
+			"PNG_SUPPORTED",
+			"PPM_SUPPORTED",
+			"SPNG_STATIC",
 			"turbojpeg_EXPORTS"
 		]
 	}
@@ -790,6 +789,18 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 			{
 				Compile.Type "C"
 			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-16.c`
+			{
+				Compile.Type "C"
+			}
 			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdppm-8.c`
 			{
 				Compile.Type "C"
@@ -799,6 +810,18 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 				Compile.Type "C"
 			}
 			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdppm-16.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-16.c`
 			{
 				Compile.Type "C"
 			}
@@ -957,6 +980,8 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 		}
 	}
 	%Dependency "Lib_libjpeg-turbo_simd"
+	%Dependency "Lib_libjpeg-turbo_spng-static"
+	%Dependency "Lib_libjpeg-turbo_zlib-static"
 }
 %Target "Com_libjpeg-turbo_tjunittest"
 {
@@ -964,12 +989,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -1010,12 +1032,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -1041,12 +1060,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -1072,12 +1088,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -1103,12 +1116,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -1176,11 +1186,13 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
 		PreprocessorDefines += [
-			"NEON_INTRINSICS"
+			"BMP_SUPPORTED",
+			"PNG_SUPPORTED",
+			"PPM_SUPPORTED",
+			"SPNG_STATIC"
 		]
 	}
 	Property.MalterlibTargetNameType "Normal"
@@ -1484,6 +1496,18 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 			{
 				Compile.Type "C"
 			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-16.c`
+			{
+				Compile.Type "C"
+			}
 			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdppm-8.c`
 			{
 				Compile.Type "C"
@@ -1493,6 +1517,18 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 				Compile.Type "C"
 			}
 			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdppm-16.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-16.c`
 			{
 				Compile.Type "C"
 			}
@@ -1655,6 +1691,16 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 		Dependency.Indirect true
 		Dependency.IndirectOrdered true
 	}
+	%Dependency "Lib_libjpeg-turbo_spng-static"
+	{
+		Dependency.Indirect true
+		Dependency.IndirectOrdered true
+	}
+	%Dependency "Lib_libjpeg-turbo_zlib-static"
+	{
+		Dependency.Indirect true
+		Dependency.IndirectOrdered true
+	}
 }
 %Target "Com_libjpeg-turbo_tjunittest-static"
 {
@@ -1662,12 +1708,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -1708,12 +1751,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -1743,11 +1783,15 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
 		PreprocessorDefines += [
-			"NEON_INTRINSICS"
+			"BMP_SUPPORTED",
+			"GIF_SUPPORTED",
+			"PNG_SUPPORTED",
+			"PPM_SUPPORTED",
+			"SPNG_STATIC",
+			"TARGA_SUPPORTED"
 		]
 	}
 	Property.MalterlibTargetNameType "Normal"
@@ -1779,6 +1823,18 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 		}
 		%Group "wrapper"
 		{
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-16.c`
+			{
+				Compile.Type "C"
+			}
 			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdppm-8.c`
 			{
 				Compile.Type "C"
@@ -1802,6 +1858,8 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 		}
 	}
 	%Dependency "Lib_libjpeg-turbo_jpeg-static"
+	%Dependency "Lib_libjpeg-turbo_spng-static"
+	%Dependency "Lib_libjpeg-turbo_zlib-static"
 }
 %Target "Com_libjpeg-turbo_djpeg-static"
 {
@@ -1809,11 +1867,15 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
 		PreprocessorDefines += [
-			"NEON_INTRINSICS"
+			"BMP_SUPPORTED",
+			"GIF_SUPPORTED",
+			"PNG_SUPPORTED",
+			"PPM_SUPPORTED",
+			"SPNG_STATIC",
+			"TARGA_SUPPORTED"
 		]
 	}
 	Property.MalterlibTargetNameType "Normal"
@@ -1853,6 +1915,18 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 			{
 				Compile.Type "C"
 			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-16.c`
+			{
+				Compile.Type "C"
+			}
 			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrppm-8.c`
 			{
 				Compile.Type "C"
@@ -1880,6 +1954,8 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 		}
 	}
 	%Dependency "Lib_libjpeg-turbo_jpeg-static"
+	%Dependency "Lib_libjpeg-turbo_spng-static"
+	%Dependency "Lib_libjpeg-turbo_zlib-static"
 }
 %Target "Com_libjpeg-turbo_jpegtran-static"
 {
@@ -1887,12 +1963,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -1930,12 +2003,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -1955,18 +2025,133 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	}
 	%Dependency "Lib_libjpeg-turbo_jpeg-static"
 }
-%Target "Com_libjpeg-turbo_rdjpgcom"
+%Target "Com_libjpeg-turbo_bmpsizetest-static"
 {
 	Compile
 	{
 		!!Compile.Type "C"
 		SearchPath += [
 			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib`->MakeAbsolute()
 		]
 		PreprocessorDefines += [
-			"NEON_INTRINSICS"
+			"BMP_SUPPORTED",
+			"GIF_SUPPORTED",
+			"PNG_SUPPORTED",
+			"PPM_SUPPORTED",
+			"SPNG_STATIC",
+			"TARGA_SUPPORTED",
+			"Z_PREFIX"
 		]
+	}
+	Property.MalterlibTargetNameType "Normal"
+	Compile.AllowNonExisting true
+	Target.Group "External/libjpeg-turbo"
+	{
+		!!Target.Group undefined
+	}
+	Target.Type "ConsoleExecutable"
+	Target.BaseName "libjpeg-turbo_bmpsizetest-static"
+	Target.BaseFileName "bmpsizetest-static"
+	%Group "src"
+	{
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/bmpsizetest.c`
+		{
+			Compile.Type "C"
+		}
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/rdbmp.c`
+		{
+			Compile.Type "C"
+		}
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrbmp.c`
+		{
+			Compile.Type "C"
+		}
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/rdgif.c`
+		{
+			Compile.Type "C"
+		}
+		%Group "wrapper"
+		{
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrgif-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrgif-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-16.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-16.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdppm-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdppm-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdppm-16.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrppm-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrppm-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrppm-16.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/rdtarga.c`
+		{
+			Compile.Type "C"
+		}
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrtarga.c`
+		{
+			Compile.Type "C"
+		}
+	}
+	%Dependency "Lib_libjpeg-turbo_jpeg-static"
+	%Dependency "Lib_libjpeg-turbo_spng-static"
+	%Dependency "Lib_libjpeg-turbo_zlib-static"
+}
+%Target "Com_libjpeg-turbo_rdjpgcom"
+{
+	Compile
+	{
+		!!Compile.Type "C"
+		SearchPath += [
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
+		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -1991,12 +2176,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -2021,12 +2203,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -2121,6 +2300,120 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 		}
 	}
 }
+%Target "Tool_libjpeg-turbo_droptest"
+{
+	Property.MalterlibTargetNameType "Normal"
+	Compile.AllowNonExisting true
+	Compile.Disabled true
+	Target.Group "External/libjpeg-turbo"
+	{
+		!!Target.Group undefined
+	}
+	Target.Type "Tool"
+	Target.BaseName "libjpeg-turbo_droptest"
+	Target.BaseFileName "droptest"
+	%Group "Linux"
+	{
+		%Group "arm64"
+		{
+			%Group `@(FullConfiguration)`
+			{
+				%Group "CMakeFiles"
+				{
+					%File `@('.'->MakeAbsolute())/CMakeFiles/droptest.rule`
+					{
+						Compile
+						{
+							Type "Custom"
+							Custom_CommandLine `echo droptest && @(`@('.'->MakeAbsolute())/test/droptest`->MakeAbsolute()->EscapeHost())`
+							AllowNonExisting true
+							Disabled false
+							Custom_WorkingDirectory `@('.'->MakeAbsolute())`->MakeAbsolute()
+							Custom_Outputs []
+							Custom_Inputs []
+						}
+					}
+				}
+			}
+		}
+	}
+}
+%Target "Tool_libjpeg-turbo_indexedcolortest"
+{
+	Property.MalterlibTargetNameType "Normal"
+	Compile.AllowNonExisting true
+	Compile.Disabled true
+	Target.Group "External/libjpeg-turbo"
+	{
+		!!Target.Group undefined
+	}
+	Target.Type "Tool"
+	Target.BaseName "libjpeg-turbo_indexedcolortest"
+	Target.BaseFileName "indexedcolortest"
+	%Group "Linux"
+	{
+		%Group "arm64"
+		{
+			%Group `@(FullConfiguration)`
+			{
+				%Group "CMakeFiles"
+				{
+					%File `@('.'->MakeAbsolute())/CMakeFiles/indexedcolortest.rule`
+					{
+						Compile
+						{
+							Type "Custom"
+							Custom_CommandLine `echo indexedcolortest && @(`@('.'->MakeAbsolute())/test/indexedcolortest`->MakeAbsolute()->EscapeHost())`
+							AllowNonExisting true
+							Disabled false
+							Custom_WorkingDirectory `@('.'->MakeAbsolute())`->MakeAbsolute()
+							Custom_Outputs []
+							Custom_Inputs []
+						}
+					}
+				}
+			}
+		}
+	}
+}
+%Target "Tool_libjpeg-turbo_rgb565test"
+{
+	Property.MalterlibTargetNameType "Normal"
+	Compile.AllowNonExisting true
+	Compile.Disabled true
+	Target.Group "External/libjpeg-turbo"
+	{
+		!!Target.Group undefined
+	}
+	Target.Type "Tool"
+	Target.BaseName "libjpeg-turbo_rgb565test"
+	Target.BaseFileName "rgb565test"
+	%Group "Linux"
+	{
+		%Group "arm64"
+		{
+			%Group `@(FullConfiguration)`
+			{
+				%Group "CMakeFiles"
+				{
+					%File `@('.'->MakeAbsolute())/CMakeFiles/rgb565test.rule`
+					{
+						Compile
+						{
+							Type "Custom"
+							Custom_CommandLine `echo rgb565test && @(`@('.'->MakeAbsolute())/test/rgb565test`->MakeAbsolute()->EscapeHost())`
+							AllowNonExisting true
+							Disabled false
+							Custom_WorkingDirectory `@('.'->MakeAbsolute())`->MakeAbsolute()
+							Custom_Outputs []
+							Custom_Inputs []
+						}
+					}
+				}
+			}
+		}
+	}
+}
 %Target "Tool_libjpeg-turbo_tjtest"
 {
 	Property.MalterlibTargetNameType "Normal"
@@ -2146,7 +2439,7 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 						Compile
 						{
 							Type "Custom"
-							Custom_CommandLine `MToolCMake -DWITH_JAVA=0 -DPRECISION=8 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost())`
+							Custom_CommandLine `MToolCMake -DWITH_JNA= -DPRECISION=8 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost())`
 							AllowNonExisting true
 							Disabled false
 							Custom_WorkingDirectory `@('.'->MakeAbsolute())`->MakeAbsolute()
@@ -2187,7 +2480,7 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 						Compile
 						{
 							Type "Custom"
-							Custom_CommandLine `MToolCMake -DWITH_JAVA=0 -DPRECISION=12 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost())`
+							Custom_CommandLine `MToolCMake -DWITH_JNA= -DPRECISION=12 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost())`
 							AllowNonExisting true
 							Disabled false
 							Custom_WorkingDirectory `@('.'->MakeAbsolute())`->MakeAbsolute()
@@ -2228,7 +2521,7 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 						Compile
 						{
 							Type "Custom"
-							Custom_CommandLine `MToolCMake -DWITH_JAVA=0 -DPRECISION=2 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JAVA=0 -DPRECISION=3 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JAVA=0 -DPRECISION=4 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JAVA=0 -DPRECISION=5 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JAVA=0 -DPRECISION=6 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JAVA=0 -DPRECISION=7 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JAVA=0 -DPRECISION=9 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JAVA=0 -DPRECISION=10 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JAVA=0 -DPRECISION=11 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JAVA=0 -DPRECISION=13 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JAVA=0 -DPRECISION=14 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JAVA=0 -DPRECISION=15 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JAVA=0 -DPRECISION=16 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost())`
+							Custom_CommandLine `MToolCMake -DWITH_JNA= -DPRECISION=2 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JNA= -DPRECISION=3 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JNA= -DPRECISION=4 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JNA= -DPRECISION=5 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JNA= -DPRECISION=6 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JNA= -DPRECISION=7 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JNA= -DPRECISION=9 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JNA= -DPRECISION=10 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JNA= -DPRECISION=11 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JNA= -DPRECISION=13 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JNA= -DPRECISION=14 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JNA= -DPRECISION=15 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost()) && MToolCMake -DWITH_JNA= -DPRECISION=16 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjbenchtest.cmake`->MakeAbsolute()->EscapeHost())`
 							AllowNonExisting true
 							Disabled false
 							Custom_WorkingDirectory `@('.'->MakeAbsolute())`->MakeAbsolute()
@@ -2269,7 +2562,7 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 						Compile
 						{
 							Type "Custom"
-							Custom_CommandLine `MToolCMake -DWITH_JAVA=0 -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjexampletest.cmake`->MakeAbsolute()->EscapeHost())`
+							Custom_CommandLine `MToolCMake -DWITH_JNA= -P @(`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/cmakescripts/tjexampletest.cmake`->MakeAbsolute()->EscapeHost())`
 							AllowNonExisting true
 							Disabled false
 							Custom_WorkingDirectory `@('.'->MakeAbsolute())`->MakeAbsolute()
@@ -2337,22 +2630,27 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	%Dependency "Com_libjpeg-turbo_cjpeg"
 	{
 		Dependency.Link false
+		Dependency.Stage "Compile"
 	}
 	%Dependency "Com_libjpeg-turbo_djpeg"
 	{
 		Dependency.Link false
+		Dependency.Stage "Compile"
 	}
 	%Dependency "Com_libjpeg-turbo_jpegtran"
 	{
 		Dependency.Link false
+		Dependency.Stage "Compile"
 	}
 	%Dependency "Com_libjpeg-turbo_rdjpgcom"
 	{
 		Dependency.Link false
+		Dependency.Stage "Compile"
 	}
 	%Dependency "Com_libjpeg-turbo_wrjpgcom"
 	{
 		Dependency.Link false
+		Dependency.Stage "Compile"
 	}
 }
 %Target "Tool_libjpeg-turbo_srpm"
@@ -2399,6 +2697,7 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	%Dependency "Tool_libjpeg-turbo_dist"
 	{
 		Dependency.Link false
+		Dependency.Stage "Compile"
 	}
 }
 %Target "Tool_libjpeg-turbo_deb"
@@ -2468,7 +2767,7 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 						Compile
 						{
 							Type "Custom"
-							Custom_CommandLine `git archive --prefix=libjpeg-turbo-3.1.2/ HEAD | gzip > @(`@('.'->MakeAbsolute())/libjpeg-turbo-3.1.2.tar.gz`->MakeAbsolute()->EscapeHost())`
+							Custom_CommandLine `git archive --prefix=libjpeg-turbo-3.2.1/ HEAD | gzip > @(`@('.'->MakeAbsolute())/libjpeg-turbo-3.2.1.tar.gz`->MakeAbsolute()->EscapeHost())`
 							AllowNonExisting true
 							Disabled false
 							Custom_WorkingDirectory `@('../../../../External/libjpeg-turbo'->MakeAbsolute())`->MakeAbsolute()
@@ -2568,13 +2867,10 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 		!!Compile.Type "C"
 		SearchPath += [
 			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute(),
 			`@('.'->MakeAbsolute())/simd/arm`->MakeAbsolute(),
-			`@(CMakeIntermediateDirectory)/External_libjpeg-turbo`->MakeAbsolute()
+			`@(CMakeIntermediateDirectory)/External_libjpeg-turbo/simd/arm`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -2590,15 +2886,34 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		%Group "arm"
 		{
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jccolor-neon.c`
+			{
+				Compile.Type "C"
+			}
 			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jcgray-neon.c`
 			{
 				Compile.Type "C"
+			}
+			%Group "aarch64"
+			{
+				%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/aarch64/jchuff-neon.c`
+				{
+					Compile.Type "C"
+				}
+				%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/aarch64/jsimdcpu.c`
+				{
+					Compile.Type "C"
+				}
 			}
 			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jcphuff-neon.c`
 			{
 				Compile.Type "C"
 			}
 			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jcsample-neon.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jdcolor-neon.c`
 			{
 				Compile.Type "C"
 			}
@@ -2614,6 +2929,18 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 			{
 				Compile.Type "C"
 			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jfdctint-neon.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jidctfst-neon.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jidctint-neon.c`
+			{
+				Compile.Type "C"
+			}
 			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jidctred-neon.c`
 			{
 				Compile.Type "C"
@@ -2622,37 +2949,141 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 			{
 				Compile.Type "C"
 			}
-			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jccolor-neon.c`
+		}
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/jsimd.c`
+		{
+			Compile.Type "C"
+		}
+	}
+}
+%Target "Com_libjpeg-turbo_simdcoverage"
+{
+	Compile
+	{
+		!!Compile.Type "C"
+		SearchPath += [
+			`@('.'->MakeAbsolute())`->MakeAbsolute(),
+			`@('.'->MakeAbsolute())/simd/arm`->MakeAbsolute(),
+			`@(CMakeIntermediateDirectory)/External_libjpeg-turbo/simd/arm`->MakeAbsolute()
+		]
+		PreprocessorDefines += []
+	}
+	Property.MalterlibTargetNameType "Normal"
+	Compile.AllowNonExisting true
+	Target.Group "External/libjpeg-turbo"
+	{
+		!!Target.Group undefined
+	}
+	Target.Type "ConsoleExecutable"
+	Target.BaseName "libjpeg-turbo_simdcoverage"
+	Target.BaseFileName "simdcoverage"
+	%Group "simd"
+	{
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/simdcoverage.c`
+		{
+			Compile.Type "C"
+		}
+	}
+	%Dependency "Lib_libjpeg-turbo_jpeg-static"
+}
+%Target "Lib_libjpeg-turbo_zlib-static"
+{
+	Compile
+	{
+		!!Compile.Type "C"
+		SearchPath += [
+			`@('.'->MakeAbsolute())`->MakeAbsolute(),
+			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib`->MakeAbsolute(),
+			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng`->MakeAbsolute()
+		]
+		PreprocessorDefines += [
+			"SPNG_STATIC",
+			"Z_PREFIX"
+		]
+	}
+	Property.MalterlibTargetNameType "Normal"
+	Compile.AllowNonExisting true
+	Target.Group "External/libjpeg-turbo"
+	{
+		!!Target.Group undefined
+	}
+	Target.Type "StaticLibrary"
+	Target.BaseName "libjpeg-turbo_zlib-static"
+	Target.BaseFileName "zlib-static"
+	Target.ObjectLibrary true
+	%Group "src"
+	{
+		%Group "zlib"
+		{
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/adler32.c`
 			{
 				Compile.Type "C"
 			}
-			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jidctint-neon.c`
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/compress.c`
 			{
 				Compile.Type "C"
 			}
-			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jidctfst-neon.c`
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/crc32.c`
 			{
 				Compile.Type "C"
 			}
-			%Group "aarch64"
-			{
-				%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/aarch64/jchuff-neon.c`
-				{
-					Compile.Type "C"
-				}
-				%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/aarch64/jsimd.c`
-				{
-					Compile.Type "C"
-				}
-			}
-			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jdcolor-neon.c`
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/deflate.c`
 			{
 				Compile.Type "C"
 			}
-			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/simd/arm/jfdctint-neon.c`
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/inffast.c`
 			{
 				Compile.Type "C"
 			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/inflate.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/inftrees.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/trees.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/zutil.c`
+			{
+				Compile.Type "C"
+			}
+		}
+	}
+}
+%Target "Lib_libjpeg-turbo_spng-static"
+{
+	Compile
+	{
+		!!Compile.Type "C"
+		SearchPath += [
+			`@('.'->MakeAbsolute())`->MakeAbsolute(),
+			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib`->MakeAbsolute(),
+			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng`->MakeAbsolute()
+		]
+		PreprocessorDefines += [
+			"SPNG_STATIC",
+			"Z_PREFIX"
+		]
+	}
+	Property.MalterlibTargetNameType "Normal"
+	Compile.AllowNonExisting true
+	Target.Group "External/libjpeg-turbo"
+	{
+		!!Target.Group undefined
+	}
+	Target.Type "StaticLibrary"
+	Target.BaseName "libjpeg-turbo_spng-static"
+	Target.BaseFileName "spng-static"
+	Target.ObjectLibrary true
+	%Group "src"
+	{
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/spng.c`
+		{
+			Compile.Type "C"
 		}
 	}
 }
@@ -2662,11 +3093,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
 		PreprocessorDefines += [
-			"NEON_INTRINSICS",
 			"jpeg_EXPORTS"
 		]
 	}
@@ -3097,11 +3526,15 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
 		PreprocessorDefines += [
-			"NEON_INTRINSICS"
+			"BMP_SUPPORTED",
+			"GIF_SUPPORTED",
+			"PNG_SUPPORTED",
+			"PPM_SUPPORTED",
+			"SPNG_STATIC",
+			"TARGA_SUPPORTED"
 		]
 	}
 	Property.MalterlibTargetNameType "Normal"
@@ -3133,6 +3566,18 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 		}
 		%Group "wrapper"
 		{
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-16.c`
+			{
+				Compile.Type "C"
+			}
 			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdppm-8.c`
 			{
 				Compile.Type "C"
@@ -3156,6 +3601,8 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 		}
 	}
 	%Dependency "Dll_libjpeg-turbo_jpeg"
+	%Dependency "Lib_libjpeg-turbo_spng"
+	%Dependency "Lib_libjpeg-turbo_zlib"
 }
 %Target "Com_libjpeg-turbo_djpeg"
 {
@@ -3163,11 +3610,15 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
 		PreprocessorDefines += [
-			"NEON_INTRINSICS"
+			"BMP_SUPPORTED",
+			"GIF_SUPPORTED",
+			"PNG_SUPPORTED",
+			"PPM_SUPPORTED",
+			"SPNG_STATIC",
+			"TARGA_SUPPORTED"
 		]
 	}
 	Property.MalterlibTargetNameType "Normal"
@@ -3207,6 +3658,18 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 			{
 				Compile.Type "C"
 			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-16.c`
+			{
+				Compile.Type "C"
+			}
 			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrppm-8.c`
 			{
 				Compile.Type "C"
@@ -3234,6 +3697,8 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 		}
 	}
 	%Dependency "Dll_libjpeg-turbo_jpeg"
+	%Dependency "Lib_libjpeg-turbo_spng"
+	%Dependency "Lib_libjpeg-turbo_zlib"
 }
 %Target "Com_libjpeg-turbo_jpegtran"
 {
@@ -3241,12 +3706,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -3284,12 +3746,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -3315,12 +3774,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -3340,18 +3796,234 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	}
 	%Dependency "Dll_libjpeg-turbo_jpeg"
 }
-%Target "Com_libjpeg-turbo_md5cmp"
+%Target "Com_libjpeg-turbo_bmpsizetest"
 {
 	Compile
 	{
 		!!Compile.Type "C"
 		SearchPath += [
 			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib`->MakeAbsolute()
 		]
 		PreprocessorDefines += [
-			"NEON_INTRINSICS"
+			"BMP_SUPPORTED",
+			"GIF_SUPPORTED",
+			"PNG_SUPPORTED",
+			"PPM_SUPPORTED",
+			"SPNG_STATIC",
+			"TARGA_SUPPORTED",
+			"Z_PREFIX"
 		]
+	}
+	Property.MalterlibTargetNameType "Normal"
+	Compile.AllowNonExisting true
+	Target.Group "External/libjpeg-turbo"
+	{
+		!!Target.Group undefined
+	}
+	Target.Type "ConsoleExecutable"
+	Target.BaseName "libjpeg-turbo_bmpsizetest"
+	Target.BaseFileName "bmpsizetest"
+	%Group "src"
+	{
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/bmpsizetest.c`
+		{
+			Compile.Type "C"
+		}
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/rdbmp.c`
+		{
+			Compile.Type "C"
+		}
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrbmp.c`
+		{
+			Compile.Type "C"
+		}
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/rdgif.c`
+		{
+			Compile.Type "C"
+		}
+		%Group "wrapper"
+		{
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrgif-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrgif-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdpng-16.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrpng-16.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdppm-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdppm-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/rdppm-16.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrppm-8.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrppm-12.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrapper/wrppm-16.c`
+			{
+				Compile.Type "C"
+			}
+		}
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/rdtarga.c`
+		{
+			Compile.Type "C"
+		}
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/wrtarga.c`
+		{
+			Compile.Type "C"
+		}
+	}
+	%Dependency "Dll_libjpeg-turbo_jpeg"
+	%Dependency "Lib_libjpeg-turbo_spng"
+	%Dependency "Lib_libjpeg-turbo_zlib"
+}
+%Target "Lib_libjpeg-turbo_zlib"
+{
+	Compile
+	{
+		!!Compile.Type "C"
+		SearchPath += [
+			`@('.'->MakeAbsolute())`->MakeAbsolute(),
+			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib`->MakeAbsolute(),
+			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng`->MakeAbsolute()
+		]
+		PreprocessorDefines += [
+			"SPNG_STATIC",
+			"Z_PREFIX"
+		]
+	}
+	Property.MalterlibTargetNameType "Normal"
+	Compile.AllowNonExisting true
+	Target.Group "External/libjpeg-turbo"
+	{
+		!!Target.Group undefined
+	}
+	Target.Type "StaticLibrary"
+	Target.BaseName "libjpeg-turbo_zlib"
+	Target.BaseFileName "zlib"
+	Target.ObjectLibrary true
+	%Group "src"
+	{
+		%Group "zlib"
+		{
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/adler32.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/compress.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/crc32.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/deflate.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/inffast.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/inflate.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/inftrees.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/trees.c`
+			{
+				Compile.Type "C"
+			}
+			%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib/zutil.c`
+			{
+				Compile.Type "C"
+			}
+		}
+	}
+}
+%Target "Lib_libjpeg-turbo_spng"
+{
+	Compile
+	{
+		!!Compile.Type "C"
+		SearchPath += [
+			`@('.'->MakeAbsolute())`->MakeAbsolute(),
+			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/zlib`->MakeAbsolute(),
+			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng`->MakeAbsolute()
+		]
+		PreprocessorDefines += [
+			"SPNG_STATIC",
+			"Z_PREFIX"
+		]
+	}
+	Property.MalterlibTargetNameType "Normal"
+	Compile.AllowNonExisting true
+	Target.Group "External/libjpeg-turbo"
+	{
+		!!Target.Group undefined
+	}
+	Target.Type "StaticLibrary"
+	Target.BaseName "libjpeg-turbo_spng"
+	Target.BaseFileName "spng"
+	Target.ObjectLibrary true
+	%Group "src"
+	{
+		%File `@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src/spng/spng.c`
+		{
+			Compile.Type "C"
+		}
+	}
+}
+%Target "Com_libjpeg-turbo_md5cmp"
+{
+	Compile
+	{
+		!!Compile.Type "C"
+		SearchPath += [
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
+		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true
@@ -3387,12 +4059,9 @@ Property.CMakeOutputPath_libjpeg\-turbo: string = `@('.'->MakeAbsolute())`->Make
 	{
 		!!Compile.Type "C"
 		SearchPath += [
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
-			`@('../../../../External/libjpeg-turbo'->MakeAbsolute())/src`->MakeAbsolute()
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
 		]
-		PreprocessorDefines += [
-			"NEON_INTRINSICS"
-		]
+		PreprocessorDefines += []
 	}
 	Property.MalterlibTargetNameType "Normal"
 	Compile.AllowNonExisting true

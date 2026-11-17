@@ -3,6 +3,7 @@
 ../../../../External/libjpeg-turbo/cmakescripts/GNUInstallDirs.cmake
 ../../../../External/libjpeg-turbo/cmakescripts/PackageInfo.cmake
 ../../../../External/libjpeg-turbo/cmakescripts/cmake_uninstall.cmake.in
+../../../../External/libjpeg-turbo/cmakescripts/right_shift_is_unsigned.c
 ../../../../External/libjpeg-turbo/release/Config.cmake.in
 ../../../../External/libjpeg-turbo/release/Distribution.xml.in
 ../../../../External/libjpeg-turbo/release/Welcome.rtf.in
@@ -12,6 +13,7 @@
 ../../../../External/libjpeg-turbo/release/maketarball.in
 ../../../../External/libjpeg-turbo/release/uninstall.in
 ../../../../External/libjpeg-turbo/sharedlib/CMakeLists.txt
+../../../../External/libjpeg-turbo/sharedlib/spng/CMakeLists.txt
 ../../../../External/libjpeg-turbo/simd/CMakeLists.txt
 ../../../../External/libjpeg-turbo/simd/arm/neon-compat.h.in
 ../../../../External/libjpeg-turbo/src/jconfig.h.in
@@ -19,7 +21,11 @@
 ../../../../External/libjpeg-turbo/src/jversion.h.in
 ../../../../External/libjpeg-turbo/src/libjpeg.map.in
 ../../../../External/libjpeg-turbo/src/md5/CMakeLists.txt
+../../../../External/libjpeg-turbo/src/spng/CMakeLists.txt
 ../../../../External/libjpeg-turbo/test/croptest.in
+../../../../External/libjpeg-turbo/test/droptest.in
+../../../../External/libjpeg-turbo/test/indexedcolortest.in
+../../../../External/libjpeg-turbo/test/rgb565test.in
 ../../../../External/libjpeg-turbo/test/tjbenchtest.in
 ../../../../External/libjpeg-turbo/test/tjcomptest.in
 ../../../../External/libjpeg-turbo/test/tjdecomptest.in

@@ -19,13 +19,19 @@ Property.CMakeOutputPath_libpng: string = `@('.'->MakeAbsolute())`->MakeAbsolute
 		!!Compile.Type "C"
 		SearchPath += [
 			`@('../../../../External/libpng'->MakeAbsolute())`->MakeAbsolute(),
-			`@('.'->MakeAbsolute())`->MakeAbsolute(),
+			`@('.'->MakeAbsolute())`->MakeAbsolute()
+		]
+		SystemSearchPath += [
 			`@('../../../..'->MakeAbsolute())/External/zlib`->MakeAbsolute()
 		]
 		PreprocessorDefines += [
+			"NDEBUG",
 			"PNG_ARM_NEON_OPT=2",
+			"WIN32",
 			"_CRT_NONSTDC_NO_DEPRECATE",
-			"_CRT_SECURE_NO_DEPRECATE"
+			"_CRT_SECURE_NO_DEPRECATE",
+			"_MBCS",
+			"_WINDOWS"
 		]
 	}
 	Property.MalterlibTargetNameType "Normal"
