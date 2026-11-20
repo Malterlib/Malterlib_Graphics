@@ -141,6 +141,8 @@ Import "../Core/Lib_Malterlib.MTarget"
 		, `ZLIB_INCLUDE_DIR=@("../../External/zlib"->MakeAbsolute())`
 		, "ZLIB_LIBRARY=DISABLED"
 	]
+	// Leaves out the links of the libraries that only installs use, which build events make
+	Import.CMake_Variables =+ "SKIP_INSTALL_ALL=ON"
 
 	Import.CMake_Variables =+ "CMAKE_BUILD_WITH_INSTALL_RPATH=ON"
 	{
