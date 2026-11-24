@@ -18,6 +18,10 @@ Import "../Core/Lib_Malterlib.MTarget"
 
 %Import "../../External/libjpeg-turbo/CMakeLists.txt"
 {
+	// The build string, which the library reports with its version and the package scripts name, is the date of the configure
+	// unless it is given, which would make the import cache differ from day to day
+	Import.CMake_Variables =+ "BUILD=Malterlib"
+
 	Import.CMake_Variables =+ "CMAKE_BUILD_WITH_INSTALL_RPATH=ON"
 	{
 		&
